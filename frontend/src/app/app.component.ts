@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -33,6 +34,8 @@ export class AppComponent implements OnInit {
     { id: 'ivory',  label: 'Licht',  bg: '#EDEEF0' },
   ];
 
+  private readonly destroyRef = inject(DestroyRef);
+
   constructor(private store: Store) {
     this.activeFilterCount$ = this.store.select(selectActiveFilterCount);
     this.theme$ = this.store.select(selectTheme);
@@ -42,10 +45,11 @@ export class AppComponent implements OnInit {
     this.sidebarCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
 
     this.store.select(selectStatus)
-      .pipe(filter(status => status === 'success'))
+      .pipe(filter(status => status === 'success'), takeUntilDestroyed(this.destroyRef))
       .subscribe(() => { this.activeNav = 'overzicht'; });
 
     this.store.select(selectTheme)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(theme => document.documentElement.setAttribute('data-theme', theme));
   }
 

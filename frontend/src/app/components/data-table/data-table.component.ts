@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, HostListener, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -61,6 +62,8 @@ export class DataTableComponent implements OnInit {
 
   filterForm!: FormGroup;
 
+  private readonly destroyRef = inject(DestroyRef);
+
   constructor(private store: Store, private fb: FormBuilder) {
     this.columns$           = store.select(selectVisibleColumns);
     this.groupSpans$        = store.select(selectVisibleGroupSpans);
@@ -84,25 +87,34 @@ export class DataTableComponent implements OnInit {
     this.filterForm = this.fb.group(controls);
 
     COLUMNS.forEach(c => {
-      this.ctrl(`${c.field}_val`).valueChanges.subscribe(value => {
-        const op = this.ctrl(`${c.field}_op`).value;
-        if (value.trim()) {
-          this.store.dispatch(TableActions.setFilter({ field: c.field, operator: op, value }));
-        } else {
-          this.store.dispatch(TableActions.clearFilter({ field: c.field }));
-        }
-      });
-      this.ctrl(`${c.field}_op`).valueChanges.subscribe(operator => {
-        const value = this.ctrl(`${c.field}_val`).value;
-        if (value.trim()) {
-          this.store.dispatch(TableActions.setFilter({ field: c.field, operator, value }));
-        }
-      });
+      this.ctrl(`${c.field}_val`).valueChanges
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(value => {
+          const op = this.ctrl(`${c.field}_op`).value;
+          if (value.trim()) {
+            this.store.dispatch(TableActions.setFilter({ field: c.field, operator: op, value }));
+          } else {
+            this.store.dispatch(TableActions.clearFilter({ field: c.field }));
+          }
+        });
+      this.ctrl(`${c.field}_op`).valueChanges
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(operator => {
+          const value = this.ctrl(`${c.field}_val`).value;
+          if (value.trim()) {
+            this.store.dispatch(TableActions.setFilter({ field: c.field, operator, value }));
+          }
+        });
     });
   }
 
   ctrl(name: string): FormControl {
     return this.filterForm.get(name) as FormControl;
+  }
+
+  onBooleanFilter(field: string, value: string) {
+    this.ctrl(`${field}_op`).setValue('equals', { emitEvent: false });
+    this.ctrl(`${field}_val`).setValue(value);
   }
 
   clearColumn(field: string) {

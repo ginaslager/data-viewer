@@ -1,14 +1,17 @@
 package com.dataviewer.parser;
 
 import com.dataviewer.model.FlatRow;
+import lombok.extern.slf4j.Slf4j;
 import javax.xml.stream.*;
 import java.io.InputStream;
 import java.util.*;
 
+@Slf4j
 public class XmlParser implements FileParser {
 
     @Override
     public List<FlatRow> parse(InputStream stream) throws Exception {
+        log.info("XML parsing gestart");
         XMLInputFactory factory = XMLInputFactory.newInstance();
         factory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
         XMLStreamReader reader = factory.createXMLStreamReader(stream);
@@ -138,6 +141,7 @@ public class XmlParser implements FileParser {
             }
         }
         reader.close();
+        log.info("XML parsing klaar: {} rijen", result.size());
         return result;
     }
 }

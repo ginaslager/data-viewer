@@ -5,7 +5,8 @@
     "ng": "ng",
     "start": "ng serve --port 4201",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development"
+    "watch": "ng build --watch --configuration development",
+    "test": "jest --config jest.config.js"
   },
   "private": true,
   "dependencies": {
@@ -18,16 +19,21 @@
     "@ngrx/store": "^19.0.0",
     "@ngrx/store-devtools": "^19.0.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular/build": "^21.2.9",
     "@angular/cli": "^21.2.9",
     "@angular/compiler-cli": "^21.2.0",
+    "@angular/platform-browser-dynamic": "^21.2.12",
+    "@types/jest": "^30.0.0",
     "autoprefixer": "^10.5.0",
+    "jest": "^30.4.1",
+    "jest-environment-jsdom": "^30.4.1",
+    "jest-preset-angular": "^16.1.5",
     "postcss": "^8.5.14",
     "tailwindcss": "^3.4.19",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "zone.js": "^0.16.2"
   }
 }

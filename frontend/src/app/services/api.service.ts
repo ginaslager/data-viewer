@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable, filter, map } from 'rxjs';
 import { FlatRow } from '../models/flat-row.model';
+import { environment } from '../../environments/environment';
 
-const BASE = 'http://localhost:8082/api';
+const BASE = environment.apiBaseUrl;
 
 export interface DataRequest {
   filters: { field: string; operator: string; value: string }[];

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<roofvogels>
+  <roofvogel>
+    <name>Havik</name>
+    <type>ROOFVOGEL</type>
+    <modelType>FALCO</modelType>
+    <modelTypeDescription>Valk familie</modelTypeDescription>
+    <number>RV-001</number>
+    <dier>
+      <name>Feniks</name>
+      <role>PRIMAIR</role>
+      <type>MYTHISCH</type>
+      <typeDescription>Mythologisch dier</typeDescription>
+      <typeNumber>D-001</typeNumber>
+      <virtual>false</virtual>
+      <functions>authenticatie,autorisatie</functions>
+      <services>auth-service</services>
+      <kip>
+        <ipAddress>192.168.1.10</ipAddress>
+        <macAddress>AA:BB:CC:DD:EE:01</macAddress>
+        <type>PRIMAIR</type>
+        <roofvogelSlangId>seg-intern-01</roofvogelSlangId>
+      </kip>
+      <slangen>
+        <slang>
+          <id>seg-intern-01</id>
+          <description>Intern netwerk segment</description>
+          <mask>255.255.255.0</mask>
+          <networkIdAddress>192.168.1.0</networkIdAddress>
+          <type>INTERN</type>
+        </slang>
+      </slangen>
+    </dier>
+  </roofvogel>
+  <roofvogel>
+    <name>Arend</name>
+    <type>ROOFVOGEL</type>
+    <modelType>AQUILA</modelType>
+    <modelTypeDescription>Arend familie</modelTypeDescription>
+    <number>RV-002</number>
+    <dier>
+      <name>Draco</name>
+      <role>SECUNDAIR</role>
+      <type>DRAAK</type>
+      <typeDescription>Draak entiteit</typeDescription>
+      <typeNumber>D-002</typeNumber>
+      <virtual>true</virtual>
+      <functions>monitoring</functions>
+      <services>monitor-service</services>
+    </dier>
+  </roofvogel>
+</roofvogels>

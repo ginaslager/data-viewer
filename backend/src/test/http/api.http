@@ -1,0 +1,132 @@
+### Upload XML bestand (bestandsmodus)
+POST http://localhost:8082/api/upload
+Content-Type: multipart/form-data; boundary=----boundary
+
+------boundary
+Content-Disposition: form-data; name="mode"
+
+file
+------boundary
+Content-Disposition: form-data; name="file"; filename="test.xml"
+Content-Type: application/xml
+
+< ../resources/test-roofvogels.xml
+------boundary--
+
+###
+
+### Haal alle rijen op (standaard pagina)
+POST http://localhost:8082/api/data
+Content-Type: application/json
+
+{
+  "page": 0,
+  "size": 50
+}
+
+###
+
+### Filter op roofvogel naam (contains)
+POST http://localhost:8082/api/data
+Content-Type: application/json
+
+{
+  "page": 0,
+  "size": 50,
+  "filters": [
+    {
+      "field": "roofvogelName",
+      "operator": "contains",
+      "value": "Havik"
+    }
+  ]
+}
+
+###
+
+### Filter op dier naam (startsWith) + sortering
+POST http://localhost:8082/api/data
+Content-Type: application/json
+
+{
+  "page": 0,
+  "size": 10,
+  "filters": [
+    {
+      "field": "dierName",
+      "operator": "startsWith",
+      "value": "F"
+    }
+  ],
+  "sort": {
+    "field": "roofvogelName",
+    "direction": "ASC"
+  }
+}
+
+###
+
+### Meerdere filters gecombineerd (AND)
+POST http://localhost:8082/api/data
+Content-Type: application/json
+
+{
+  "page": 0,
+  "size": 50,
+  "filters": [
+    {
+      "field": "roofvogelType",
+      "operator": "equals",
+      "value": "ROOFVOGEL"
+    },
+    {
+      "field": "dierVirtual",
+      "operator": "equals",
+      "value": "false"
+    }
+  ]
+}
+
+###
+
+### Validatiefout: ongeldige operator
+POST http://localhost:8082/api/data
+Content-Type: application/json
+
+{
+  "page": 0,
+  "size": 50,
+  "filters": [
+    {
+      "field": "roofvogelName",
+      "operator": "INVALID_OP",
+      "value": "test"
+    }
+  ]
+}
+
+###
+
+### Validatiefout: paginagrootte te groot
+POST http://localhost:8082/api/data
+Content-Type: application/json
+
+{
+  "page": 0,
+  "size": 9999
+}
+
+###
+
+### Tweede pagina ophalen
+POST http://localhost:8082/api/data
+Content-Type: application/json
+
+{
+  "page": 1,
+  "size": 10,
+  "sort": {
+    "field": "roofvogelName",
+    "direction": "DESC"
+  }
+}

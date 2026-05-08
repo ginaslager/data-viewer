@@ -1,125 +1,1690 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <roofvogels>
-  <metadata>
-    <createDate>2025-04-12</createDate>
-    <gitSha>a3f9c2b1d4e7f099ab23cd45ef678012</gitSha>
-    <description>Jaaroverzicht monitoring 2025</description>
-    <entityCounts>
-      <totalRoofvogels>3</totalRoofvogels>
-      <totalDieren>9</totalDieren>
-      <totalKippen>27</totalKippen>
-      <totalSlangen>6</totalSlangen>
-    </entityCounts>
-  </metadata>
+  <createDate>2026-03-14</createDate>
+  <gitSha>f4e3d2c1b0a9e8d7c6b5a4f3e2d1c0b9</gitSha>
+  <description>Test dataset 52 roofvogels met alle entiteiten en gevarieerde aantallen</description>
+
   <roofvogel>
-    <id>1</id>
-    <naam>Zeearend 1</naam>
-    <slangen>
-      <slang><id>1</id><naam>Cobra 1</naam></slang>
-      <slang><id>2</id><naam>Python 2</naam></slang>
-    </slangen>
+    <name>Zeearend</name>
+    <type>Passief</type>
+    <modelType>TypeB</modelType>
+    <modelTypeDescription>Secundair passief systeem</modelTypeDescription>
+    <number>RV-001</number>
     <dieren>
       <dier>
-        <id>1</id><naam>Hond 1</naam>
-        <functies><functie><id>1</id><naam>Jagen</naam></functie></functies>
+        <name>Brutus</name>
+        <role>client</role>
+        <type>Virtueel</type>
+        <typeDescription>Werkstation</typeDescription>
+        <typeNumber>T002</typeNumber>
+        <virtual>false</virtual>
+        <functions>dns,dhcp,ntp</functions>
+        <services>dns-server,dhcp-server</services>
         <kippen>
-          <kip><id>1</id><naam>Bo 1</naam><kipSlangId>1</kipSlangId></kip>
-          <kip><id>2</id><naam>Fien 2</naam><kipSlangId>2</kipSlangId></kip>
-          <kip><id>3</id><naam>Kees 3</naam><kipSlangId>1</kipSlangId></kip>
-        </kippen>
-      </dier>
-      <dier>
-        <id>2</id><naam>Kat 2</naam>
-        <functies><functie><id>2</id><naam>Nestelen</naam></functie></functies>
-        <kippen>
-          <kip><id>4</id><naam>Ans 4</naam><kipSlangId>2</kipSlangId></kip>
-          <kip><id>5</id><naam>Dirk 5</naam><kipSlangId>1</kipSlangId></kip>
-          <kip><id>6</id><naam>Lies 6</naam><kipSlangId>2</kipSlangId></kip>
-        </kippen>
-      </dier>
-      <dier>
-        <id>3</id><naam>Muis 3</naam>
-        <functies><functie><id>3</id><naam>Fourageren</naam></functie></functies>
-        <kippen>
-          <kip><id>7</id><naam>Piet 7</naam><kipSlangId>1</kipSlangId></kip>
-          <kip><id>8</id><naam>Marie 8</naam><kipSlangId>2</kipSlangId></kip>
-          <kip><id>9</id><naam>Jan 9</naam><kipSlangId>1</kipSlangId></kip>
+          <kip>
+            <name>kip-web01</name>
+            <ipAddress>10.0.0.1</ipAddress>
+            <macAddress>AA:00:00:00:01:FF</macAddress>
+            <type>Virtual</type>
+            <roofvogelSlangId>SLANG-002</roofvogelSlangId>
+          </kip>
         </kippen>
       </dier>
     </dieren>
-  </roofvogel>
-  <roofvogel>
-    <id>2</id>
-    <naam>Buizerd 2</naam>
     <slangen>
-      <slang><id>3</id><naam>Anaconda 3</naam></slang>
-      <slang><id>4</id><naam>Mamba 4</naam></slang>
+      <slang>
+        <name>seg-mgmt-01</name>
+        <id>SLANG-002</id>
+        <description>Management netwerk</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.0.0</networkIdAddress>
+        <type>External</type>
+      </slang>
     </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Havik</name>
+    <type>Inactief</type>
+    <modelType>TypeC</modelType>
+    <modelTypeDescription>Edge node systeem</modelTypeDescription>
+    <number>RV-002</number>
     <dieren>
       <dier>
-        <id>4</id><naam>Konijn 4</naam>
-        <functies><functie><id>4</id><naam>Bewaken</naam></functie></functies>
+        <name>Caesar</name>
+        <role>gateway</role>
+        <type>Container</type>
+        <typeDescription>Gateway node</typeDescription>
+        <typeNumber>T003</typeNumber>
+        <virtual>false</virtual>
+        <functions>smtp,imap,pop3</functions>
+        <services>mailserver,spam-filter</services>
         <kippen>
-          <kip><id>10</id><naam>Els 10</naam><kipSlangId>3</kipSlangId></kip>
-          <kip><id>11</id><naam>Cor 11</naam><kipSlangId>4</kipSlangId></kip>
-          <kip><id>12</id><naam>Nel 12</naam><kipSlangId>3</kipSlangId></kip>
-        </kippen>
-      </dier>
-      <dier>
-        <id>5</id><naam>Haas 5</naam>
-        <functies><functie><id>5</id><naam>Patrouilleren</naam></functie></functies>
-        <kippen>
-          <kip><id>13</id><naam>Roos 13</naam><kipSlangId>4</kipSlangId></kip>
-          <kip><id>14</id><naam>Sjaak 14</naam><kipSlangId>3</kipSlangId></kip>
-          <kip><id>15</id><naam>Wim 15</naam><kipSlangId>4</kipSlangId></kip>
-        </kippen>
-      </dier>
-      <dier>
-        <id>6</id><naam>Egel 6</naam>
-        <functies><functie><id>6</id><naam>Broeden</naam></functie></functies>
-        <kippen>
-          <kip><id>16</id><naam>Lien 16</naam><kipSlangId>3</kipSlangId></kip>
-          <kip><id>17</id><naam>Ad 17</naam><kipSlangId>4</kipSlangId></kip>
-          <kip><id>18</id><naam>Jo 18</naam><kipSlangId>3</kipSlangId></kip>
+          <kip>
+            <name>kip-db01</name>
+            <ipAddress>10.0.0.2</ipAddress>
+            <macAddress>AA:00:00:00:02:FF</macAddress>
+            <type>Blade</type>
+            <roofvogelSlangId>SLANG-003</roofvogelSlangId>
+          </kip>
         </kippen>
       </dier>
     </dieren>
-  </roofvogel>
-  <roofvogel>
-    <id>3</id>
-    <naam>Havik 3</naam>
     <slangen>
-      <slang><id>5</id><naam>Viper 5</naam></slang>
-      <slang><id>6</id><naam>Boa 6</naam></slang>
+      <slang>
+        <name>seg-dmz-01</name>
+        <id>SLANG-003</id>
+        <description>DMZ netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.0.0</networkIdAddress>
+        <type>DMZ</type>
+      </slang>
     </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Buizerd</name>
+    <type>Standby</type>
+    <modelType>TypeD</modelType>
+    <modelTypeDescription>Gereserveerd systeem</modelTypeDescription>
+    <number>RV-003</number>
     <dieren>
       <dier>
-        <id>7</id><naam>Vos 7</naam>
-        <functies><functie><id>7</id><naam>Jagen</naam></functie></functies>
+        <name>Dakota</name>
+        <role>proxy</role>
+        <type>Embedded</type>
+        <typeDescription>Proxy server</typeDescription>
+        <typeNumber>T004</typeNumber>
+        <virtual>true</virtual>
+        <functions>sql,odbc,jdbc</functions>
+        <services>database,backup</services>
         <kippen>
-          <kip><id>19</id><naam>Ben 19</naam><kipSlangId>5</kipSlangId></kip>
-          <kip><id>20</id><naam>Tom 20</naam><kipSlangId>6</kipSlangId></kip>
-          <kip><id>21</id><naam>Griet 21</naam><kipSlangId>5</kipSlangId></kip>
-        </kippen>
-      </dier>
-      <dier>
-        <id>8</id><naam>Das 8</naam>
-        <functies><functie><id>8</id><naam>Verkennen</naam></functie></functies>
-        <kippen>
-          <kip><id>22</id><naam>Henk 22</naam><kipSlangId>6</kipSlangId></kip>
-          <kip><id>23</id><naam>Ria 23</naam><kipSlangId>5</kipSlangId></kip>
-          <kip><id>24</id><naam>Bert 24</naam><kipSlangId>6</kipSlangId></kip>
-        </kippen>
-      </dier>
-      <dier>
-        <id>9</id><naam>Bunzing 9</naam>
-        <functies><functie><id>9</id><naam>Aanvallen</naam></functie></functies>
-        <kippen>
-          <kip><id>25</id><naam>Noor 25</naam><kipSlangId>5</kipSlangId></kip>
-          <kip><id>26</id><naam>Lotte 26</naam><kipSlangId>6</kipSlangId></kip>
-          <kip><id>27</id><naam>Daan 27</naam><kipSlangId>5</kipSlangId></kip>
+          <kip>
+            <name>kip-fw01</name>
+            <ipAddress>10.0.0.3</ipAddress>
+            <macAddress>AA:00:00:00:03:FF</macAddress>
+            <type>Tower</type>
+            <roofvogelSlangId>SLANG-004</roofvogelSlangId>
+          </kip>
         </kippen>
       </dier>
     </dieren>
+    <slangen>
+      <slang>
+        <name>seg-extern-01</name>
+        <id>SLANG-004</id>
+        <description>Extern netwerksegment</description>
+        <mask>255.255.0.0</mask>
+        <networkIdAddress>10.0.0.0</networkIdAddress>
+        <type>Management</type>
+      </slang>
+    </slangen>
   </roofvogel>
+
+  <roofvogel>
+    <name>Valk</name>
+    <type>Test</type>
+    <modelType>TypeE</modelType>
+    <modelTypeDescription>Verouderd systeem</modelTypeDescription>
+    <number>RV-004</number>
+    <dieren>
+      <dier>
+        <name>Echo</name>
+        <role>firewall</role>
+        <type>Cloud</type>
+        <typeDescription>Firewall appliance</typeDescription>
+        <typeNumber>T005</typeNumber>
+        <virtual>false</virtual>
+        <functions>routing,nat,vpn</functions>
+        <services>firewall,vpn</services>
+        <kippen>
+          <kip>
+            <name>kip-proxy01</name>
+            <ipAddress>10.0.0.4</ipAddress>
+            <macAddress>AA:00:00:00:04:FF</macAddress>
+            <type>Rack</type>
+            <roofvogelSlangId>SLANG-999</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Torenvalk</name>
+    <type>Actief</type>
+    <modelType>TypeA</modelType>
+    <modelTypeDescription>Primair actief systeem</modelTypeDescription>
+    <number>RV-005</number>
+    <dieren>
+      <dier>
+        <name>Falcon</name>
+        <role>server</role>
+        <type>Fysiek</type>
+        <typeDescription>Databaseserver</typeDescription>
+        <typeNumber>T001</typeNumber>
+        <virtual>false</virtual>
+        <functions>smb,nfs,ftp</functions>
+        <services>fileserver,backup</services>
+        <kippen>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Sperwer</name>
+    <type>Passief</type>
+    <modelType>TypeB</modelType>
+    <modelTypeDescription>Secundair passief systeem</modelTypeDescription>
+    <number>RV-006</number>
+    <dieren>
+      <dier>
+        <name>Goliath</name>
+        <role>client</role>
+        <type>Virtueel</type>
+        <typeDescription>Fileserver</typeDescription>
+        <typeNumber>T002</typeNumber>
+        <virtual>true</virtual>
+        <functions>rdp,vnc,spice</functions>
+        <services>desktop,printing</services>
+        <kippen>
+          <kip>
+            <name>kip-app01</name>
+            <ipAddress>10.0.1.6</ipAddress>
+            <macAddress>AA:00:00:00:06:FF</macAddress>
+            <type>Virtual</type>
+            <roofvogelSlangId>SLANG-007</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-db-01</name>
+        <id>SLANG-007</id>
+        <description>Database netwerksegment</description>
+        <mask>255.255.0.0</mask>
+        <networkIdAddress>10.0.1.0</networkIdAddress>
+        <type>External</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Arend</name>
+    <type>Inactief</type>
+    <modelType>TypeC</modelType>
+    <modelTypeDescription>Edge node systeem</modelTypeDescription>
+    <number>RV-007</number>
+    <dieren>
+      <dier>
+        <name>Hercules</name>
+        <role>gateway</role>
+        <type>Container</type>
+        <typeDescription>Mailserver</typeDescription>
+        <typeNumber>T003</typeNumber>
+        <virtual>false</virtual>
+        <functions>filtering,ips,ids</functions>
+        <services>firewall,logging</services>
+        <kippen>
+          <kip>
+            <name>kip-mail01</name>
+            <ipAddress>10.0.1.7</ipAddress>
+            <macAddress>AA:00:00:00:07:FF</macAddress>
+            <type>Blade</type>
+            <roofvogelSlangId>SLANG-008</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-backup-01</name>
+        <id>SLANG-008</id>
+        <description>Backup netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.1.0</networkIdAddress>
+        <type>DMZ</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Wouw</name>
+    <type>Standby</type>
+    <modelType>TypeD</modelType>
+    <modelTypeDescription>Gereserveerd systeem</modelTypeDescription>
+    <number>RV-008</number>
+    <dieren>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Kiekendief</name>
+    <type>Test</type>
+    <modelType>TypeE</modelType>
+    <modelTypeDescription>Verouderd systeem</modelTypeDescription>
+    <number>RV-009</number>
+    <dieren>
+      <dier>
+        <name>Juno</name>
+        <role>firewall</role>
+        <type>Cloud</type>
+        <typeDescription>Werkstation</typeDescription>
+        <typeNumber>T005</typeNumber>
+        <virtual>true</virtual>
+        <functions>api,rest,grpc</functions>
+        <services>api-gateway,loadbalancer</services>
+        <kippen>
+          <kip>
+            <name>kip-file01</name>
+            <ipAddress>10.0.1.9</ipAddress>
+            <macAddress>AA:00:00:00:09:FF</macAddress>
+            <type>Rack</type>
+            <roofvogelSlangId>SLANG-010</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-mgmt-02</name>
+        <id>SLANG-010</id>
+        <description>Management netwerk</description>
+        <mask>255.255.0.0</mask>
+        <networkIdAddress>10.0.1.0</networkIdAddress>
+        <type>Storage</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Visarend</name>
+    <type>Actief</type>
+    <modelType>TypeA</modelType>
+    <modelTypeDescription>Primair actief systeem</modelTypeDescription>
+    <number>RV-010</number>
+    <dieren>
+      <dier>
+        <name>Kronos</name>
+        <role>server</role>
+        <type>Fysiek</type>
+        <typeDescription>Gateway node</typeDescription>
+        <typeNumber>T001</typeNumber>
+        <virtual>false</virtual>
+        <functions>http,https,ssh</functions>
+        <services>webserver,monitoring</services>
+        <kippen>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Bruine Kiekendief</name>
+    <type>Passief</type>
+    <modelType>TypeB</modelType>
+    <modelTypeDescription>Secundair passief systeem</modelTypeDescription>
+    <number>RV-011</number>
+    <dieren>
+      <dier>
+        <name>Luna</name>
+        <role>client</role>
+        <type>Virtueel</type>
+        <typeDescription>Proxy server</typeDescription>
+        <typeNumber>T002</typeNumber>
+        <virtual>false</virtual>
+        <functions>dns,dhcp,ntp</functions>
+        <services>dns-server,dhcp-server</services>
+        <kippen>
+          <kip>
+            <name>kip-backup01</name>
+            <ipAddress>10.0.2.11</ipAddress>
+            <macAddress>AA:00:00:01:0B:FF</macAddress>
+            <type>Virtual</type>
+            <roofvogelSlangId>SLANG-012</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-extern-02</name>
+        <id>SLANG-012</id>
+        <description>Extern netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.2.0</networkIdAddress>
+        <type>External</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Blauwe Kiekendief</name>
+    <type>Inactief</type>
+    <modelType>TypeC</modelType>
+    <modelTypeDescription>Edge node systeem</modelTypeDescription>
+    <number>RV-012</number>
+    <dieren>
+      <dier>
+        <name>Mars</name>
+        <role>gateway</role>
+        <type>Container</type>
+        <typeDescription>Firewall appliance</typeDescription>
+        <typeNumber>T003</typeNumber>
+        <virtual>true</virtual>
+        <functions>smtp,imap,pop3</functions>
+        <services>mailserver,spam-filter</services>
+        <kippen>
+          <kip>
+            <name>kip-dns01</name>
+            <ipAddress>10.0.2.12</ipAddress>
+            <macAddress>AA:00:00:01:0C:FF</macAddress>
+            <type>Blade</type>
+            <roofvogelSlangId>SLANG-999</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Grauwe Kiekendief</name>
+    <type>Standby</type>
+    <modelType>TypeD</modelType>
+    <modelTypeDescription>Gereserveerd systeem</modelTypeDescription>
+    <number>RV-013</number>
+    <dieren>
+      <dier>
+        <name>Neptune</name>
+        <role>proxy</role>
+        <type>Embedded</type>
+        <typeDescription>Databaseserver</typeDescription>
+        <typeNumber>T004</typeNumber>
+        <virtual>false</virtual>
+        <functions>sql,odbc,jdbc</functions>
+        <services>database,backup</services>
+        <kippen>
+          <kip>
+            <name>kip-vpn01</name>
+            <ipAddress>10.0.2.13</ipAddress>
+            <macAddress>AA:00:00:01:0D:FF</macAddress>
+            <type>Tower</type>
+            <roofvogelSlangId>SLANG-014</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-app-02</name>
+        <id>SLANG-014</id>
+        <description>Applicatie netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.2.0</networkIdAddress>
+        <type>Management</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Boomvalk</name>
+    <type>Test</type>
+    <modelType>TypeE</modelType>
+    <modelTypeDescription>Verouderd systeem</modelTypeDescription>
+    <number>RV-014</number>
+    <dieren>
+      <dier>
+        <name>Orion</name>
+        <role>firewall</role>
+        <type>Cloud</type>
+        <typeDescription>Fileserver</typeDescription>
+        <typeNumber>T005</typeNumber>
+        <virtual>false</virtual>
+        <functions>routing,nat,vpn</functions>
+        <services>firewall,vpn</services>
+        <kippen>
+          <kip>
+            <name>kip-mon01</name>
+            <ipAddress>10.0.2.14</ipAddress>
+            <macAddress>AA:00:00:01:0E:FF</macAddress>
+            <type>Rack</type>
+            <roofvogelSlangId>SLANG-015</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-db-02</name>
+        <id>SLANG-015</id>
+        <description>Database netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.2.0</networkIdAddress>
+        <type>Storage</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Smelleken</name>
+    <type>Actief</type>
+    <modelType>TypeA</modelType>
+    <modelTypeDescription>Primair actief systeem</modelTypeDescription>
+    <number>RV-015</number>
+    <dieren>
+      <dier>
+        <name>Pegasus</name>
+        <role>server</role>
+        <type>Fysiek</type>
+        <typeDescription>Mailserver</typeDescription>
+        <typeNumber>T001</typeNumber>
+        <virtual>true</virtual>
+        <functions>smb,nfs,ftp</functions>
+        <services>fileserver,backup</services>
+        <kippen>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Roodpootvalk</name>
+    <type>Passief</type>
+    <modelType>TypeB</modelType>
+    <modelTypeDescription>Secundair passief systeem</modelTypeDescription>
+    <number>RV-016</number>
+    <dieren>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Slechtvalk</name>
+    <type>Inactief</type>
+    <modelType>TypeC</modelType>
+    <modelTypeDescription>Edge node systeem</modelTypeDescription>
+    <number>RV-017</number>
+    <dieren>
+      <dier>
+        <name>Ranger</name>
+        <role>gateway</role>
+        <type>Container</type>
+        <typeDescription>Werkstation</typeDescription>
+        <typeNumber>T003</typeNumber>
+        <virtual>false</virtual>
+        <functions>filtering,ips,ids</functions>
+        <services>firewall,logging</services>
+        <kippen>
+          <kip>
+            <name>kip-log01</name>
+            <ipAddress>10.0.3.17</ipAddress>
+            <macAddress>AA:00:00:01:11:FF</macAddress>
+            <type>Blade</type>
+            <roofvogelSlangId>SLANG-018</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-mgmt-03</name>
+        <id>SLANG-018</id>
+        <description>Management netwerk</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.3.0</networkIdAddress>
+        <type>DMZ</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Lannervalk</name>
+    <type>Standby</type>
+    <modelType>TypeD</modelType>
+    <modelTypeDescription>Gereserveerd systeem</modelTypeDescription>
+    <number>RV-018</number>
+    <dieren>
+      <dier>
+        <name>Saturn</name>
+        <role>proxy</role>
+        <type>Embedded</type>
+        <typeDescription>Gateway node</typeDescription>
+        <typeNumber>T004</typeNumber>
+        <virtual>true</virtual>
+        <functions>http,cache,ssl</functions>
+        <services>nginx,redis</services>
+        <kippen>
+          <kip>
+            <name>kip-cache01</name>
+            <ipAddress>10.0.3.18</ipAddress>
+            <macAddress>AA:00:00:01:12:FF</macAddress>
+            <type>Tower</type>
+            <roofvogelSlangId>SLANG-019</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-dmz-03</name>
+        <id>SLANG-019</id>
+        <description>DMZ netwerksegment</description>
+        <mask>255.255.0.0</mask>
+        <networkIdAddress>10.0.3.0</networkIdAddress>
+        <type>Management</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Sakervalk</name>
+    <type>Test</type>
+    <modelType>TypeE</modelType>
+    <modelTypeDescription>Verouderd systeem</modelTypeDescription>
+    <number>RV-019</number>
+    <dieren>
+      <dier>
+        <name>Titan</name>
+        <role>firewall</role>
+        <type>Cloud</type>
+        <typeDescription>Proxy server</typeDescription>
+        <typeNumber>T005</typeNumber>
+        <virtual>false</virtual>
+        <functions>api,rest,grpc</functions>
+        <services>api-gateway,loadbalancer</services>
+        <kippen>
+          <kip>
+            <name>kip-api01</name>
+            <ipAddress>10.0.3.19</ipAddress>
+            <macAddress>AA:00:00:01:13:FF</macAddress>
+            <type>Rack</type>
+            <roofvogelSlangId>SLANG-020</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-extern-03</name>
+        <id>SLANG-020</id>
+        <description>Extern netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.3.0</networkIdAddress>
+        <type>Storage</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Woestijnbuizerd</name>
+    <type>Actief</type>
+    <modelType>TypeA</modelType>
+    <modelTypeDescription>Primair actief systeem</modelTypeDescription>
+    <number>RV-020</number>
+    <dieren>
+      <dier>
+        <name>Ulysses</name>
+        <role>server</role>
+        <type>Fysiek</type>
+        <typeDescription>Firewall appliance</typeDescription>
+        <typeNumber>T001</typeNumber>
+        <virtual>false</virtual>
+        <functions>http,https,ssh</functions>
+        <services>webserver,monitoring</services>
+        <kippen>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Ruigpootbuizerd</name>
+    <type>Passief</type>
+    <modelType>TypeB</modelType>
+    <modelTypeDescription>Secundair passief systeem</modelTypeDescription>
+    <number>RV-021</number>
+    <dieren>
+      <dier>
+        <name>Vega</name>
+        <role>client</role>
+        <type>Virtueel</type>
+        <typeDescription>Databaseserver</typeDescription>
+        <typeNumber>T002</typeNumber>
+        <virtual>true</virtual>
+        <functions>dns,dhcp,ntp</functions>
+        <services>dns-server,dhcp-server</services>
+        <kippen>
+          <kip>
+            <name>kip-lb01</name>
+            <ipAddress>10.0.4.21</ipAddress>
+            <macAddress>AA:00:00:02:15:FF</macAddress>
+            <type>Virtual</type>
+            <roofvogelSlangId>SLANG-002</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-mgmt-01</name>
+        <id>SLANG-002</id>
+        <description>Applicatie netwerksegment</description>
+        <mask>255.255.0.0</mask>
+        <networkIdAddress>10.0.4.0</networkIdAddress>
+        <type>External</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Kleine Buizerd</name>
+    <type>Inactief</type>
+    <modelType>TypeC</modelType>
+    <modelTypeDescription>Edge node systeem</modelTypeDescription>
+    <number>RV-022</number>
+    <dieren>
+      <dier>
+        <name>Watcher</name>
+        <role>gateway</role>
+        <type>Container</type>
+        <typeDescription>Fileserver</typeDescription>
+        <typeNumber>T003</typeNumber>
+        <virtual>false</virtual>
+        <functions>smtp,imap,pop3</functions>
+        <services>mailserver,spam-filter</services>
+        <kippen>
+          <kip>
+            <name>kip-ntp01</name>
+            <ipAddress>10.0.4.22</ipAddress>
+            <macAddress>AA:00:00:02:16:FF</macAddress>
+            <type>Blade</type>
+            <roofvogelSlangId>SLANG-003</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-dmz-01</name>
+        <id>SLANG-003</id>
+        <description>Database netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.4.0</networkIdAddress>
+        <type>DMZ</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Steppearend</name>
+    <type>Standby</type>
+    <modelType>TypeD</modelType>
+    <modelTypeDescription>Gereserveerd systeem</modelTypeDescription>
+    <number>RV-023</number>
+    <dieren>
+      <dier>
+        <name>Xenon</name>
+        <role>proxy</role>
+        <type>Embedded</type>
+        <typeDescription>Mailserver</typeDescription>
+        <typeNumber>T004</typeNumber>
+        <virtual>false</virtual>
+        <functions>sql,odbc,jdbc</functions>
+        <services>database,backup</services>
+        <kippen>
+          <kip>
+            <name>kip-dhcp01</name>
+            <ipAddress>10.0.4.23</ipAddress>
+            <macAddress>AA:00:00:02:17:FF</macAddress>
+            <type>Tower</type>
+            <roofvogelSlangId>SLANG-004</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-extern-01</name>
+        <id>SLANG-004</id>
+        <description>Backup netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.4.0</networkIdAddress>
+        <type>Management</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Keizerarend</name>
+    <type>Test</type>
+    <modelType>TypeE</modelType>
+    <modelTypeDescription>Verouderd systeem</modelTypeDescription>
+    <number>RV-024</number>
+    <dieren>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Bastaardarend</name>
+    <type>Actief</type>
+    <modelType>TypeA</modelType>
+    <modelTypeDescription>Primair actief systeem</modelTypeDescription>
+    <number>RV-025</number>
+    <dieren>
+      <dier>
+        <name>Zephyr</name>
+        <role>server</role>
+        <type>Fysiek</type>
+        <typeDescription>Werkstation</typeDescription>
+        <typeNumber>T001</typeNumber>
+        <virtual>false</virtual>
+        <functions>smb,nfs,ftp</functions>
+        <services>fileserver,backup</services>
+        <kippen>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Schreeuwarend</name>
+    <type>Passief</type>
+    <modelType>TypeB</modelType>
+    <modelTypeDescription>Secundair passief systeem</modelTypeDescription>
+    <number>RV-026</number>
+    <dieren>
+      <dier>
+        <name>Ares</name>
+        <role>client</role>
+        <type>Virtueel</type>
+        <typeDescription>Gateway node</typeDescription>
+        <typeNumber>T002</typeNumber>
+        <virtual>false</virtual>
+        <functions>rdp,vnc,spice</functions>
+        <services>desktop,printing</services>
+        <kippen>
+          <kip>
+            <name>kip-radius01</name>
+            <ipAddress>10.0.5.26</ipAddress>
+            <macAddress>AA:00:00:02:1A:FF</macAddress>
+            <type>Virtual</type>
+            <roofvogelSlangId>SLANG-007</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-db-01</name>
+        <id>SLANG-007</id>
+        <description>DMZ netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.5.0</networkIdAddress>
+        <type>External</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Dwergarend</name>
+    <type>Inactief</type>
+    <modelType>TypeC</modelType>
+    <modelTypeDescription>Edge node systeem</modelTypeDescription>
+    <number>RV-027</number>
+    <dieren>
+      <dier>
+        <name>Boreas</name>
+        <role>gateway</role>
+        <type>Container</type>
+        <typeDescription>Proxy server</typeDescription>
+        <typeNumber>T003</typeNumber>
+        <virtual>true</virtual>
+        <functions>filtering,ips,ids</functions>
+        <services>firewall,logging</services>
+        <kippen>
+          <kip>
+            <name>kip-siem01</name>
+            <ipAddress>10.0.5.27</ipAddress>
+            <macAddress>AA:00:00:02:1B:FF</macAddress>
+            <type>Blade</type>
+            <roofvogelSlangId>SLANG-008</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-backup-01</name>
+        <id>SLANG-008</id>
+        <description>Extern netwerksegment</description>
+        <mask>255.255.0.0</mask>
+        <networkIdAddress>10.0.5.0</networkIdAddress>
+        <type>DMZ</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Havikarend</name>
+    <type>Standby</type>
+    <modelType>TypeD</modelType>
+    <modelTypeDescription>Gereserveerd systeem</modelTypeDescription>
+    <number>RV-028</number>
+    <dieren>
+      <dier>
+        <name>Ceres</name>
+        <role>proxy</role>
+        <type>Embedded</type>
+        <typeDescription>Firewall appliance</typeDescription>
+        <typeNumber>T004</typeNumber>
+        <virtual>false</virtual>
+        <functions>http,cache,ssl</functions>
+        <services>nginx,redis</services>
+        <kippen>
+          <kip>
+            <name>kip-jump01</name>
+            <ipAddress>10.0.5.28</ipAddress>
+            <macAddress>AA:00:00:02:1C:FF</macAddress>
+            <type>Tower</type>
+            <roofvogelSlangId>SLANG-999</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Korttenarend</name>
+    <type>Test</type>
+    <modelType>TypeE</modelType>
+    <modelTypeDescription>Verouderd systeem</modelTypeDescription>
+    <number>RV-029</number>
+    <dieren>
+      <dier>
+        <name>Deimos</name>
+        <role>firewall</role>
+        <type>Cloud</type>
+        <typeDescription>Databaseserver</typeDescription>
+        <typeNumber>T005</typeNumber>
+        <virtual>false</virtual>
+        <functions>api,rest,grpc</functions>
+        <services>api-gateway,loadbalancer</services>
+        <kippen>
+          <kip>
+            <name>kip-web02</name>
+            <ipAddress>10.0.5.29</ipAddress>
+            <macAddress>AA:00:00:02:1D:FF</macAddress>
+            <type>Rack</type>
+            <roofvogelSlangId>SLANG-010</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-mgmt-02</name>
+        <id>SLANG-010</id>
+        <description>Applicatie netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.5.0</networkIdAddress>
+        <type>Storage</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Slangenarend</name>
+    <type>Actief</type>
+    <modelType>TypeA</modelType>
+    <modelTypeDescription>Primair actief systeem</modelTypeDescription>
+    <number>RV-030</number>
+    <dieren>
+      <dier>
+        <name>Eris</name>
+        <role>server</role>
+        <type>Fysiek</type>
+        <typeDescription>Fileserver</typeDescription>
+        <typeNumber>T001</typeNumber>
+        <virtual>true</virtual>
+        <functions>http,https,ssh</functions>
+        <services>webserver,monitoring</services>
+        <kippen>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Zwarte Wouw</name>
+    <type>Passief</type>
+    <modelType>TypeB</modelType>
+    <modelTypeDescription>Secundair passief systeem</modelTypeDescription>
+    <number>RV-031</number>
+    <dieren>
+      <dier>
+        <name>Fortuna</name>
+        <role>client</role>
+        <type>Virtueel</type>
+        <typeDescription>Mailserver</typeDescription>
+        <typeNumber>T002</typeNumber>
+        <virtual>false</virtual>
+        <functions>dns,dhcp,ntp</functions>
+        <services>dns-server,dhcp-server</services>
+        <kippen>
+          <kip>
+            <name>kip-db02</name>
+            <ipAddress>10.0.6.31</ipAddress>
+            <macAddress>AA:00:00:03:1F:FF</macAddress>
+            <type>Virtual</type>
+            <roofvogelSlangId>SLANG-012</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-extern-02</name>
+        <id>SLANG-012</id>
+        <description>Backup netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.6.0</networkIdAddress>
+        <type>External</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Rode Wouw</name>
+    <type>Inactief</type>
+    <modelType>TypeC</modelType>
+    <modelTypeDescription>Edge node systeem</modelTypeDescription>
+    <number>RV-032</number>
+    <dieren>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Vale Gier</name>
+    <type>Standby</type>
+    <modelType>TypeD</modelType>
+    <modelTypeDescription>Gereserveerd systeem</modelTypeDescription>
+    <number>RV-033</number>
+    <dieren>
+      <dier>
+        <name>Helios</name>
+        <role>proxy</role>
+        <type>Embedded</type>
+        <typeDescription>Werkstation</typeDescription>
+        <typeNumber>T004</typeNumber>
+        <virtual>true</virtual>
+        <functions>sql,odbc,jdbc</functions>
+        <services>database,backup</services>
+        <kippen>
+          <kip>
+            <name>kip-fw02</name>
+            <ipAddress>10.0.6.33</ipAddress>
+            <macAddress>AA:00:00:03:21:FF</macAddress>
+            <type>Tower</type>
+            <roofvogelSlangId>SLANG-014</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-app-02</name>
+        <id>SLANG-014</id>
+        <description>Management netwerk</description>
+        <mask>255.255.0.0</mask>
+        <networkIdAddress>10.0.6.0</networkIdAddress>
+        <type>Management</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Aasgier</name>
+    <type>Test</type>
+    <modelType>TypeE</modelType>
+    <modelTypeDescription>Verouderd systeem</modelTypeDescription>
+    <number>RV-034</number>
+    <dieren>
+      <dier>
+        <name>Iris</name>
+        <role>firewall</role>
+        <type>Cloud</type>
+        <typeDescription>Gateway node</typeDescription>
+        <typeNumber>T005</typeNumber>
+        <virtual>false</virtual>
+        <functions>routing,nat,vpn</functions>
+        <services>firewall,vpn</services>
+        <kippen>
+          <kip>
+            <name>kip-proxy02</name>
+            <ipAddress>10.0.6.34</ipAddress>
+            <macAddress>AA:00:00:03:22:FF</macAddress>
+            <type>Rack</type>
+            <roofvogelSlangId>SLANG-015</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-db-02</name>
+        <id>SLANG-015</id>
+        <description>DMZ netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.6.0</networkIdAddress>
+        <type>Storage</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Lammergier</name>
+    <type>Actief</type>
+    <modelType>TypeA</modelType>
+    <modelTypeDescription>Primair actief systeem</modelTypeDescription>
+    <number>RV-035</number>
+    <dieren>
+      <dier>
+        <name>Janus</name>
+        <role>server</role>
+        <type>Fysiek</type>
+        <typeDescription>Proxy server</typeDescription>
+        <typeNumber>T001</typeNumber>
+        <virtual>false</virtual>
+        <functions>smb,nfs,ftp</functions>
+        <services>fileserver,backup</services>
+        <kippen>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Monniksgier</name>
+    <type>Passief</type>
+    <modelType>TypeB</modelType>
+    <modelTypeDescription>Secundair passief systeem</modelTypeDescription>
+    <number>RV-036</number>
+    <dieren>
+      <dier>
+        <name>Kairos</name>
+        <role>client</role>
+        <type>Virtueel</type>
+        <typeDescription>Firewall appliance</typeDescription>
+        <typeNumber>T002</typeNumber>
+        <virtual>true</virtual>
+        <functions>rdp,vnc,spice</functions>
+        <services>desktop,printing</services>
+        <kippen>
+          <kip>
+            <name>kip-app02</name>
+            <ipAddress>10.0.7.36</ipAddress>
+            <macAddress>AA:00:00:03:24:FF</macAddress>
+            <type>Virtual</type>
+            <roofvogelSlangId>SLANG-999</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Europese Wespendief</name>
+    <type>Inactief</type>
+    <modelType>TypeC</modelType>
+    <modelTypeDescription>Edge node systeem</modelTypeDescription>
+    <number>RV-037</number>
+    <dieren>
+      <dier>
+        <name>Lyra</name>
+        <role>gateway</role>
+        <type>Container</type>
+        <typeDescription>Databaseserver</typeDescription>
+        <typeNumber>T003</typeNumber>
+        <virtual>false</virtual>
+        <functions>filtering,ips,ids</functions>
+        <services>firewall,logging</services>
+        <kippen>
+          <kip>
+            <name>kip-mail02</name>
+            <ipAddress>10.0.7.37</ipAddress>
+            <macAddress>AA:00:00:03:25:FF</macAddress>
+            <type>Blade</type>
+            <roofvogelSlangId>SLANG-018</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-mgmt-03</name>
+        <id>SLANG-018</id>
+        <description>Applicatie netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.7.0</networkIdAddress>
+        <type>DMZ</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Zwarte Wespendief</name>
+    <type>Standby</type>
+    <modelType>TypeD</modelType>
+    <modelTypeDescription>Gereserveerd systeem</modelTypeDescription>
+    <number>RV-038</number>
+    <dieren>
+      <dier>
+        <name>Minerva</name>
+        <role>proxy</role>
+        <type>Embedded</type>
+        <typeDescription>Fileserver</typeDescription>
+        <typeNumber>T004</typeNumber>
+        <virtual>false</virtual>
+        <functions>http,cache,ssl</functions>
+        <services>nginx,redis</services>
+        <kippen>
+          <kip>
+            <name>kip-file02</name>
+            <ipAddress>10.0.7.38</ipAddress>
+            <macAddress>AA:00:00:03:26:FF</macAddress>
+            <type>Tower</type>
+            <roofvogelSlangId>SLANG-019</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-dmz-03</name>
+        <id>SLANG-019</id>
+        <description>Database netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.7.0</networkIdAddress>
+        <type>Management</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Eleonora Valk</name>
+    <type>Test</type>
+    <modelType>TypeE</modelType>
+    <modelTypeDescription>Verouderd systeem</modelTypeDescription>
+    <number>RV-039</number>
+    <dieren>
+      <dier>
+        <name>Nemesis</name>
+        <role>firewall</role>
+        <type>Cloud</type>
+        <typeDescription>Mailserver</typeDescription>
+        <typeNumber>T005</typeNumber>
+        <virtual>true</virtual>
+        <functions>api,rest,grpc</functions>
+        <services>api-gateway,loadbalancer</services>
+        <kippen>
+          <kip>
+            <name>kip-backup02</name>
+            <ipAddress>10.0.7.39</ipAddress>
+            <macAddress>AA:00:00:03:27:FF</macAddress>
+            <type>Rack</type>
+            <roofvogelSlangId>SLANG-020</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-extern-03</name>
+        <id>SLANG-020</id>
+        <description>Backup netwerksegment</description>
+        <mask>255.255.0.0</mask>
+        <networkIdAddress>10.0.7.0</networkIdAddress>
+        <type>Storage</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Groenlandse Valk</name>
+    <type>Actief</type>
+    <modelType>TypeA</modelType>
+    <modelTypeDescription>Primair actief systeem</modelTypeDescription>
+    <number>RV-040</number>
+    <dieren>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Prairiervalk</name>
+    <type>Passief</type>
+    <modelType>TypeB</modelType>
+    <modelTypeDescription>Secundair passief systeem</modelTypeDescription>
+    <number>RV-041</number>
+    <dieren>
+      <dier>
+        <name>Phobos</name>
+        <role>client</role>
+        <type>Virtueel</type>
+        <typeDescription>Werkstation</typeDescription>
+        <typeNumber>T002</typeNumber>
+        <virtual>false</virtual>
+        <functions>dns,dhcp,ntp</functions>
+        <services>dns-server,dhcp-server</services>
+        <kippen>
+          <kip>
+            <name>kip-dns02</name>
+            <ipAddress>10.0.8.41</ipAddress>
+            <macAddress>AA:00:00:04:29:FF</macAddress>
+            <type>Virtual</type>
+            <roofvogelSlangId>SLANG-002</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-mgmt-01</name>
+        <id>SLANG-002</id>
+        <description>Management netwerk</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.8.0</networkIdAddress>
+        <type>External</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Riethavik</name>
+    <type>Inactief</type>
+    <modelType>TypeC</modelType>
+    <modelTypeDescription>Edge node systeem</modelTypeDescription>
+    <number>RV-042</number>
+    <dieren>
+      <dier>
+        <name>Quirinus</name>
+        <role>gateway</role>
+        <type>Container</type>
+        <typeDescription>Gateway node</typeDescription>
+        <typeNumber>T003</typeNumber>
+        <virtual>true</virtual>
+        <functions>smtp,imap,pop3</functions>
+        <services>mailserver,spam-filter</services>
+        <kippen>
+          <kip>
+            <name>kip-vpn02</name>
+            <ipAddress>10.0.8.42</ipAddress>
+            <macAddress>AA:00:00:04:2A:FF</macAddress>
+            <type>Blade</type>
+            <roofvogelSlangId>SLANG-003</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-dmz-01</name>
+        <id>SLANG-003</id>
+        <description>DMZ netwerksegment</description>
+        <mask>255.255.0.0</mask>
+        <networkIdAddress>10.0.8.0</networkIdAddress>
+        <type>DMZ</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Afrikaanse Visarend</name>
+    <type>Standby</type>
+    <modelType>TypeD</modelType>
+    <modelTypeDescription>Gereserveerd systeem</modelTypeDescription>
+    <number>RV-043</number>
+    <dieren>
+      <dier>
+        <name>Rhea</name>
+        <role>proxy</role>
+        <type>Embedded</type>
+        <typeDescription>Proxy server</typeDescription>
+        <typeNumber>T004</typeNumber>
+        <virtual>false</virtual>
+        <functions>sql,odbc,jdbc</functions>
+        <services>database,backup</services>
+        <kippen>
+          <kip>
+            <name>kip-mon02</name>
+            <ipAddress>10.0.8.43</ipAddress>
+            <macAddress>AA:00:00:04:2B:FF</macAddress>
+            <type>Tower</type>
+            <roofvogelSlangId>SLANG-004</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-extern-01</name>
+        <id>SLANG-004</id>
+        <description>Extern netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.8.0</networkIdAddress>
+        <type>Management</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Philippijne Arend</name>
+    <type>Test</type>
+    <modelType>TypeE</modelType>
+    <modelTypeDescription>Verouderd systeem</modelTypeDescription>
+    <number>RV-044</number>
+    <dieren>
+      <dier>
+        <name>Selene</name>
+        <role>firewall</role>
+        <type>Cloud</type>
+        <typeDescription>Firewall appliance</typeDescription>
+        <typeNumber>T005</typeNumber>
+        <virtual>false</virtual>
+        <functions>routing,nat,vpn</functions>
+        <services>firewall,vpn</services>
+        <kippen>
+          <kip>
+            <name>kip-log02</name>
+            <ipAddress>10.0.8.44</ipAddress>
+            <macAddress>AA:00:00:04:2C:FF</macAddress>
+            <type>Rack</type>
+            <roofvogelSlangId>SLANG-999</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Harpij Arend</name>
+    <type>Actief</type>
+    <modelType>TypeA</modelType>
+    <modelTypeDescription>Primair actief systeem</modelTypeDescription>
+    <number>RV-045</number>
+    <dieren>
+      <dier>
+        <name>Themis</name>
+        <role>server</role>
+        <type>Fysiek</type>
+        <typeDescription>Databaseserver</typeDescription>
+        <typeNumber>T001</typeNumber>
+        <virtual>true</virtual>
+        <functions>smb,nfs,ftp</functions>
+        <services>fileserver,backup</services>
+        <kippen>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Bredschwanzadler</name>
+    <type>Passief</type>
+    <modelType>TypeB</modelType>
+    <modelTypeDescription>Secundair passief systeem</modelTypeDescription>
+    <number>RV-046</number>
+    <dieren>
+      <dier>
+        <name>Uranus</name>
+        <role>client</role>
+        <type>Virtueel</type>
+        <typeDescription>Fileserver</typeDescription>
+        <typeNumber>T002</typeNumber>
+        <virtual>false</virtual>
+        <functions>rdp,vnc,spice</functions>
+        <services>desktop,printing</services>
+        <kippen>
+          <kip>
+            <name>kip-cache02</name>
+            <ipAddress>10.0.9.46</ipAddress>
+            <macAddress>AA:00:00:04:2E:FF</macAddress>
+            <type>Virtual</type>
+            <roofvogelSlangId>SLANG-007</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-db-01</name>
+        <id>SLANG-007</id>
+        <description>Database netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.9.0</networkIdAddress>
+        <type>External</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Verenadelaar</name>
+    <type>Inactief</type>
+    <modelType>TypeC</modelType>
+    <modelTypeDescription>Edge node systeem</modelTypeDescription>
+    <number>RV-047</number>
+    <dieren>
+      <dier>
+        <name>Vesper</name>
+        <role>gateway</role>
+        <type>Container</type>
+        <typeDescription>Mailserver</typeDescription>
+        <typeNumber>T003</typeNumber>
+        <virtual>false</virtual>
+        <functions>filtering,ips,ids</functions>
+        <services>firewall,logging</services>
+        <kippen>
+          <kip>
+            <name>kip-api02</name>
+            <ipAddress>10.0.9.47</ipAddress>
+            <macAddress>AA:00:00:04:2F:FF</macAddress>
+            <type>Blade</type>
+            <roofvogelSlangId>SLANG-008</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-backup-01</name>
+        <id>SLANG-008</id>
+        <description>Backup netwerksegment</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.9.0</networkIdAddress>
+        <type>DMZ</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Zwartborstarend</name>
+    <type>Standby</type>
+    <modelType>TypeD</modelType>
+    <modelTypeDescription>Gereserveerd systeem</modelTypeDescription>
+    <number>RV-048</number>
+    <dieren>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Afrikaanse Zeearend</name>
+    <type>Test</type>
+    <modelType>TypeE</modelType>
+    <modelTypeDescription>Verouderd systeem</modelTypeDescription>
+    <number>RV-049</number>
+    <dieren>
+      <dier>
+        <name>Zeus</name>
+        <role>firewall</role>
+        <type>Cloud</type>
+        <typeDescription>Werkstation</typeDescription>
+        <typeNumber>T005</typeNumber>
+        <virtual>false</virtual>
+        <functions>api,rest,grpc</functions>
+        <services>api-gateway,loadbalancer</services>
+        <kippen>
+          <kip>
+            <name>kip-lb02</name>
+            <ipAddress>10.0.9.49</ipAddress>
+            <macAddress>AA:00:00:04:31:FF</macAddress>
+            <type>Rack</type>
+            <roofvogelSlangId>SLANG-010</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-mgmt-02</name>
+        <id>SLANG-010</id>
+        <description>Management netwerk</description>
+        <mask>255.255.255.0</mask>
+        <networkIdAddress>10.0.9.0</networkIdAddress>
+        <type>Storage</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Bateleur</name>
+    <type>Actief</type>
+    <modelType>TypeA</modelType>
+    <modelTypeDescription>Primair actief systeem</modelTypeDescription>
+    <number>RV-050</number>
+    <dieren>
+      <dier>
+        <name>Ananke</name>
+        <role>server</role>
+        <type>Fysiek</type>
+        <typeDescription>Gateway node</typeDescription>
+        <typeNumber>T001</typeNumber>
+        <virtual>false</virtual>
+        <functions>http,https,ssh</functions>
+        <services>webserver,monitoring</services>
+        <kippen>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Secretarisvogel</name>
+    <type>Passief</type>
+    <modelType>TypeB</modelType>
+    <modelTypeDescription>Secundair passief systeem</modelTypeDescription>
+    <number>RV-051</number>
+    <dieren>
+      <dier>
+        <name>Metis</name>
+        <role>client</role>
+        <type>Virtueel</type>
+        <typeDescription>Proxy server</typeDescription>
+        <typeNumber>T002</typeNumber>
+        <virtual>true</virtual>
+        <functions>dns,dhcp,ntp</functions>
+        <services>dns-server,dhcp-server</services>
+        <kippen>
+          <kip>
+            <name>kip-ntp02</name>
+            <ipAddress>10.1.10.51</ipAddress>
+            <macAddress>AA:00:01:05:33:FF</macAddress>
+            <type>Virtual</type>
+            <roofvogelSlangId>SLANG-012</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+      <slang>
+        <name>seg-extern-02</name>
+        <id>SLANG-012</id>
+        <description>Extern netwerksegment</description>
+        <mask>255.255.0.0</mask>
+        <networkIdAddress>10.1.10.0</networkIdAddress>
+        <type>External</type>
+      </slang>
+    </slangen>
+  </roofvogel>
+
+  <roofvogel>
+    <name>Palmgier</name>
+    <type>Inactief</type>
+    <modelType>TypeC</modelType>
+    <modelTypeDescription>Edge node systeem</modelTypeDescription>
+    <number>RV-052</number>
+    <dieren>
+      <dier>
+        <name>Apollo</name>
+        <role>gateway</role>
+        <type>Container</type>
+        <typeDescription>Firewall appliance</typeDescription>
+        <typeNumber>T003</typeNumber>
+        <virtual>false</virtual>
+        <functions>smtp,imap,pop3</functions>
+        <services>mailserver,spam-filter</services>
+        <kippen>
+          <kip>
+            <name>kip-dhcp02</name>
+            <ipAddress>10.1.10.52</ipAddress>
+            <macAddress>AA:00:01:05:34:FF</macAddress>
+            <type>Blade</type>
+            <roofvogelSlangId>SLANG-999</roofvogelSlangId>
+          </kip>
+        </kippen>
+      </dier>
+    </dieren>
+    <slangen>
+    </slangen>
+  </roofvogel>
+
 </roofvogels>

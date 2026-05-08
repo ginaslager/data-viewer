@@ -1,20 +1,45 @@
 package com.dataviewer.service;
 
 import com.dataviewer.dto.DataRequest;
-import com.dataviewer.dto.FilterCriteria;
 import com.dataviewer.dto.PageResult;
-import com.dataviewer.dto.SortCriteria;
 import com.dataviewer.model.FlatRow;
+import com.dataviewer.util.FilterSqlHelper;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.sql.*;
 import java.util.*;
 
+@Slf4j
 @Service("fileDataStore")
 public class FileDataStore implements DataStore {
 
-    private static final String DB_PATH = "./data/roofvogels.db";
+    private static final Map<String, String> FIELD_COL = Map.ofEntries(
+        Map.entry("roofvogelName",                "roofvogel_name"),
+        Map.entry("roofvogelType",                "roofvogel_type"),
+        Map.entry("roofvogelModelType",           "roofvogel_model_type"),
+        Map.entry("roofvogelModelTypeDescription","roofvogel_model_type_desc"),
+        Map.entry("roofvogelNumber",              "roofvogel_number"),
+        Map.entry("dierName",                     "dier_name"),
+        Map.entry("dierRole",                     "dier_role"),
+        Map.entry("dierType",                     "dier_type"),
+        Map.entry("dierTypeDescription",          "dier_type_description"),
+        Map.entry("dierTypeNumber",               "dier_type_number"),
+        Map.entry("dierVirtual",                  "dier_virtual"),
+        Map.entry("functions",                    "functions"),
+        Map.entry("services",                     "services"),
+        Map.entry("kipIpAddress",                 "kip_ip_address"),
+        Map.entry("kipMacAddress",                "kip_mac_address"),
+        Map.entry("kipType",                      "kip_type"),
+        Map.entry("kipSlangId",                   "kip_slang_id"),
+        Map.entry("slangId",                      "slang_id"),
+        Map.entry("slangDescription",             "slang_description"),
+        Map.entry("slangMask",                    "slang_mask"),
+        Map.entry("slangNetworkAddress",          "slang_network_address"),
+        Map.entry("slangType",                    "slang_type")
+    );
 
     private static final String CREATE_TABLE = """
         CREATE TABLE IF NOT EXISTS flat_row (
@@ -47,34 +72,20 @@ public class FileDataStore implements DataStore {
         INSERT INTO flat_row VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         """;
 
-    private static final Map<String, String> FIELD_COL = Map.ofEntries(
-        Map.entry("roofvogelName",                "roofvogel_name"),
-        Map.entry("roofvogelType",                "roofvogel_type"),
-        Map.entry("roofvogelModelType",           "roofvogel_model_type"),
-        Map.entry("roofvogelModelTypeDescription","roofvogel_model_type_desc"),
-        Map.entry("roofvogelNumber",              "roofvogel_number"),
-        Map.entry("dierName",                     "dier_name"),
-        Map.entry("dierRole",                     "dier_role"),
-        Map.entry("dierType",                     "dier_type"),
-        Map.entry("dierTypeDescription",          "dier_type_description"),
-        Map.entry("dierTypeNumber",               "dier_type_number"),
-        Map.entry("dierVirtual",                  "dier_virtual"),
-        Map.entry("functions",                    "functions"),
-        Map.entry("services",                     "services"),
-        Map.entry("kipIpAddress",                 "kip_ip_address"),
-        Map.entry("kipMacAddress",                "kip_mac_address"),
-        Map.entry("kipType",                      "kip_type"),
-        Map.entry("kipSlangId",                   "kip_slang_id"),
-        Map.entry("slangId",                      "slang_id"),
-        Map.entry("slangDescription",             "slang_description"),
-        Map.entry("slangMask",                    "slang_mask"),
-        Map.entry("slangNetworkAddress",          "slang_network_address"),
-        Map.entry("slangType",                    "slang_type")
-    );
+    private final String dbPath;
+    private final int batchSize;
+
+    public FileDataStore(
+            @Value("${app.sqlite.path:./data/roofvogels.db}") String dbPath,
+            @Value("${app.sqlite.batch-size:1000}") int batchSize) {
+        this.dbPath    = dbPath;
+        this.batchSize = batchSize;
+    }
 
     @Override
     public void load(List<FlatRow> rows) {
         new File("./data").mkdirs();
+        log.info("Laden in SQLite: {} rijen naar {}", rows.size(), dbPath);
         try (Connection con = connect()) {
             con.setAutoCommit(false);
             try (Statement st = con.createStatement()) {
@@ -107,11 +118,12 @@ public class FileDataStore implements DataStore {
                     ps.setString(21, r.getSlangNetworkAddress());
                     ps.setString(22, r.getSlangType());
                     ps.addBatch();
-                    if (++batch % 1000 == 0) ps.executeBatch();
+                    if (++batch % batchSize == 0) ps.executeBatch();
                 }
                 ps.executeBatch();
             }
             con.commit();
+            log.info("SQLite geladen");
         } catch (SQLException e) {
             throw new RuntimeException("SQLite load failed", e);
         }
@@ -119,8 +131,9 @@ public class FileDataStore implements DataStore {
 
     @Override
     public void clear() {
-        File db = new File(DB_PATH);
+        File db = new File(dbPath);
         if (!db.exists()) return;
+        log.debug("SQLite wissen: {}", dbPath);
         try (Connection con = connect(); Statement st = con.createStatement()) {
             st.execute("DROP TABLE IF EXISTS flat_row");
         } catch (SQLException e) {
@@ -131,7 +144,7 @@ public class FileDataStore implements DataStore {
 
     @Override
     public boolean hasData() {
-        if (!new File(DB_PATH).exists()) return false;
+        if (!new File(dbPath).exists()) return false;
         try (Connection con = connect();
              Statement st = con.createStatement();
              ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM flat_row")) {
@@ -143,26 +156,30 @@ public class FileDataStore implements DataStore {
 
     @Override
     public PageResult<FlatRow> query(DataRequest req) {
-        List<Object> params = new ArrayList<>();
-        String where = buildWhere(req.getFilters(), params);
-        String order = buildOrder(req.getSort());
+        List<Object> whereParams = new ArrayList<>();
+        String where = FilterSqlHelper.buildWhere(req.getFilters(), FIELD_COL, whereParams);
+        String order = FilterSqlHelper.buildOrderBy(req.getSort(), FIELD_COL);
         int size   = req.getSize() > 0 ? req.getSize() : 50;
         int offset = req.getPage() * size;
 
         String countSql = "SELECT COUNT(*) FROM flat_row" + where;
-        String dataSql  = "SELECT * FROM flat_row" + where + order +
-                          " LIMIT " + size + " OFFSET " + offset;
+        String dataSql  = "SELECT * FROM flat_row" + where + order + " LIMIT ? OFFSET ?";
+
+        List<Object> dataParams = new ArrayList<>(whereParams);
+        dataParams.add(size);
+        dataParams.add(offset);
 
         try (Connection con = connect()) {
             long total;
             try (PreparedStatement ps = con.prepareStatement(countSql)) {
-                bind(ps, params);
+                bind(ps, whereParams);
                 ResultSet rs = ps.executeQuery();
                 total = rs.next() ? rs.getLong(1) : 0;
             }
+            log.debug("SQLite query: {} rijen (pagina {}, grootte {})", total, req.getPage(), size);
             List<FlatRow> page = new ArrayList<>();
             try (PreparedStatement ps = con.prepareStatement(dataSql)) {
-                bind(ps, params);
+                bind(ps, dataParams);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) page.add(map(rs));
             }
@@ -173,40 +190,13 @@ public class FileDataStore implements DataStore {
         }
     }
 
-    private String buildWhere(List<FilterCriteria> filters, List<Object> params) {
-        if (filters == null || filters.isEmpty()) return "";
-        List<String> clauses = new ArrayList<>();
-        for (FilterCriteria f : filters) {
-            String col = FIELD_COL.get(f.getField());
-            if (col == null || f.getValue() == null || f.getValue().isBlank()) continue;
-            switch (f.getOperator()) {
-                case "contains"   -> { clauses.add("LOWER(" + col + ") LIKE ?"); params.add("%" + f.getValue().toLowerCase() + "%"); }
-                case "startsWith" -> { clauses.add("LOWER(" + col + ") LIKE ?"); params.add(f.getValue().toLowerCase() + "%"); }
-                case "endsWith"   -> { clauses.add("LOWER(" + col + ") LIKE ?"); params.add("%" + f.getValue().toLowerCase()); }
-                case "equals"     -> { clauses.add("LOWER(" + col + ") = ?");    params.add(f.getValue().toLowerCase()); }
-                case "notEquals"  -> { clauses.add("LOWER(" + col + ") != ?");   params.add(f.getValue().toLowerCase()); }
-                default           -> { clauses.add("LOWER(" + col + ") LIKE ?"); params.add("%" + f.getValue().toLowerCase() + "%"); }
-            }
-        }
-        return clauses.isEmpty() ? "" : " WHERE " + String.join(" AND ", clauses);
-    }
-
-    private String buildOrder(SortCriteria s) {
-        if (s == null || s.getField() == null) return "";
-        String col = FIELD_COL.get(s.getField());
-        if (col == null) return "";
-        String dir = "DESC".equalsIgnoreCase(s.getDirection()) ? "DESC" : "ASC";
-        return " ORDER BY LOWER(" + col + ") " + dir;
-    }
-
     private void bind(PreparedStatement ps, List<Object> params) throws SQLException {
         for (int i = 0; i < params.size(); i++) ps.setObject(i + 1, params.get(i));
     }
 
     private FlatRow map(ResultSet rs) throws SQLException {
-        Boolean dierVirtual = null;
         String dv = rs.getString("dier_virtual");
-        if (dv != null) dierVirtual = Boolean.parseBoolean(dv);
+        Boolean dierVirtual = dv != null ? Boolean.parseBoolean(dv) : null;
         return FlatRow.builder()
             .roofvogelName(rs.getString("roofvogel_name"))
             .roofvogelType(rs.getString("roofvogel_type"))
@@ -234,6 +224,6 @@ public class FileDataStore implements DataStore {
     }
 
     private Connection connect() throws SQLException {
-        return DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
+        return DriverManager.getConnection("jdbc:sqlite:" + dbPath);
     }
 }

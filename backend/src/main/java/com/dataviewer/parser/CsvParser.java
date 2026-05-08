@@ -2,13 +2,16 @@ package com.dataviewer.parser;
 
 import com.dataviewer.model.FlatRow;
 import com.opencsv.CSVReader;
+import lombok.extern.slf4j.Slf4j;
 import java.io.*;
 import java.util.*;
 
+@Slf4j
 public class CsvParser implements FileParser {
 
     @Override
     public List<FlatRow> parse(InputStream stream) throws Exception {
+        log.info("CSV parsing gestart");
         List<FlatRow> result = new ArrayList<>();
         try (CSVReader reader = new CSVReader(new InputStreamReader(stream))) {
             String[] header = reader.readNext();
@@ -45,6 +48,7 @@ public class CsvParser implements FileParser {
                     .build());
             }
         }
+        log.info("CSV parsing klaar: {} rijen", result.size());
         return result;
     }
 
