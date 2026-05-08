@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { FlatRow } from '../../models/flat-row.model';
 import { Column, GroupSpan, COLUMNS, OPERATORS } from '../../models/column.model';
 import * as TableActions from '../../store/table/table.actions';
@@ -105,6 +106,21 @@ export class DataTableComponent implements OnInit {
             this.store.dispatch(TableActions.setFilter({ field: c.field, operator, value }));
           }
         });
+    });
+
+    // Patch form controls to reflect any state restored from the URL
+    this.store.select(selectFilters).pipe(
+      take(1),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(filters => {
+      const patch: Record<string, string> = {};
+      Object.entries(filters).forEach(([field, { operator, value }]) => {
+        patch[`${field}_op`]  = operator;
+        patch[`${field}_val`] = value;
+      });
+      if (Object.keys(patch).length > 0) {
+        this.filterForm.patchValue(patch, { emitEvent: false });
+      }
     });
   }
 

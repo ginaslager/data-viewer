@@ -16,3 +16,12 @@ export const loadData        = createAction('[Table] Load Data');
 export const loadDataSuccess = createAction('[Table] Load Data Success',
   props<{ content: FlatRow[]; totalElements: number; totalPages: number; page: number }>());
 export const loadDataFailure = createAction('[Table] Load Data Failure', props<{ error: string }>());
+
+export const restoreFromUrl = createAction('[Table] Restore From URL',
+  props<{
+    page:     number;
+    pageSize: number;
+    sort:     { field: string; direction: 'ASC' | 'DESC' } | null;
+    filters:  Record<string, { operator: string; value: string }>;
+  }>()
+);

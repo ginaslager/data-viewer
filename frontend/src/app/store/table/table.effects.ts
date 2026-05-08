@@ -31,6 +31,11 @@ export class TableEffects {
     map(() => TableActions.loadData())
   ));
 
+  restoreLoad$ = createEffect(() => this.actions$.pipe(
+    ofType(TableActions.restoreFromUrl),
+    map(() => TableActions.loadData())
+  ));
+
   loadData$ = createEffect(() => this.actions$.pipe(
     ofType(TableActions.loadData),
     withLatestFrom(this.store.select(selectQueryParams)),

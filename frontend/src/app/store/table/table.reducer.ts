@@ -42,4 +42,7 @@ export const tableReducer = createReducer(
     ...s, rows: content, totalElements, totalPages, page, loading: false
   })),
   on(TableActions.loadDataFailure, (s, { error }) => ({ ...s, loading: false, error })),
+  on(TableActions.restoreFromUrl,  (s, { page, pageSize, sort, filters }) => ({
+    ...s, page, pageSize, sort, filters
+  })),
 );

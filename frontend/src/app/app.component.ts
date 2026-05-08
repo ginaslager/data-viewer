@@ -2,6 +2,7 @@ import { Component, OnInit, inject, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
+import { UrlSyncService } from './services/url-sync.service';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { UploadZoneComponent } from './components/upload-zone/upload-zone.component';
@@ -34,7 +35,8 @@ export class AppComponent implements OnInit {
     { id: 'ivory',  label: 'Licht',  bg: '#EDEEF0' },
   ];
 
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly destroyRef  = inject(DestroyRef);
+  private readonly urlSync     = inject(UrlSyncService);
 
   constructor(private store: Store) {
     this.activeFilterCount$ = this.store.select(selectActiveFilterCount);
@@ -42,6 +44,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.urlSync.init();
     this.sidebarCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
 
     this.store.select(selectStatus)
