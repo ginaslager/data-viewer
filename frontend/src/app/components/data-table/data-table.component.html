@@ -1,0 +1,171 @@
+<div [formGroup]="filterForm">
+  @let cols           = (columns$ | async) ?? [];
+  @let groups         = (groupSpans$ | async) ?? [];
+  @let currentSort    = sort$ | async;
+  @let currentPage    = (page$ | async) ?? 0;
+  @let totalPagesVal  = (totalPages$ | async) ?? 0;
+  @let currentPageSize = (pageSize$ | async) ?? 50;
+  @let filterCount    = (activeFilterCount$ | async) ?? 0;
+  @let isLoading      = (loading$ | async) ?? false;
+  @let density        = (density$ | async) ?? 'normal';
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <span class="table-title">
+        @if (fileName$ | async; as name) {
+          <span class="file-check">✓</span> {{ name }}
+        } @else { Roofvogel Tabel }
+      </span>
+    </div>
+    <div class="toolbar-right">
+      @if (isLoading) { <span class="spinner"></span> }
+      @if (filterCount > 0) {
+        <span class="filter-badge">{{ filterCount }} filter{{ filterCount > 1 ? 's' : '' }} actief</span>
+        <button class="btn-clear" (click)="clearAll()">Wissen</button>
+      }
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrap" [class.loading]="isLoading"
+       [class.density--compact]="density === 'compact'"
+       [class.density--spacious]="density === 'spacious'">
+    <table>
+      <thead>
+        <!-- Group row -->
+        <tr class="group-row">
+          @for (g of groups; track g.label) {
+            <th [attr.colspan]="g.span" [class]="'g-' + g.group">{{ g.label }}</th>
+          }
+        </tr>
+
+        <!-- Column label row -->
+        <tr class="col-row">
+          @for (col of cols; track col.field) {
+            <th [class]="'h-' + col.group + (col.sortable ? ' sortable' : '')"
+                (click)="toggleSort(col.field, col.sortable, currentSort)">
+              {{ col.label }}
+              @if (currentSort?.field === col.field) {
+                <span class="sort-icon">{{ currentSort?.direction === 'ASC' ? '↑' : '↓' }}</span>
+              } @else if (col.sortable) {
+                <span class="sort-icon muted">↕</span>
+              }
+            </th>
+          }
+        </tr>
+
+        <!-- Filter row -->
+        <tr class="filter-row">
+          @for (col of cols; track col.field) {
+            <th [class]="'f-' + col.group">
+              <div class="filter-cell">
+                <div class="op-wrap" (click)="toggleOpMenu(col.field, $event)">
+                  <button class="op-btn" type="button"
+                          [class.op-btn--active]="ctrl(col.field + '_op').value !== 'contains'"
+                          [attr.data-tooltip]="density === 'compact' ? opLabel(ctrl(col.field + '_op').value) : null">
+                    @if (density === 'compact') {
+                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                        <circle cx="5" cy="5" r="3.5" stroke="currentColor" stroke-width="1.3"/>
+                        <path d="M8 8l2 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                      </svg>
+                    } @else {
+                      {{ opLabel(ctrl(col.field + '_op').value) }}
+                    }
+                    <span class="op-chev">▾</span>
+                  </button>
+                  @if (openOpMenu === col.field) {
+                    <div class="op-menu">
+                      @for (op of operators; track op.value) {
+                        <div class="op-menu-item"
+                             [class.op-menu-item--selected]="ctrl(col.field + '_op').value === op.value"
+                             (click)="pickOp(col.field, op.value, $event)">
+                          {{ op.label }}
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+                <input class="filter-input"
+                       [formControl]="ctrl(col.field + '_val')"
+                       [placeholder]="density === 'compact' ? col.label.toLowerCase() + '…' : 'Search…'"
+                       (keydown.escape)="clearColumn(col.field)" />
+                @if (ctrl(col.field + '_val').value) {
+                  <button class="clear-btn" (click)="clearColumn(col.field)" type="button">×</button>
+                }
+              </div>
+            </th>
+          }
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (row of rows$ | async; track row.kipIpAddress; let odd = $odd) {
+          <tr [class.odd]="odd">
+            @for (col of cols; track col.field) {
+              <td [class]="'c-' + col.group"
+                  [class.c-slang-ref]="col.field === 'kipSlangId'"
+                  [class.match]="col.field === 'slangId' && row.kipSlangId === row.slangId"
+                  [class.c-virtual]="col.type === 'boolean'">
+                {{ cellValue(row, col.field) }}
+              </td>
+            }
+          </tr>
+        }
+        @if (!isLoading && (rows$ | async)?.length === 0) {
+          @if (fileName$ | async) {
+            <tr><td [attr.colspan]="cols.length" class="empty">Geen resultaten gevonden</td></tr>
+          } @else {
+            <tr><td [attr.colspan]="cols.length" class="empty empty--no-file">
+              <span class="empty-icon">↑</span>
+              Ga naar <button class="empty-link" (click)="navigateTo.emit('upload')">Upload</button> om een bestand te laden
+            </td></tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-bar">
+    @if (totalPagesVal > 1) {
+      <div class="pagination">
+        <button class="btn-page" (click)="goToPage(currentPage - 1)"
+                [disabled]="currentPage === 0">← Vorige</button>
+
+        @for (p of pages(totalPagesVal); track p) {
+          @if (showPage(p, currentPage, totalPagesVal)) {
+            <button class="btn-page-num" [class.active]="p === currentPage"
+                    (click)="goToPage(p)">{{ p + 1 }}</button>
+          } @else if (isEllipsis(p, currentPage, totalPagesVal)) {
+            <span class="ellipsis">…</span>
+          }
+        }
+
+        <button class="btn-page" (click)="goToPage(currentPage + 1)"
+                [disabled]="currentPage >= totalPagesVal - 1">Volgende →</button>
+      </div>
+    }
+
+    <div class="pagination-right">
+      @if (totalPagesVal > 1) {
+        <div class="goto-wrap">
+          <span class="page-size-label">Ga naar</span>
+          <input class="goto-input" type="number" min="1" [max]="totalPagesVal"
+                 [placeholder]="currentPage + 1"
+                 (keydown.enter)="jumpToPage(gotoInput.value, totalPagesVal); gotoInput.value = ''"
+                 #gotoInput />
+          <span class="page-size-label">/ {{ totalPagesVal }}</span>
+        </div>
+      }
+      <div class="page-size-wrap">
+        <span class="page-size-label">Rijen</span>
+        @for (s of pageSizes; track s) {
+          <button class="page-size-btn" [class.active]="s === currentPageSize"
+                  (click)="setPageSizeVal(s)">{{ s }}</button>
+        }
+      </div>
+    </div>
+  </div>
+
+</div>

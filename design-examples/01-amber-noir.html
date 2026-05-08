@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 · Amber Noir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #0A0905;
+    --s1:      #111009;
+    --s2:      #191710;
+    --s3:      #221F15;
+    --border:  #2E2A1C;
+    --border2: #3D3820;
+    --text:    #D4C99A;
+    --muted:   #6B6140;
+    --amber:   #D4960A;
+    --amber2:  #F5B800;
+    --amber-d: rgba(212,150,10,0.1);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', sans-serif; min-height: 100vh; display: flex; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 220px; flex-shrink: 0;
+    background: var(--s1);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    padding: 28px 0;
+  }
+  .sidebar-logo {
+    padding: 0 24px 28px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 900;
+    color: var(--amber2);
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+  .logo-sub { font-size: 10px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-top: 4px; }
+  .nav-section { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); padding: 0 24px 8px; }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 24px; font-size: 12px; font-weight: 500;
+    color: var(--muted); cursor: pointer; transition: all 0.15s;
+    border-left: 2px solid transparent;
+  }
+  .nav-item:hover { color: var(--text); background: var(--s2); }
+  .nav-item.active { color: var(--amber2); background: var(--amber-d); border-left-color: var(--amber); }
+  .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+  /* Main */
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* Header */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 32px;
+    border-bottom: 1px solid var(--border);
+    background: var(--s1);
+  }
+  .breadcrumb { font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+  .breadcrumb span { color: var(--amber); }
+  .header-actions { display: flex; gap: 8px; }
+  .btn {
+    padding: 6px 14px; font-size: 11px; font-weight: 500;
+    border-radius: 4px; cursor: pointer;
+    font-family: 'IBM Plex Sans', sans-serif; letter-spacing: 0.5px;
+    transition: all 0.15s;
+  }
+  .btn-ghost { background: transparent; border: 1px solid var(--border2); color: var(--muted); }
+  .btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
+  .btn-amber { background: var(--amber); border: 1px solid var(--amber); color: #000; font-weight: 600; }
+  .btn-amber:hover { background: var(--amber2); }
+
+  /* Content */
+  .content { flex: 1; padding: 28px 32px; overflow: auto; }
+
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px; font-weight: 900;
+    color: var(--text); letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+  .page-sub { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+  /* Stats row */
+  .stats { display: flex; gap: 12px; margin-bottom: 24px; }
+  .stat-card {
+    flex: 1; padding: 16px 20px;
+    background: var(--s1); border: 1px solid var(--border);
+    border-radius: 6px;
+    position: relative; overflow: hidden;
+  }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--amber), transparent);
+  }
+  .stat-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .stat-value { font-family: 'IBM Plex Mono', monospace; font-size: 26px; color: var(--amber2); font-weight: 300; letter-spacing: -1px; }
+  .stat-change { font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+  /* Table panel */
+  .panel {
+    background: var(--s1); border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+  }
+  .panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px; border-bottom: 1px solid var(--border);
+  }
+  .panel-title { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text); }
+  .badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; padding: 2px 8px;
+    border: 1px solid var(--border2); border-radius: 20px;
+    color: var(--amber); background: var(--amber-d);
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+  .group-row th {
+    padding: 7px 16px; font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    text-align: center; font-family: 'IBM Plex Mono', monospace;
+    border-right: 1px solid var(--border);
+    background: var(--s2);
+    color: var(--muted);
+    position: relative;
+  }
+  .group-row th::after {
+    content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px;
+    background: var(--amber); opacity: 0.4;
+  }
+  .col-row th {
+    padding: 9px 16px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+    font-weight: 600; color: var(--muted); text-align: left;
+    background: var(--s2); border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  tbody tr { transition: background 0.1s; }
+  tbody tr:hover td { background: var(--s3) !important; }
+  td {
+    padding: 9px 16px; font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--text);
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid rgba(255,255,255,0.02);
+    white-space: nowrap;
+  }
+  tr:nth-child(odd) td { background: rgba(255,255,255,0.01); }
+  .c-amber { color: var(--amber2); }
+  .highlight { color: var(--amber); font-weight: 500; text-shadow: 0 0 12px rgba(212,150,10,0.4); }
+
+  /* Filter row */
+  .filter-row th { padding: 5px 6px; background: var(--bg); border-bottom: 1px solid var(--border2); border-right: 1px solid var(--border); }
+  .filter-input {
+    width: 100%; padding: 4px 8px;
+    background: var(--s2); border: 1px solid var(--border);
+    border-radius: 3px; font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--text); outline: none;
+    transition: border-color 0.15s;
+  }
+  .filter-input:focus { border-color: var(--amber); }
+  .filter-input::placeholder { color: var(--muted); opacity: 0.5; }
+
+  /* Pagination */
+  .pagination {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 20px; border-top: 1px solid var(--border);
+  }
+  .page-info { font-size: 10px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+  .page-btns { display: flex; gap: 4px; }
+  .page-btn {
+    padding: 4px 10px; font-size: 11px; font-family: 'IBM Plex Mono', monospace;
+    background: transparent; border: 1px solid var(--border);
+    border-radius: 3px; color: var(--muted); cursor: pointer;
+    transition: all 0.15s;
+  }
+  .page-btn:hover { border-color: var(--amber); color: var(--amber); }
+  .page-btn.active { background: var(--amber); border-color: var(--amber); color: #000; font-weight: 600; }
+
+  .label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .style-note {
+    position: fixed; bottom: 20px; right: 20px;
+    background: var(--s2); border: 1px solid var(--border2);
+    border-radius: 6px; padding: 12px 16px;
+    font-size: 11px; color: var(--muted); max-width: 240px;
+    line-height: 1.6;
+  }
+  .style-note strong { color: var(--amber); font-family: 'Playfair Display', serif; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-text">Data<br>Viewer</div>
+    <div class="logo-sub">Generic</div>
+  </div>
+  <div class="nav-section">Navigatie</div>
+  <div class="nav-item active"><span class="nav-dot"></span> Data Viewer</div>
+  <div class="nav-item"><span class="nav-dot"></span> Upload</div>
+  <div class="nav-item"><span class="nav-dot"></span> Database</div>
+  <div class="nav-item"><span class="nav-dot"></span> Instellingen</div>
+</nav>
+
+<div class="main">
+  <div class="header">
+    <div class="breadcrumb">Gegevens <span>/ Roofvogels</span></div>
+    <div class="header-actions">
+      <button class="btn btn-ghost">Filter wissen</button>
+      <button class="btn btn-amber">Bestand laden</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="label">Stijl 01 · Amber Noir</div>
+    <h1 class="page-title">Roofvogel Data</h1>
+    <p class="page-sub">Playfair Display · IBM Plex Mono · Warm charcoal + amber gold</p>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">Roofvogels</div>
+        <div class="stat-value">12</div>
+        <div class="stat-change">actieve records</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Dieren</div>
+        <div class="stat-value">48</div>
+        <div class="stat-change">gekoppeld</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Slangen</div>
+        <div class="stat-value">36</div>
+        <div class="stat-change">gematcht</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Kippen</div>
+        <div class="stat-value">100</div>
+        <div class="stat-change">totaal</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Overzicht</span>
+        <span class="badge">100 rijen</span>
+      </div>
+      <table>
+        <tr class="group-row">
+          <th colspan="2">Roofvogel</th>
+          <th colspan="2">Dier</th>
+          <th>Functies</th>
+          <th colspan="3">Kip</th>
+          <th colspan="2">Slang</th>
+        </tr>
+        <tr class="col-row">
+          <th>ID</th><th>Naam</th>
+          <th>ID</th><th>Naam</th>
+          <th>Functies</th>
+          <th>Naam</th><th>Slang ID</th><th>ID</th>
+          <th>ID</th><th>Naam</th>
+        </tr>
+        <tr class="filter-row">
+          <th><input class="filter-input" placeholder="filter…"></th>
+          <th><input class="filter-input" placeholder="filter…"></th>
+          <th><input class="filter-input" placeholder="filter…"></th>
+          <th><input class="filter-input" placeholder="filter…"></th>
+          <th><input class="filter-input" placeholder="filter…"></th>
+          <th><input class="filter-input" placeholder="filter…"></th>
+          <th><input class="filter-input" placeholder="filter…"></th>
+          <th><input class="filter-input" placeholder="filter…"></th>
+          <th><input class="filter-input" placeholder="filter…"></th>
+          <th><input class="filter-input" placeholder="filter…"></th>
+        </tr>
+        <tbody>
+          <tr><td class="c-amber">1</td><td class="c-amber">Arend</td><td>101</td><td>Leeuw</td><td>Jager, Wacht</td><td>Stip</td><td>9</td><td>9</td><td>9</td><td class="highlight">Cobra</td></tr>
+          <tr><td class="c-amber">1</td><td class="c-amber">Arend</td><td>101</td><td>Leeuw</td><td>Jager</td><td>Dot</td><td>12</td><td>12</td><td>12</td><td>Adder</td></tr>
+          <tr><td class="c-amber">2</td><td class="c-amber">Valk</td><td>102</td><td>Tijger</td><td>Bewaker</td><td>Flits</td><td>7</td><td>7</td><td>7</td><td>Python</td></tr>
+          <tr><td class="c-amber">2</td><td class="c-amber">Valk</td><td>103</td><td>Wolf</td><td>Scout, Spy</td><td>Nova</td><td>4</td><td>4</td><td>4</td><td>Mamba</td></tr>
+          <tr><td class="c-amber">3</td><td class="c-amber">Uil</td><td>104</td><td>Beer</td><td>Nacht</td><td>Storm</td><td>2</td><td>2</td><td>2</td><td>Boa</td></tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <span class="page-info">Rijen 1–5 van 100 · pagina 1 van 20</span>
+        <div class="page-btns">
+          <button class="page-btn">‹</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <span style="color:var(--muted);padding:0 4px;font-size:12px">…</span>
+          <button class="page-btn">20</button>
+          <button class="page-btn">›</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="style-note">
+  <strong>Amber Noir</strong><br>
+  Playfair Display koppen · IBM Plex Mono data · Warm charcoal (#0A0905) · Amber goud accent · Filmische sfeer
+</div>
+
+</body>
+</html>

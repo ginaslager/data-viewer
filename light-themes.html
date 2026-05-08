@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Light Thema's — 5 varianten</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #2a2a2a;
+    font-family: 'Roboto Mono', monospace;
+    padding: 40px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .concept { max-width: 780px; }
+
+  .concept-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #888;
+  }
+  .concept-tag::after { content: ''; flex: 1; height: 1px; background: #333; }
+  .concept-name { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+  .concept-desc { font-size: 11px; color: #555; margin-bottom: 18px; }
+
+  /* Shared panel */
+  .panel {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid;
+  }
+  .panel-left {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid;
+  }
+  .file-badge {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid;
+  }
+  .file-icon {
+    width: 30px; height: 36px; border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px; font-weight: 700; font-family: 'Roboto Mono', monospace;
+    flex-shrink: 0;
+  }
+  .file-name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; }
+  .file-sub { font-size: 10px; margin-top: 3px; }
+  .attrs { display: flex; flex-direction: column; gap: 11px; }
+  .attr { display: flex; flex-direction: column; gap: 2px; }
+  .attr-key { font-size: 9px; text-transform: uppercase; letter-spacing: 0.15em; }
+  .attr-val { font-family: 'Roboto Mono', monospace; font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .panel-right { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .right-title {
+    font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding-bottom: 12px; border-bottom: 1px solid;
+  }
+  .entities { display: flex; flex-direction: column; gap: 10px; }
+  .entity-row { display: flex; align-items: center; gap: 10px; }
+  .entity-name { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 600; min-width: 80px; }
+  .entity-track {
+    flex: 1; height: 22px; border-radius: 2px;
+    overflow: hidden; position: relative; border: 1px solid;
+  }
+  .entity-fill { height: 100%; }
+  .entity-label {
+    position: absolute; right: 8px; top: 50%;
+    transform: translateY(-50%); font-size: 10px; pointer-events: none;
+  }
+
+  /* ── 1. Cool Silver ── */
+  .t1 { --a: #E8401A; }
+  .t1.panel           { background: #EDEEF0; border-color: #D4D6DA; }
+  .t1 .panel-left     { background: #E4E6E9; border-right-color: #D4D6DA; }
+  .t1 .file-badge     { border-bottom-color: #D4D6DA; }
+  .t1 .file-icon      { background: var(--a); color: #fff; }
+  .t1 .file-name      { color: #18191C; }
+  .t1 .file-sub       { color: #80838A; }
+  .t1 .attr-key       { color: #80838A; }
+  .t1 .attr-val       { color: #18191C; }
+  .t1 .attr-val.sha   { color: var(--a); }
+  .t1 .right-title    { color: #80838A; border-bottom-color: #D4D6DA; }
+  .t1 .entity-name    { color: #18191C; }
+  .t1 .entity-track   { background: #fff; border-color: #D4D6DA; }
+  .t1 .entity-fill    { background: linear-gradient(90deg, var(--a) 0%, rgba(232,64,26,0.25) 100%); }
+  .t1 .entity-label   { color: #18191C; }
+
+  /* ── 2. Nordic Blue ── */
+  .t2 { --a: #E8401A; }
+  .t2.panel           { background: #E8EDF4; border-color: #C8D0DC; }
+  .t2 .panel-left     { background: #DDE4EF; border-right-color: #C8D0DC; }
+  .t2 .file-badge     { border-bottom-color: #C8D0DC; }
+  .t2 .file-icon      { background: var(--a); color: #fff; }
+  .t2 .file-name      { color: #141820; }
+  .t2 .file-sub       { color: #7A8498; }
+  .t2 .attr-key       { color: #7A8498; }
+  .t2 .attr-val       { color: #141820; }
+  .t2 .attr-val.sha   { color: var(--a); }
+  .t2 .right-title    { color: #7A8498; border-bottom-color: #C8D0DC; }
+  .t2 .entity-name    { color: #141820; }
+  .t2 .entity-track   { background: #F0F4FA; border-color: #C8D0DC; }
+  .t2 .entity-fill    { background: linear-gradient(90deg, var(--a) 0%, rgba(232,64,26,0.25) 100%); }
+  .t2 .entity-label   { color: #141820; }
+
+  /* ── 3. Sage ── */
+  .t3 { --a: #D43A15; }
+  .t3.panel           { background: #E6EBEA; border-color: #C8D0CC; }
+  .t3 .panel-left     { background: #DCE3E1; border-right-color: #C8D0CC; }
+  .t3 .file-badge     { border-bottom-color: #C8D0CC; }
+  .t3 .file-icon      { background: var(--a); color: #fff; }
+  .t3 .file-name      { color: #141C18; }
+  .t3 .file-sub       { color: #78887E; }
+  .t3 .attr-key       { color: #78887E; }
+  .t3 .attr-val       { color: #141C18; }
+  .t3 .attr-val.sha   { color: var(--a); }
+  .t3 .right-title    { color: #78887E; border-bottom-color: #C8D0CC; }
+  .t3 .entity-name    { color: #141C18; }
+  .t3 .entity-track   { background: #EEF3F1; border-color: #C8D0CC; }
+  .t3 .entity-fill    { background: linear-gradient(90deg, var(--a) 0%, rgba(212,58,21,0.25) 100%); }
+  .t3 .entity-label   { color: #141C18; }
+
+  /* ── 4. Warm Putty ── */
+  .t4 { --a: #CC3810; }
+  .t4.panel           { background: #EDE8E0; border-color: #D0C8BC; }
+  .t4 .panel-left     { background: #E4DDD4; border-right-color: #D0C8BC; }
+  .t4 .file-badge     { border-bottom-color: #D0C8BC; }
+  .t4 .file-icon      { background: var(--a); color: #fff; }
+  .t4 .file-name      { color: #1C1814; }
+  .t4 .file-sub       { color: #847870; }
+  .t4 .attr-key       { color: #847870; }
+  .t4 .attr-val       { color: #1C1814; }
+  .t4 .attr-val.sha   { color: var(--a); }
+  .t4 .right-title    { color: #847870; border-bottom-color: #D0C8BC; }
+  .t4 .entity-name    { color: #1C1814; }
+  .t4 .entity-track   { background: #F4EFE8; border-color: #D0C8BC; }
+  .t4 .entity-fill    { background: linear-gradient(90deg, var(--a) 0%, rgba(204,56,16,0.25) 100%); }
+  .t4 .entity-label   { color: #1C1814; }
+
+  /* ── 5. Concrete ── */
+  .t5 { --a: #E8401A; }
+  .t5.panel           { background: #E0E0E0; border-color: #C4C4C4; }
+  .t5 .panel-left     { background: #D6D6D6; border-right-color: #C4C4C4; }
+  .t5 .file-badge     { border-bottom-color: #C4C4C4; }
+  .t5 .file-icon      { background: var(--a); color: #fff; }
+  .t5 .file-name      { color: #141414; }
+  .t5 .file-sub       { color: #787878; }
+  .t5 .attr-key       { color: #787878; }
+  .t5 .attr-val       { color: #141414; }
+  .t5 .attr-val.sha   { color: var(--a); }
+  .t5 .right-title    { color: #787878; border-bottom-color: #C4C4C4; }
+  .t5 .entity-name    { color: #141414; }
+  .t5 .entity-track   { background: #ECECEC; border-color: #C4C4C4; }
+  .t5 .entity-fill    { background: linear-gradient(90deg, var(--a) 0%, rgba(232,64,26,0.25) 100%); }
+  .t5 .entity-label   { color: #141414; }
+</style>
+</head>
+<body>
+
+<!-- Concept 1 -->
+<div class="concept">
+  <div class="concept-tag">Variant 1</div>
+  <div class="concept-name">Cool Silver</div>
+  <div class="concept-desc">Neutraal koel grijs — geen geel, geen blauw. Strak en zakelijk.</div>
+  <div class="panel t1">
+    <div class="panel-left">
+      <div class="file-badge">
+        <div class="file-icon">XML</div>
+        <div><div class="file-name">Roofvogels_test</div><div class="file-sub">Jaaroverzicht monitoring 2025</div></div>
+      </div>
+      <div class="attrs">
+        <div class="attr"><span class="attr-key">Aangemaakt</span><span class="attr-val">2025-04-12</span></div>
+        <div class="attr"><span class="attr-key">Git SHA</span><span class="attr-val sha">a3f9c2b1d4e7f099</span></div>
+        <div class="attr"><span class="attr-key">Formaat</span><span class="attr-val">XML</span></div>
+      </div>
+    </div>
+    <div class="panel-right">
+      <div class="right-title">Entiteiten</div>
+      <div class="entities">
+        <div class="entity-row"><div class="entity-name">Roofvogels</div><div class="entity-track"><div class="entity-fill" style="width:18%"></div><div class="entity-label">3</div></div></div>
+        <div class="entity-row"><div class="entity-name">Dieren</div><div class="entity-track"><div class="entity-fill" style="width:58%"></div><div class="entity-label">9</div></div></div>
+        <div class="entity-row"><div class="entity-name">Kippen</div><div class="entity-track"><div class="entity-fill" style="width:100%"></div><div class="entity-label">27</div></div></div>
+        <div class="entity-row"><div class="entity-name">Slangen</div><div class="entity-track"><div class="entity-fill" style="width:47%"></div><div class="entity-label">6</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Concept 2 -->
+<div class="concept">
+  <div class="concept-tag">Variant 2</div>
+  <div class="concept-name">Nordic Blue</div>
+  <div class="concept-desc">Lichtblauw-grijs — koel en rustig, Scandinavisch gevoel.</div>
+  <div class="panel t2">
+    <div class="panel-left">
+      <div class="file-badge">
+        <div class="file-icon">XML</div>
+        <div><div class="file-name">Roofvogels_test</div><div class="file-sub">Jaaroverzicht monitoring 2025</div></div>
+      </div>
+      <div class="attrs">
+        <div class="attr"><span class="attr-key">Aangemaakt</span><span class="attr-val">2025-04-12</span></div>
+        <div class="attr"><span class="attr-key">Git SHA</span><span class="attr-val sha">a3f9c2b1d4e7f099</span></div>
+        <div class="attr"><span class="attr-key">Formaat</span><span class="attr-val">XML</span></div>
+      </div>
+    </div>
+    <div class="panel-right">
+      <div class="right-title">Entiteiten</div>
+      <div class="entities">
+        <div class="entity-row"><div class="entity-name">Roofvogels</div><div class="entity-track"><div class="entity-fill" style="width:18%"></div><div class="entity-label">3</div></div></div>
+        <div class="entity-row"><div class="entity-name">Dieren</div><div class="entity-track"><div class="entity-fill" style="width:58%"></div><div class="entity-label">9</div></div></div>
+        <div class="entity-row"><div class="entity-name">Kippen</div><div class="entity-track"><div class="entity-fill" style="width:100%"></div><div class="entity-label">27</div></div></div>
+        <div class="entity-row"><div class="entity-name">Slangen</div><div class="entity-track"><div class="entity-fill" style="width:47%"></div><div class="entity-label">6</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Concept 3 -->
+<div class="concept">
+  <div class="concept-tag">Variant 3</div>
+  <div class="concept-name">Sage</div>
+  <div class="concept-desc">Lichtgroen-grijs — subtiel en organisch, oogvriendelijk.</div>
+  <div class="panel t3">
+    <div class="panel-left">
+      <div class="file-badge">
+        <div class="file-icon">XML</div>
+        <div><div class="file-name">Roofvogels_test</div><div class="file-sub">Jaaroverzicht monitoring 2025</div></div>
+      </div>
+      <div class="attrs">
+        <div class="attr"><span class="attr-key">Aangemaakt</span><span class="attr-val">2025-04-12</span></div>
+        <div class="attr"><span class="attr-key">Git SHA</span><span class="attr-val sha">a3f9c2b1d4e7f099</span></div>
+        <div class="attr"><span class="attr-key">Formaat</span><span class="attr-val">XML</span></div>
+      </div>
+    </div>
+    <div class="panel-right">
+      <div class="right-title">Entiteiten</div>
+      <div class="entities">
+        <div class="entity-row"><div class="entity-name">Roofvogels</div><div class="entity-track"><div class="entity-fill" style="width:18%"></div><div class="entity-label">3</div></div></div>
+        <div class="entity-row"><div class="entity-name">Dieren</div><div class="entity-track"><div class="entity-fill" style="width:58%"></div><div class="entity-label">9</div></div></div>
+        <div class="entity-row"><div class="entity-name">Kippen</div><div class="entity-track"><div class="entity-fill" style="width:100%"></div><div class="entity-label">27</div></div></div>
+        <div class="entity-row"><div class="entity-name">Slangen</div><div class="entity-track"><div class="entity-fill" style="width:47%"></div><div class="entity-label">6</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Concept 4 -->
+<div class="concept">
+  <div class="concept-tag">Variant 4</div>
+  <div class="concept-name">Warm Putty</div>
+  <div class="concept-desc">Zachte okertint — warmer dan taupe maar veel minder fel dan wit.</div>
+  <div class="panel t4">
+    <div class="panel-left">
+      <div class="file-badge">
+        <div class="file-icon">XML</div>
+        <div><div class="file-name">Roofvogels_test</div><div class="file-sub">Jaaroverzicht monitoring 2025</div></div>
+      </div>
+      <div class="attrs">
+        <div class="attr"><span class="attr-key">Aangemaakt</span><span class="attr-val">2025-04-12</span></div>
+        <div class="attr"><span class="attr-key">Git SHA</span><span class="attr-val sha">a3f9c2b1d4e7f099</span></div>
+        <div class="attr"><span class="attr-key">Formaat</span><span class="attr-val">XML</span></div>
+      </div>
+    </div>
+    <div class="panel-right">
+      <div class="right-title">Entiteiten</div>
+      <div class="entities">
+        <div class="entity-row"><div class="entity-name">Roofvogels</div><div class="entity-track"><div class="entity-fill" style="width:18%"></div><div class="entity-label">3</div></div></div>
+        <div class="entity-row"><div class="entity-name">Dieren</div><div class="entity-track"><div class="entity-fill" style="width:58%"></div><div class="entity-label">9</div></div></div>
+        <div class="entity-row"><div class="entity-name">Kippen</div><div class="entity-track"><div class="entity-fill" style="width:100%"></div><div class="entity-label">27</div></div></div>
+        <div class="entity-row"><div class="entity-name">Slangen</div><div class="entity-track"><div class="entity-fill" style="width:47%"></div><div class="entity-label">6</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Concept 5 -->
+<div class="concept">
+  <div class="concept-tag">Variant 5</div>
+  <div class="concept-name">Concrete</div>
+  <div class="concept-desc">Puur neutraal grijs zonder kleursteem — minimaal en clean.</div>
+  <div class="panel t5">
+    <div class="panel-left">
+      <div class="file-badge">
+        <div class="file-icon">XML</div>
+        <div><div class="file-name">Roofvogels_test</div><div class="file-sub">Jaaroverzicht monitoring 2025</div></div>
+      </div>
+      <div class="attrs">
+        <div class="attr"><span class="attr-key">Aangemaakt</span><span class="attr-val">2025-04-12</span></div>
+        <div class="attr"><span class="attr-key">Git SHA</span><span class="attr-val sha">a3f9c2b1d4e7f099</span></div>
+        <div class="attr"><span class="attr-key">Formaat</span><span class="attr-val">XML</span></div>
+      </div>
+    </div>
+    <div class="panel-right">
+      <div class="right-title">Entiteiten</div>
+      <div class="entities">
+        <div class="entity-row"><div class="entity-name">Roofvogels</div><div class="entity-track"><div class="entity-fill" style="width:18%"></div><div class="entity-label">3</div></div></div>
+        <div class="entity-row"><div class="entity-name">Dieren</div><div class="entity-track"><div class="entity-fill" style="width:58%"></div><div class="entity-label">9</div></div></div>
+        <div class="entity-row"><div class="entity-name">Kippen</div><div class="entity-track"><div class="entity-fill" style="width:100%"></div><div class="entity-label">27</div></div></div>
+        <div class="entity-row"><div class="entity-name">Slangen</div><div class="entity-track"><div class="entity-fill" style="width:47%"></div><div class="entity-label">6</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

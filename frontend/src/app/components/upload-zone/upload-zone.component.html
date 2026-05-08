@@ -1,0 +1,78 @@
+<div class="upload-root">
+
+  <input #fileInput type="file" accept=".xml,.json,.yaml,.yml,.csv" (change)="onFileSelect($event)" hidden />
+
+  <!-- Modus keuze -->
+  <div class="mode-selector">
+    <button class="mode-opt" [class.active]="(mode$ | async) !== 'database'" (click)="selectMode('file')">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M4 4h7l3 3v9a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z" stroke-linejoin="round"/>
+        <path d="M11 4v4h4" stroke-linejoin="round"/>
+      </svg>
+      <span class="mode-opt-label">Bestandsmodus</span>
+      <span class="mode-opt-desc">Bestand wordt direct in geheugen ingelezen</span>
+    </button>
+    <button class="mode-opt" [class.active]="(mode$ | async) === 'database'" (click)="selectMode('database')">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+        <ellipse cx="10" cy="6" rx="7" ry="2.5"/>
+        <path d="M3 6v4c0 1.38 3.13 2.5 7 2.5S17 11.38 17 10V6"/>
+        <path d="M3 10v4c0 1.38 3.13 2.5 7 2.5S17 15.38 17 14v-4"/>
+      </svg>
+      <span class="mode-opt-label">Database modus</span>
+      <span class="mode-opt-desc">Bestand wordt in H2 database geladen</span>
+    </button>
+  </div>
+
+  <!-- Drop zone -->
+  <div class="drop-zone" [class.dragging]="dragging"
+       (dragover)="onDragOver($event)" (dragleave)="onDragLeave()" (drop)="onDrop($event)">
+
+    <div class="drop-inner">
+      <div class="drop-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
+      </div>
+      <p class="drop-cta">Sleep een bestand hierheen</p>
+      <button class="btn-kiezen" (click)="openFilePicker()">Bestand kiezen</button>
+      <div class="fmt-chips">
+        @for (fmt of ['XML','JSON','YAML','CSV']; track fmt) {
+          <span class="fmt-chip">{{ fmt }}</span>
+        }
+        <span class="fmt-sep">·</span>
+        <span class="fmt-limit">max 2 GB</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status bar -->
+  @if ((status$ | async) !== 'idle') {
+    <div class="status-bar"
+         [class.status-bar--uploading]="(status$ | async) === 'uploading'"
+         [class.status-bar--success]="(status$ | async) === 'success'"
+         [class.status-bar--error]="(status$ | async) === 'error'">
+
+      @if ((status$ | async) === 'uploading') {
+        <div style="width:100%">
+          <div class="progress-track">
+            <div class="progress-fill" [style.width.%]="progress$ | async"></div>
+          </div>
+          @if ((progress$ | async) === 100) {
+            <span class="status-text" style="margin-top:6px;display:block">Verwerken op server...</span>
+          } @else {
+            <span class="status-text" style="margin-top:6px;display:block">Uploaden {{ progress$ | async }}%</span>
+          }
+        </div>
+      }
+      @if ((status$ | async) === 'success') {
+        <span class="status-icon">✓</span>
+        <span class="status-text">Bestand succesvol geladen</span>
+      }
+      @if ((status$ | async) === 'error') {
+        <span class="status-icon">✕</span>
+        <span class="status-text">{{ error$ | async }}</span>
+      }
+    </div>
+  }
+
+</div>

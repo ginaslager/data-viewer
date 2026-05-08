@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04 · Steel Cobalt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:    #0B0F18;
+    --s1:    #0F1520;
+    --s2:    #141C2C;
+    --s3:    #192234;
+    --border:#1E2A3F;
+    --border2:#263550;
+    --text:  #C5D4E8;
+    --muted: #4A5E7A;
+    --cobalt:#4D8FFF;
+    --cobalt2:#7AAFFF;
+    --ice:   #A8D4FF;
+    --cobalt-d: rgba(77,143,255,0.1);
+    --red:   #FF5A6A;
+    --green: #3DFFA0;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+
+  /* Top header */
+  .header {
+    display: flex; align-items: stretch;
+    border-bottom: 1px solid var(--border);
+    background: var(--s1);
+  }
+  .header-brand {
+    display: flex; align-items: center; gap: 14px;
+    padding: 0 28px; border-right: 1px solid var(--border);
+    min-width: 220px;
+  }
+  .brand-icon {
+    width: 32px; height: 32px;
+    background: var(--cobalt);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .brand-name { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .brand-ver { font-size: 10px; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+  .header-nav { display: flex; align-items: stretch; }
+  .nav-tab {
+    display: flex; align-items: center; padding: 0 20px; font-size: 12px; font-weight: 500;
+    color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all 0.15s; height: 52px;
+  }
+  .nav-tab:hover { color: var(--text); }
+  .nav-tab.active { color: var(--cobalt2); border-bottom-color: var(--cobalt); }
+
+  .header-right { margin-left: auto; display: flex; align-items: center; padding: 0 24px; gap: 10px; }
+  .live-chip {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--green); font-family: 'DM Mono', monospace;
+    padding: 4px 10px; border: 1px solid rgba(61,255,160,0.2); border-radius: 4px;
+    background: rgba(61,255,160,0.06);
+  }
+  .live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .btn { padding: 6px 14px; font-size: 12px; font-weight: 600; border-radius: 6px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+  .btn-cobalt { background: var(--cobalt); border: none; color: #fff; }
+  .btn-cobalt:hover { background: var(--cobalt2); }
+  .btn-ghost { background: transparent; border: 1px solid var(--border2); color: var(--muted); }
+  .btn-ghost:hover { border-color: var(--cobalt); color: var(--cobalt2); }
+
+  /* Layout */
+  .layout { flex: 1; display: flex; overflow: hidden; }
+
+  /* Left panel */
+  .left-panel {
+    width: 240px; flex-shrink: 0;
+    background: var(--s1); border-right: 1px solid var(--border);
+    padding: 20px 0; display: flex; flex-direction: column; gap: 20px;
+  }
+  .lp-section { padding: 0 16px; }
+  .lp-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .lp-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 10px; border-radius: 6px; cursor: pointer;
+    font-size: 12px; font-weight: 500; color: var(--muted);
+    transition: all 0.15s;
+  }
+  .lp-item:hover { background: var(--s2); color: var(--text); }
+  .lp-item.active { background: var(--cobalt-d); color: var(--cobalt2); border: 1px solid rgba(77,143,255,0.15); }
+  .lp-count { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); }
+  .lp-item.active .lp-count { color: var(--cobalt); }
+
+  .upload-area {
+    margin: 0 16px; padding: 14px;
+    border: 1px dashed var(--border2); border-radius: 8px;
+    background: var(--s2); cursor: pointer;
+    transition: all 0.2s; text-align: center;
+  }
+  .upload-area:hover { border-color: var(--cobalt); background: var(--cobalt-d); }
+  .upload-icon { font-size: 20px; margin-bottom: 6px; color: var(--muted); }
+  .upload-text { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .upload-link { color: var(--cobalt2); }
+
+  /* Content */
+  .content { flex: 1; padding: 22px 24px; overflow: auto; }
+  .content-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .content-title { font-size: 20px; font-weight: 700; letter-spacing: -0.4px; }
+  .filter-strip { display: flex; gap: 6px; }
+  .filter-chip {
+    font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 20px;
+    color: var(--cobalt2); background: var(--cobalt-d); border: 1px solid rgba(77,143,255,0.2);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .filter-chip:hover { background: rgba(77,143,255,0.15); }
+
+  /* Table */
+  .panel { background: var(--s1); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .panel-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 18px; border-bottom: 1px solid var(--border);
+    background: var(--s2);
+  }
+  .panel-title { font-size: 12px; font-weight: 700; letter-spacing: 0.3px; }
+  .panel-meta { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; }
+  .group-row th {
+    padding: 6px 14px; font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 3px;
+    text-transform: uppercase; text-align: center; border-right: 1px solid var(--border);
+  }
+  .group-row th:nth-child(1) { background: rgba(77,143,255,0.1); color: var(--cobalt2); }
+  .group-row th:nth-child(2) { background: rgba(61,255,160,0.06); color: var(--green); }
+  .group-row th:nth-child(3) { background: rgba(255,180,50,0.06); color: #FFCA7A; }
+  .group-row th:nth-child(4) { background: rgba(255,90,106,0.06); color: #FF9AA4; }
+  .group-row th:nth-child(5) { background: rgba(168,212,255,0.06); color: var(--ice); }
+
+  .col-row th {
+    padding: 8px 14px; font-size: 11px; font-weight: 600; text-align: left;
+    background: var(--s2); color: var(--muted); border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border); white-space: nowrap;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .col-row th:hover { color: var(--cobalt2); background: var(--s3); }
+  .filter-row th { padding: 4px 5px; background: var(--bg); border-bottom: 1px solid var(--border2); border-right: 1px solid var(--border); }
+  .fi {
+    display: flex; gap: 2px; align-items: center;
+  }
+  .op { background: var(--s2); border: 1px solid var(--border); border-radius: 4px; font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); padding: 3px 4px; cursor: pointer; outline: none; }
+  .op:focus { border-color: var(--cobalt); }
+  .filter-input {
+    flex: 1; padding: 3px 7px; background: var(--s2); border: 1px solid var(--border);
+    border-radius: 4px; font-family: 'DM Mono', monospace; font-size: 10px;
+    color: var(--text); outline: none; transition: border-color 0.15s; min-width: 0;
+  }
+  .filter-input:focus { border-color: var(--cobalt); }
+  .filter-input::placeholder { color: var(--muted); opacity: 0.4; }
+
+  tbody tr:hover td { background: var(--s3) !important; }
+  td {
+    padding: 8px 14px; font-family: 'DM Mono', monospace; font-size: 11px;
+    color: var(--text); border-bottom: 1px solid var(--border);
+    border-right: 1px solid rgba(255,255,255,0.02); white-space: nowrap;
+  }
+  tr:nth-child(odd) td { background: rgba(255,255,255,0.01); }
+  .c-cobalt { color: var(--cobalt2); }
+  .c-green { color: var(--green); }
+  .c-match { color: var(--cobalt2); font-weight: 600; text-shadow: 0 0 10px rgba(77,143,255,0.3); }
+
+  .pagination {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 18px; border-top: 1px solid var(--border);
+  }
+  .page-info { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); }
+  .page-btns { display: flex; gap: 3px; }
+  .page-btn {
+    padding: 4px 10px; font-family: 'DM Mono', monospace; font-size: 11px;
+    background: transparent; border: 1px solid var(--border); border-radius: 5px;
+    color: var(--muted); cursor: pointer; transition: all 0.15s;
+  }
+  .page-btn:hover { border-color: var(--cobalt); color: var(--cobalt2); }
+  .page-btn.active { background: var(--cobalt); border-color: var(--cobalt); color: #fff; font-weight: 600; box-shadow: 0 0 12px rgba(77,143,255,0.3); }
+
+  select.page-size { background: var(--s2); border: 1px solid var(--border); border-radius: 5px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); padding: 4px 8px; outline: none; cursor: pointer; }
+  select.page-size:focus { border-color: var(--cobalt); }
+
+  .style-note {
+    position: fixed; bottom: 20px; right: 20px;
+    background: var(--s1); border: 1px solid var(--border2);
+    border-radius: 8px; padding: 12px 16px;
+    font-size: 11px; color: var(--muted); max-width: 240px; line-height: 1.6;
+  }
+  .style-note strong { color: var(--cobalt2); font-size: 13px; display: block; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-brand">
+    <div class="brand-icon"></div>
+    <div>
+      <div class="brand-name">DataViewer</div>
+      <div class="brand-ver">v2.0.0</div>
+    </div>
+  </div>
+  <nav class="header-nav">
+    <div class="nav-tab active">Data</div>
+    <div class="nav-tab">Upload</div>
+    <div class="nav-tab">Database</div>
+    <div class="nav-tab">Instellingen</div>
+  </nav>
+  <div class="header-right">
+    <span class="live-chip"><span class="live-dot"></span>Live</span>
+    <button class="btn btn-ghost">Wissen</button>
+    <button class="btn btn-cobalt">Bestand laden</button>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="left-panel">
+    <div class="lp-section">
+      <div class="lp-label">Gegevenssets</div>
+      <div class="lp-item active"><span>Roofvogels</span><span class="lp-count">100</span></div>
+      <div class="lp-item"><span>Dieren</span><span class="lp-count">48</span></div>
+      <div class="lp-item"><span>Slangen</span><span class="lp-count">36</span></div>
+    </div>
+    <div class="lp-section">
+      <div class="lp-label">Bestand uploaden</div>
+      <div class="upload-area">
+        <div class="upload-icon">↓</div>
+        <div class="upload-text">Sleep hierheen of <span class="upload-link">blader</span><br>XML · JSON · CSV · YAML</div>
+      </div>
+    </div>
+    <div class="lp-section">
+      <div class="lp-label">Actieve filters</div>
+      <div style="font-size:11px;color:var(--muted);font-style:italic">Geen actieve filters</div>
+    </div>
+  </aside>
+
+  <div class="content">
+    <div class="content-top">
+      <div>
+        <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--cobalt);margin-bottom:5px">Stijl 04 · Steel Cobalt</div>
+        <div class="content-title">Roofvogel Overzicht</div>
+      </div>
+      <div class="filter-strip">
+        <span class="filter-chip">DM Sans + DM Mono</span>
+        <span class="filter-chip">Staal blauw accent</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-top">
+        <span class="panel-title">Tabel</span>
+        <span class="panel-meta">100 rijen · pagina 1/20</span>
+      </div>
+      <table>
+        <tr class="group-row">
+          <th colspan="2">Roofvogel</th>
+          <th colspan="2">Dier</th>
+          <th>Functies</th>
+          <th colspan="3">Kip</th>
+          <th colspan="2">Slang</th>
+        </tr>
+        <tr class="col-row">
+          <th>ID ↕</th><th>Naam ↕</th>
+          <th>ID ↕</th><th>Naam ↕</th>
+          <th>Functies</th>
+          <th>Naam ↕</th><th>Slang ID ↕</th><th>ID ↕</th>
+          <th>ID ↕</th><th>Naam ↕</th>
+        </tr>
+        <tr class="filter-row">
+          <th><div class="fi"><select class="op"><option>=</option><option>≠</option><option>~</option></select><input class="filter-input" placeholder="…"></div></th>
+          <th><div class="fi"><select class="op"><option>=</option><option>≠</option><option>~</option></select><input class="filter-input" placeholder="…"></div></th>
+          <th><div class="fi"><select class="op"><option>=</option><option>≠</option><option>~</option></select><input class="filter-input" placeholder="…"></div></th>
+          <th><div class="fi"><select class="op"><option>=</option><option>≠</option><option>~</option></select><input class="filter-input" placeholder="…"></div></th>
+          <th><input class="filter-input" placeholder="…" style="width:100%"></th>
+          <th><div class="fi"><select class="op"><option>=</option><option>≠</option><option>~</option></select><input class="filter-input" placeholder="…"></div></th>
+          <th><input class="filter-input" placeholder="…" style="width:100%"></th>
+          <th><input class="filter-input" placeholder="…" style="width:100%"></th>
+          <th><input class="filter-input" placeholder="…" style="width:100%"></th>
+          <th><div class="fi"><select class="op"><option>=</option><option>≠</option><option>~</option></select><input class="filter-input" placeholder="…"></div></th>
+        </tr>
+        <tbody>
+          <tr><td class="c-cobalt">1</td><td class="c-cobalt">Arend</td><td>101</td><td>Leeuw</td><td>Jager, Wacht</td><td>Stip</td><td>9</td><td>9</td><td>9</td><td class="c-match">Cobra</td></tr>
+          <tr><td class="c-cobalt">1</td><td class="c-cobalt">Arend</td><td>101</td><td>Leeuw</td><td>Jager</td><td>Dot</td><td>12</td><td>12</td><td>12</td><td>Adder</td></tr>
+          <tr><td class="c-cobalt">2</td><td class="c-cobalt">Valk</td><td>102</td><td>Tijger</td><td>Bewaker</td><td>Flits</td><td>7</td><td>7</td><td>7</td><td class="c-green">Python</td></tr>
+          <tr><td class="c-cobalt">2</td><td class="c-cobalt">Valk</td><td>103</td><td>Wolf</td><td>Scout</td><td>Nova</td><td>4</td><td>4</td><td>4</td><td>Mamba</td></tr>
+          <tr><td class="c-cobalt">3</td><td class="c-cobalt">Uil</td><td>104</td><td>Beer</td><td>Nacht</td><td>Storm</td><td>2</td><td>2</td><td>2</td><td>Boa</td></tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="page-info">1–5 van 100</span>
+          <select class="page-size">
+            <option>10</option><option selected>20</option><option>25</option><option>50</option>
+          </select>
+          <span style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace">per pagina</span>
+        </div>
+        <div class="page-btns">
+          <button class="page-btn">‹</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <span style="color:var(--muted);padding:0 4px">…</span>
+          <button class="page-btn">20</button>
+          <button class="page-btn">›</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="style-note">
+  <strong>Steel Cobalt</strong>
+  DM Sans + DM Mono · Staal blauw (#4D8FFF) · Linker detail-panel · Operator dropdowns · Professioneel dashboard
+</div>
+
+</body>
+</html>

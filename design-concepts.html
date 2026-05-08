@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metadata Dashboard — 5 Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0E0E0E;
+    --surface: #181818;
+    --surface2: #222;
+    --border: #2a2a2a;
+    --coral: #FF5A35;
+    --coral-dim: rgba(255,90,53,0.12);
+    --coral-glow: rgba(255,90,53,0.3);
+    --text: #E8E4DF;
+    --muted: #6b6560;
+    --subtle: #3a3530;
+  }
+
+  body {
+    background: #111;
+    color: var(--text);
+    font-family: 'Roboto Mono', monospace;
+    padding: 40px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+  }
+
+  .page-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  /* ─── CONCEPT WRAPPER ─────────────────────────────────── */
+  .concept {
+    max-width: 780px;
+  }
+
+  .concept-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .concept-tag::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .concept-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .concept-desc {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     CONCEPT 1 — STAT GRID (Large numbers, card grid)
+  ══════════════════════════════════════════════════════════ */
+  .c1-wrap {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px;
+  }
+
+  .c1-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .c1-filename {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .c1-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+  }
+
+  .c1-meta-line {
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .c1-meta-line span {
+    color: var(--text);
+  }
+
+  .c1-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .c1-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .c1-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--coral);
+    opacity: 0.4;
+  }
+
+  .c1-card.primary::before { opacity: 1; }
+
+  .c1-card-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .c1-card-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .c1-card.primary .c1-card-number { color: var(--coral); }
+
+  .c1-card-sub {
+    font-size: 9px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .c1-types {
+    display: flex;
+    gap: 8px;
+  }
+
+  .c1-type-chip {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 8px 12px;
+    font-size: 10px;
+  }
+
+  .c1-type-chip-label { color: var(--muted); margin-bottom: 3px; }
+  .c1-type-chip-val { color: var(--text); font-weight: 500; }
+
+  /* ══════════════════════════════════════════════════════════
+     CONCEPT 2 — TERMINAL LOG (CLI-style readout)
+  ══════════════════════════════════════════════════════════ */
+  .c2-wrap {
+    background: #0a0a0a;
+    border: 1px solid #1e1e1e;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .c2-titlebar {
+    background: #161616;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #1e1e1e;
+  }
+
+  .c2-dots { display: flex; gap: 6px; }
+  .c2-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .c2-dot.r { background: #ff5f57; }
+  .c2-dot.y { background: #ffbd2e; }
+  .c2-dot.g { background: #28c840; }
+
+  .c2-titlebar-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-left: 8px;
+  }
+
+  .c2-body {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .c2-line {
+    font-size: 12px;
+    line-height: 1.8;
+    display: flex;
+    gap: 0;
+  }
+
+  .c2-prompt { color: var(--coral); margin-right: 8px; }
+  .c2-key { color: #7fba8a; min-width: 160px; }
+  .c2-val { color: var(--text); }
+  .c2-val.sha { color: #8ab4f8; letter-spacing: 0.05em; }
+  .c2-val.num { color: #f9c74f; }
+  .c2-spacer { height: 12px; }
+
+  .c2-section-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-top: 6px;
+    margin-bottom: 4px;
+    padding-left: 18px;
+  }
+
+  .c2-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 18px;
+    margin: 3px 0;
+  }
+
+  .c2-bar-label { font-size: 11px; color: #7fba8a; min-width: 120px; }
+  .c2-bar-track { flex: 1; height: 6px; background: #1e1e1e; border-radius: 2px; }
+  .c2-bar-fill { height: 100%; background: var(--coral); border-radius: 2px; opacity: 0.7; }
+  .c2-bar-num { font-size: 11px; color: #f9c74f; min-width: 60px; text-align: right; }
+
+  /* ══════════════════════════════════════════════════════════
+     CONCEPT 3 — HIERARCHY TREE (Visual entity tree)
+  ══════════════════════════════════════════════════════════ */
+  .c3-wrap {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px;
+  }
+
+  .c3-top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  .c3-file-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--coral-dim);
+    border: 1px solid var(--coral-glow);
+    border-radius: 3px;
+    padding: 10px 16px;
+  }
+
+  .c3-file-icon {
+    width: 28px;
+    height: 34px;
+    background: var(--coral);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    color: #0E0E0E;
+    letter-spacing: 0;
+    flex-shrink: 0;
+  }
+
+  .c3-file-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .c3-file-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+  .c3-info-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: right;
+  }
+
+  .c3-info-row { font-size: 10px; color: var(--muted); }
+  .c3-info-row em { font-style: normal; color: var(--text); }
+
+  .c3-tree {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .c3-tree-node {
+    display: flex;
+    align-items: stretch;
+    min-height: 44px;
+  }
+
+  .c3-tree-indent { width: 28px; flex-shrink: 0; position: relative; }
+  .c3-tree-indent::before {
+    content: '';
+    position: absolute;
+    left: 12px; top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .c3-tree-indent::after {
+    content: '';
+    position: absolute;
+    left: 12px; top: 50%;
+    width: 12px; height: 1px;
+    background: var(--border);
+  }
+
+  .c3-tree-node.root > .c3-tree-indent::before { display: none; }
+  .c3-tree-node.root > .c3-tree-indent::after { display: none; }
+
+  .c3-node-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0 8px 4px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .c3-node-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  .c3-node-dot.active { background: var(--coral); box-shadow: 0 0 6px var(--coral-glow); }
+
+  .c3-node-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    flex: 1;
+  }
+
+  .c3-node-count {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .c3-node-count strong {
+    color: var(--coral);
+    font-weight: 500;
+  }
+
+  .c3-node-bar {
+    width: 80px;
+    height: 3px;
+    background: var(--surface2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .c3-node-bar-fill {
+    height: 100%;
+    background: var(--coral);
+    opacity: 0.6;
+    border-radius: 2px;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     CONCEPT 4 — SPLIT PANEL (Two-column: meta left, viz right)
+  ══════════════════════════════════════════════════════════ */
+  .c4-wrap {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 260px;
+    overflow: hidden;
+  }
+
+  .c4-left {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .c4-kicker {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--coral);
+  }
+
+  .c4-fname {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .c4-attrs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+  }
+
+  .c4-attr { display: flex; flex-direction: column; gap: 2px; }
+  .c4-attr-key { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.15em; }
+  .c4-attr-val { font-size: 11px; color: var(--text); }
+
+  .c4-right {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .c4-right-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .c4-entities {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .c4-entity-row { display: flex; align-items: center; gap: 12px; }
+
+  .c4-entity-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 80px;
+  }
+
+  .c4-entity-track {
+    flex: 1;
+    height: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .c4-entity-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--coral) 0%, rgba(255,90,53,0.4) 100%);
+  }
+
+  .c4-entity-label {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: var(--text);
+  }
+
+  .c4-entity-num { font-size: 11px; color: var(--muted); min-width: 72px; text-align: right; }
+
+  /* ══════════════════════════════════════════════════════════
+     CONCEPT 5 — EDITORIAL STRIP (Magazine-style horizontal band)
+  ══════════════════════════════════════════════════════════ */
+  .c5-wrap {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .c5-hero {
+    background: var(--coral);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .c5-hero-left {}
+
+  .c5-hero-label {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.5);
+    margin-bottom: 4px;
+  }
+
+  .c5-hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #0E0E0E;
+    line-height: 1;
+  }
+
+  .c5-hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    text-align: right;
+  }
+
+  .c5-hero-meta {
+    font-size: 10px;
+    color: rgba(0,0,0,0.55);
+  }
+
+  .c5-hero-meta strong { color: rgba(0,0,0,0.85); }
+
+  .c5-stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .c5-stat {
+    padding: 18px 20px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+
+  .c5-stat:last-child { border-right: none; }
+
+  .c5-stat-n {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .c5-stat-n sup {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--coral);
+    vertical-align: super;
+  }
+
+  .c5-stat-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+  }
+
+  .c5-types-row {
+    display: flex;
+    gap: 0;
+    border-top: 0;
+  }
+
+  .c5-type-block {
+    flex: 1;
+    padding: 14px 20px;
+    border-right: 1px solid var(--border);
+  }
+
+  .c5-type-block:last-child { border-right: none; }
+
+  .c5-type-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+
+  .c5-type-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .c5-type-tag {
+    font-size: 9px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 2px 6px;
+    color: var(--muted);
+  }
+
+  .c5-type-tag.coral {
+    background: var(--coral-dim);
+    border-color: var(--coral-glow);
+    color: var(--coral);
+  }
+</style>
+</head>
+<body>
+
+<!-- ───────────────────────────────────────────────────── -->
+<div class="concept">
+  <div class="concept-tag">Concept 1</div>
+  <div class="concept-name">Stat Grid</div>
+  <div class="concept-desc">Grote getallen, compacte kaarten per entiteit. Bestandsinfo boven in de header strip. Vier primaire metrics bovenaan, entiteitstypen als chips eronder.</div>
+
+  <div class="c1-wrap">
+    <div class="c1-header">
+      <div>
+        <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Bestand</div>
+        <div class="c1-filename">Roofvogels_2025</div>
+      </div>
+      <div class="c1-meta">
+        <div class="c1-meta-line">Aangemaakt <span>12 apr 2025</span></div>
+        <div class="c1-meta-line">Git SHA <span style="color:var(--coral)">a3f9c2b</span></div>
+        <div class="c1-meta-line">Formaat <span>XML</span></div>
+      </div>
+    </div>
+
+    <div class="c1-grid">
+      <div class="c1-card primary">
+        <div class="c1-card-label">Roofvogels</div>
+        <div class="c1-card-number">660</div>
+        <div class="c1-card-sub">hoofd-entiteit</div>
+      </div>
+      <div class="c1-card">
+        <div class="c1-card-label">Dieren</div>
+        <div class="c1-card-number">39.6K</div>
+        <div class="c1-card-sub">× 60 per rv</div>
+      </div>
+      <div class="c1-card">
+        <div class="c1-card-label">Kippen</div>
+        <div class="c1-card-number">3.56M</div>
+        <div class="c1-card-sub">× 90 per dier</div>
+      </div>
+      <div class="c1-card">
+        <div class="c1-card-label">Slangen</div>
+        <div class="c1-card-number">0</div>
+        <div class="c1-card-sub">geen data</div>
+      </div>
+    </div>
+
+    <div class="c1-types">
+      <div class="c1-type-chip">
+        <div class="c1-type-chip-label">Entiteitstypes</div>
+        <div class="c1-type-chip-val">4 gedefinieerd</div>
+      </div>
+      <div class="c1-type-chip">
+        <div class="c1-type-chip-label">Velden totaal</div>
+        <div class="c1-type-chip-val">38 kolommen</div>
+      </div>
+      <div class="c1-type-chip">
+        <div class="c1-type-chip-label">Beschrijving</div>
+        <div class="c1-type-chip-val">Jaaroverzicht monitoring</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────────────────────────────────────────── -->
+<div class="concept">
+  <div class="concept-tag">Concept 2</div>
+  <div class="concept-name">Terminal Log</div>
+  <div class="concept-desc">CLI-stijl output window. Groene keys, gele getallen, blauwe SHA. Horizontale balken voor entiteitsverdeling. Voelt als een developer-tool.</div>
+
+  <div class="c2-wrap">
+    <div class="c2-titlebar">
+      <div class="c2-dots">
+        <div class="c2-dot r"></div>
+        <div class="c2-dot y"></div>
+        <div class="c2-dot g"></div>
+      </div>
+      <div class="c2-titlebar-label">metadata — roofvogels_2025.xml</div>
+    </div>
+    <div class="c2-body">
+      <div class="c2-line"><span class="c2-prompt">$</span><span class="c2-key">bestand</span><span class="c2-val">roofvogels_2025.xml</span></div>
+      <div class="c2-line"><span class="c2-prompt">$</span><span class="c2-key">aangemaakt</span><span class="c2-val">2025-04-12T08:30:00Z</span></div>
+      <div class="c2-line"><span class="c2-prompt">$</span><span class="c2-key">git_sha</span><span class="c2-val sha">a3f9c2b1d4e7f0</span></div>
+      <div class="c2-line"><span class="c2-prompt">$</span><span class="c2-key">beschrijving</span><span class="c2-val">Jaaroverzicht monitoring 2025</span></div>
+      <div class="c2-spacer"></div>
+      <div class="c2-section-label">// entiteiten</div>
+      <div class="c2-bar-row">
+        <span class="c2-bar-label">roofvogels</span>
+        <div class="c2-bar-track"><div class="c2-bar-fill" style="width:5%"></div></div>
+        <span class="c2-bar-num">660</span>
+      </div>
+      <div class="c2-bar-row">
+        <span class="c2-bar-label">dieren</span>
+        <div class="c2-bar-track"><div class="c2-bar-fill" style="width:18%"></div></div>
+        <span class="c2-bar-num">39.600</span>
+      </div>
+      <div class="c2-bar-row">
+        <span class="c2-bar-label">kippen</span>
+        <div class="c2-bar-track"><div class="c2-bar-fill" style="width:100%"></div></div>
+        <span class="c2-bar-num">3.564.000</span>
+      </div>
+      <div class="c2-bar-row">
+        <span class="c2-bar-label">slangen</span>
+        <div class="c2-bar-track"><div class="c2-bar-fill" style="width:0%"></div></div>
+        <span class="c2-bar-num">0</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────────────────────────────────────────── -->
+<div class="concept">
+  <div class="concept-tag">Concept 3</div>
+  <div class="concept-name">Hiërarchie Boom</div>
+  <div class="concept-desc">Visuele boomstructuur die de nesting van entiteiten toont (rv → dier → kip/slang). Bestandsinfo bovenin als badge. Elke node toont een mini-balk + count.</div>
+
+  <div class="c3-wrap">
+    <div class="c3-top">
+      <div class="c3-file-badge">
+        <div class="c3-file-icon">XML</div>
+        <div>
+          <div class="c3-file-name">Roofvogels_2025</div>
+          <div class="c3-file-sub">Jaaroverzicht monitoring 2025</div>
+        </div>
+      </div>
+      <div class="c3-info-stack">
+        <div class="c3-info-row">Aangemaakt <em>12 apr 2025</em></div>
+        <div class="c3-info-row">Git SHA <em style="color:var(--coral)">a3f9c2b</em></div>
+        <div class="c3-info-row">Formaat <em>XML</em></div>
+      </div>
+    </div>
+
+    <div class="c3-tree">
+      <div class="c3-tree-node root">
+        <div class="c3-tree-indent" style="width:0"></div>
+        <div class="c3-node-body">
+          <div class="c3-node-dot active"></div>
+          <div class="c3-node-name">Roofvogels</div>
+          <div class="c3-node-count"><strong>660</strong> records</div>
+          <div class="c3-node-bar"><div class="c3-node-bar-fill" style="width:5%"></div></div>
+        </div>
+      </div>
+      <div class="c3-tree-node">
+        <div class="c3-tree-indent"></div>
+        <div class="c3-node-body">
+          <div class="c3-node-dot active"></div>
+          <div class="c3-node-name">Dieren</div>
+          <div class="c3-node-count"><strong>39.600</strong> records</div>
+          <div class="c3-node-bar"><div class="c3-node-bar-fill" style="width:18%"></div></div>
+        </div>
+      </div>
+      <div class="c3-tree-node">
+        <div class="c3-tree-indent"></div>
+        <div class="c3-tree-indent"></div>
+        <div class="c3-node-body">
+          <div class="c3-node-dot active"></div>
+          <div class="c3-node-name">Kippen</div>
+          <div class="c3-node-count"><strong>3.564.000</strong> records</div>
+          <div class="c3-node-bar"><div class="c3-node-bar-fill" style="width:100%"></div></div>
+        </div>
+      </div>
+      <div class="c3-tree-node">
+        <div class="c3-tree-indent"></div>
+        <div class="c3-tree-indent"></div>
+        <div class="c3-node-body">
+          <div class="c3-node-dot"></div>
+          <div class="c3-node-name" style="color:var(--muted)">Slangen</div>
+          <div class="c3-node-count" style="color:var(--subtle)">geen data</div>
+          <div class="c3-node-bar"><div class="c3-node-bar-fill" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────────────────────────────────────────── -->
+<div class="concept">
+  <div class="concept-tag">Concept 4</div>
+  <div class="concept-name">Split Panel</div>
+  <div class="concept-desc">Twee kolommen: links de bestandsmeta (naam, datum, SHA), rechts horizontale balken per entiteit. Vergelijkbaar met een detail-view in een file manager.</div>
+
+  <div class="c4-wrap">
+    <div class="c4-left">
+      <div class="c4-kicker">Bestandsinfo</div>
+      <div class="c4-fname">Roofvogels<br>2025</div>
+      <div class="c4-attrs">
+        <div class="c4-attr">
+          <span class="c4-attr-key">Aangemaakt</span>
+          <span class="c4-attr-val">12 apr 2025</span>
+        </div>
+        <div class="c4-attr">
+          <span class="c4-attr-key">Git SHA</span>
+          <span class="c4-attr-val" style="color:var(--coral)">a3f9c2b</span>
+        </div>
+        <div class="c4-attr">
+          <span class="c4-attr-key">Beschrijving</span>
+          <span class="c4-attr-val">Jaaroverzicht monitoring 2025</span>
+        </div>
+        <div class="c4-attr">
+          <span class="c4-attr-key">Formaat</span>
+          <span class="c4-attr-val">XML</span>
+        </div>
+      </div>
+    </div>
+    <div class="c4-right">
+      <div class="c4-right-title">Entiteiten</div>
+      <div class="c4-entities">
+        <div class="c4-entity-row">
+          <div class="c4-entity-name">Roofvogels</div>
+          <div class="c4-entity-track">
+            <div class="c4-entity-fill" style="width:5%"></div>
+            <div class="c4-entity-label">660</div>
+          </div>
+          <div class="c4-entity-num">660 rv</div>
+        </div>
+        <div class="c4-entity-row">
+          <div class="c4-entity-name">Dieren</div>
+          <div class="c4-entity-track">
+            <div class="c4-entity-fill" style="width:18%"></div>
+            <div class="c4-entity-label">39.600</div>
+          </div>
+          <div class="c4-entity-num">39.600 d</div>
+        </div>
+        <div class="c4-entity-row">
+          <div class="c4-entity-name">Kippen</div>
+          <div class="c4-entity-track">
+            <div class="c4-entity-fill" style="width:100%"></div>
+            <div class="c4-entity-label">3.564.000</div>
+          </div>
+          <div class="c4-entity-num">3.56M k</div>
+        </div>
+        <div class="c4-entity-row">
+          <div class="c4-entity-name" style="color:var(--muted)">Slangen</div>
+          <div class="c4-entity-track">
+            <div class="c4-entity-fill" style="width:0%"></div>
+            <div class="c4-entity-label" style="color:var(--muted)">—</div>
+          </div>
+          <div class="c4-entity-num" style="color:var(--subtle)">geen data</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────────────────────────────────────────── -->
+<div class="concept">
+  <div class="concept-tag">Concept 5</div>
+  <div class="concept-name">Editorial Strip</div>
+  <div class="concept-desc">Coral-gekleurde hero-banner bovenin met bestandsnaam en datum. Eronder een statistiekenrij met grote nummers. Onderaan een veldtype-overzicht per entiteit als tag-clouds.</div>
+
+  <div class="c5-wrap">
+    <div class="c5-hero">
+      <div class="c5-hero-left">
+        <div class="c5-hero-label">Actief bestand</div>
+        <div class="c5-hero-name">Roofvogels_2025</div>
+      </div>
+      <div class="c5-hero-right">
+        <div class="c5-hero-meta">Aangemaakt <strong>12 apr 2025</strong></div>
+        <div class="c5-hero-meta">Git SHA <strong>a3f9c2b</strong></div>
+        <div class="c5-hero-meta">XML — Jaaroverzicht monitoring</div>
+      </div>
+    </div>
+
+    <div class="c5-stats-row">
+      <div class="c5-stat">
+        <div class="c5-stat-n">660</div>
+        <div class="c5-stat-label">Roofvogels</div>
+      </div>
+      <div class="c5-stat">
+        <div class="c5-stat-n">39<sup>K</sup></div>
+        <div class="c5-stat-label">Dieren</div>
+      </div>
+      <div class="c5-stat">
+        <div class="c5-stat-n">3.5<sup>M</sup></div>
+        <div class="c5-stat-label">Kippen</div>
+      </div>
+      <div class="c5-stat">
+        <div class="c5-stat-n" style="color:var(--muted)">—</div>
+        <div class="c5-stat-label">Slangen</div>
+      </div>
+    </div>
+
+    <div class="c5-types-row">
+      <div class="c5-type-block">
+        <div class="c5-type-name">Roofvogel</div>
+        <div class="c5-type-fields">
+          <span class="c5-type-tag coral">naam</span>
+          <span class="c5-type-tag">soort</span>
+          <span class="c5-type-tag">leeftijd</span>
+          <span class="c5-type-tag">locatie</span>
+        </div>
+      </div>
+      <div class="c5-type-block">
+        <div class="c5-type-name">Dier</div>
+        <div class="c5-type-fields">
+          <span class="c5-type-tag coral">naam</span>
+          <span class="c5-type-tag">gewicht</span>
+          <span class="c5-type-tag">kleur</span>
+        </div>
+      </div>
+      <div class="c5-type-block">
+        <div class="c5-type-name">Kip</div>
+        <div class="c5-type-fields">
+          <span class="c5-type-tag coral">kipId</span>
+          <span class="c5-type-tag">ras</span>
+          <span class="c5-type-tag">eieren</span>
+        </div>
+      </div>
+      <div class="c5-type-block">
+        <div class="c5-type-name" style="color:var(--subtle)">Slang</div>
+        <div class="c5-type-fields">
+          <span class="c5-type-tag" style="opacity:.4">slangId</span>
+          <span class="c5-type-tag" style="opacity:.4">gif</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

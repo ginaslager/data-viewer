@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Roboto+Mono:wght@300;400;500&display=swap');
+
+:root {
+  --bg:        #0E0E0E;
+  --surface:   #141414;
+  --surface-2: #1A1A1A;
+  --surface-3: #202020;
+  --border:    #242424;
+  --border-2:  #2E2E2E;
+  --text:      #F0EDE8;
+  --muted:     #585450;
+  --coral:     #FF5A35;
+  --coral-2:   #FF7A5A;
+  --coral-dim: rgba(255, 90, 53, 0.1);
+  --warm:      #FFB38A;
+  --sand:      #8A7060;
+  --grid-line: rgba(255, 255, 255, 0.012);
+}
+
+[data-theme="ivory"] {
+  --bg:        #EDEEF0;
+  --surface:   #E4E6E9;
+  --surface-2: #DADBDE;
+  --surface-3: #D4D6DA;
+  --border:    #D0D2D6;
+  --border-2:  #C4C6CA;
+  --text:      #18191C;
+  --muted:     #80838A;
+  --coral:     #E8401A;
+  --coral-2:   #FF5A35;
+  --coral-dim: rgba(232, 64, 26, 0.1);
+  --warm:      #C84A1A;
+  --sand:      #80838A;
+  --grid-line: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="slate"] {
+  --bg:        #28282A;
+  --surface:   #303032;
+  --surface-2: #383838;
+  --surface-3: #3C3C3E;
+  --border:    #3C3C3E;
+  --border-2:  #484848;
+  --text:      #D4D4D6;
+  --muted:     #888888;
+  --coral:     #FF5A35;
+  --coral-2:   #FF7A5A;
+  --coral-dim: rgba(255, 90, 53, 0.1);
+  --warm:      #FFB38A;
+  --sand:      #888888;
+  --grid-line: rgba(255, 255, 255, 0.015);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Syne', sans-serif;
+  overflow-x: hidden;
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      var(--grid-line) 0px,
+      var(--grid-line) 1px,
+      transparent 1px,
+      transparent 8px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      var(--grid-line) 0px,
+      var(--grid-line) 1px,
+      transparent 1px,
+      transparent 8px
+    );
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+::selection { background: var(--coral-dim); color: var(--coral-2); }

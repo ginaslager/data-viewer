@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grey & Light — 5+5 varianten</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #111; font-family: 'Roboto Mono', monospace; padding: 40px 28px; display: flex; flex-direction: column; gap: 48px; }
+
+  .section-title { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #444; padding-bottom: 20px; border-bottom: 1px solid #222; }
+  .group { display: flex; flex-direction: column; gap: 32px; }
+  .concept { max-width: 700px; }
+  .tag { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+  .tag::after { content: ''; flex: 1; height: 1px; background: #222; }
+  .name { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+  .desc { font-size: 10px; color: #444; margin-bottom: 14px; }
+
+  .panel { display: grid; grid-template-columns: 200px 1fr; border-radius: 5px; overflow: hidden; border: 1px solid; }
+  .pl { padding: 18px; display: flex; flex-direction: column; border-right: 1px solid; }
+  .fb { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid; }
+  .fi { width: 28px; height: 34px; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 7px; font-weight: 700; font-family: 'Roboto Mono', monospace; flex-shrink: 0; }
+  .fn { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; }
+  .fs { font-size: 9px; margin-top: 2px; }
+  .attrs { display: flex; flex-direction: column; gap: 9px; }
+  .attr { display: flex; flex-direction: column; gap: 1px; }
+  .ak { font-size: 8px; text-transform: uppercase; letter-spacing: 0.15em; }
+  .av { font-size: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pr { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .rt { font-family: 'Syne', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding-bottom: 10px; border-bottom: 1px solid; }
+  .ents { display: flex; flex-direction: column; gap: 8px; }
+  .er { display: flex; align-items: center; gap: 8px; }
+  .en { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 600; min-width: 75px; }
+  .et { flex: 1; height: 20px; border-radius: 2px; overflow: hidden; position: relative; border: 1px solid; }
+  .ef { height: 100%; }
+  .el { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 9px; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════ GREY MODE ════════════════════════════════════════════ -->
+<div class="section-title">Grey Mode — 5 varianten</div>
+<div class="group">
+
+  <!-- G1 Blue Slate (huidig) -->
+  <div class="concept">
+    <div class="tag" style="color:#7A8298">G1</div>
+    <div class="name">Blue Slate <span style="font-size:12px;color:#444;font-weight:400">(huidig)</span></div>
+    <div class="desc">Blauwgrijs — koel en zakelijk</div>
+    <div class="panel" style="background:#252830;border-color:#404658">
+      <div class="pl" style="background:#2E3240;border-right-color:#404658">
+        <div class="fb" style="border-bottom-color:#404658">
+          <div class="fi" style="background:#FF5A35;color:#fff">XML</div>
+          <div><div class="fn" style="color:#CDD4E0">Roofvogels_test</div><div class="fs" style="color:#7A8298">Jaaroverzicht 2025</div></div>
+        </div>
+        <div class="attrs">
+          <div class="attr"><span class="ak" style="color:#7A8298">Aangemaakt</span><span class="av" style="color:#CDD4E0">2025-04-12</span></div>
+          <div class="attr"><span class="ak" style="color:#7A8298">Git SHA</span><span class="av" style="color:#FF5A35">a3f9c2b1d4e7f099</span></div>
+          <div class="attr"><span class="ak" style="color:#7A8298">Formaat</span><span class="av" style="color:#CDD4E0">XML</span></div>
+        </div>
+      </div>
+      <div class="pr">
+        <div class="rt" style="color:#7A8298;border-bottom-color:#404658">Entiteiten</div>
+        <div class="ents">
+          <div class="er"><div class="en" style="color:#CDD4E0">Roofvogels</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#404658"><div class="ef" style="width:18%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#CDD4E0">3</div></div></div>
+          <div class="er"><div class="en" style="color:#CDD4E0">Dieren</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#404658"><div class="ef" style="width:58%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#CDD4E0">9</div></div></div>
+          <div class="er"><div class="en" style="color:#CDD4E0">Kippen</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#404658"><div class="ef" style="width:100%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#CDD4E0">27</div></div></div>
+          <div class="er"><div class="en" style="color:#CDD4E0">Slangen</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#404658"><div class="ef" style="width:47%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#CDD4E0">6</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- G2 Warm Graphite -->
+  <div class="concept">
+    <div class="tag" style="color:#8A8278">G2</div>
+    <div class="name">Warm Graphite</div>
+    <div class="desc">Donkergrijs met een warme bruintint — minder koud dan slate</div>
+    <div class="panel" style="background:#2A2825;border-color:#3E3A36">
+      <div class="pl" style="background:#322E2A;border-right-color:#3E3A36">
+        <div class="fb" style="border-bottom-color:#3E3A36">
+          <div class="fi" style="background:#FF5A35;color:#fff">XML</div>
+          <div><div class="fn" style="color:#D8D0C8">Roofvogels_test</div><div class="fs" style="color:#8A8278">Jaaroverzicht 2025</div></div>
+        </div>
+        <div class="attrs">
+          <div class="attr"><span class="ak" style="color:#8A8278">Aangemaakt</span><span class="av" style="color:#D8D0C8">2025-04-12</span></div>
+          <div class="attr"><span class="ak" style="color:#8A8278">Git SHA</span><span class="av" style="color:#FF5A35">a3f9c2b1d4e7f099</span></div>
+          <div class="attr"><span class="ak" style="color:#8A8278">Formaat</span><span class="av" style="color:#D8D0C8">XML</span></div>
+        </div>
+      </div>
+      <div class="pr">
+        <div class="rt" style="color:#8A8278;border-bottom-color:#3E3A36">Entiteiten</div>
+        <div class="ents">
+          <div class="er"><div class="en" style="color:#D8D0C8">Roofvogels</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#3E3A36"><div class="ef" style="width:18%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#D8D0C8">3</div></div></div>
+          <div class="er"><div class="en" style="color:#D8D0C8">Dieren</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#3E3A36"><div class="ef" style="width:58%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#D8D0C8">9</div></div></div>
+          <div class="er"><div class="en" style="color:#D8D0C8">Kippen</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#3E3A36"><div class="ef" style="width:100%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#D8D0C8">27</div></div></div>
+          <div class="er"><div class="en" style="color:#D8D0C8">Slangen</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#3E3A36"><div class="ef" style="width:47%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#D8D0C8">6</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- G3 Zinc -->
+  <div class="concept">
+    <div class="tag" style="color:#888">G3</div>
+    <div class="name">Zinc</div>
+    <div class="desc">Puur neutraal grijs zonder kleursteem — industrieel en clean</div>
+    <div class="panel" style="background:#28282A;border-color:#3C3C3E">
+      <div class="pl" style="background:#303032;border-right-color:#3C3C3E">
+        <div class="fb" style="border-bottom-color:#3C3C3E">
+          <div class="fi" style="background:#FF5A35;color:#fff">XML</div>
+          <div><div class="fn" style="color:#D4D4D6">Roofvogels_test</div><div class="fs" style="color:#888">Jaaroverzicht 2025</div></div>
+        </div>
+        <div class="attrs">
+          <div class="attr"><span class="ak" style="color:#888">Aangemaakt</span><span class="av" style="color:#D4D4D6">2025-04-12</span></div>
+          <div class="attr"><span class="ak" style="color:#888">Git SHA</span><span class="av" style="color:#FF5A35">a3f9c2b1d4e7f099</span></div>
+          <div class="attr"><span class="ak" style="color:#888">Formaat</span><span class="av" style="color:#D4D4D6">XML</span></div>
+        </div>
+      </div>
+      <div class="pr">
+        <div class="rt" style="color:#888;border-bottom-color:#3C3C3E">Entiteiten</div>
+        <div class="ents">
+          <div class="er"><div class="en" style="color:#D4D4D6">Roofvogels</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#3C3C3E"><div class="ef" style="width:18%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#D4D4D6">3</div></div></div>
+          <div class="er"><div class="en" style="color:#D4D4D6">Dieren</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#3C3C3E"><div class="ef" style="width:58%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#D4D4D6">9</div></div></div>
+          <div class="er"><div class="en" style="color:#D4D4D6">Kippen</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#3C3C3E"><div class="ef" style="width:100%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#D4D4D6">27</div></div></div>
+          <div class="er"><div class="en" style="color:#D4D4D6">Slangen</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#3C3C3E"><div class="ef" style="width:47%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#D4D4D6">6</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- G4 Forest -->
+  <div class="concept">
+    <div class="tag" style="color:#6A8070">G4</div>
+    <div class="name">Forest</div>
+    <div class="desc">Donker groenblauw — rustig en organisch</div>
+    <div class="panel" style="background:#222C28;border-color:#344038">
+      <div class="pl" style="background:#293430;border-right-color:#344038">
+        <div class="fb" style="border-bottom-color:#344038">
+          <div class="fi" style="background:#FF5A35;color:#fff">XML</div>
+          <div><div class="fn" style="color:#C8D4CC">Roofvogels_test</div><div class="fs" style="color:#6A8070">Jaaroverzicht 2025</div></div>
+        </div>
+        <div class="attrs">
+          <div class="attr"><span class="ak" style="color:#6A8070">Aangemaakt</span><span class="av" style="color:#C8D4CC">2025-04-12</span></div>
+          <div class="attr"><span class="ak" style="color:#6A8070">Git SHA</span><span class="av" style="color:#FF5A35">a3f9c2b1d4e7f099</span></div>
+          <div class="attr"><span class="ak" style="color:#6A8070">Formaat</span><span class="av" style="color:#C8D4CC">XML</span></div>
+        </div>
+      </div>
+      <div class="pr">
+        <div class="rt" style="color:#6A8070;border-bottom-color:#344038">Entiteiten</div>
+        <div class="ents">
+          <div class="er"><div class="en" style="color:#C8D4CC">Roofvogels</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#344038"><div class="ef" style="width:18%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#C8D4CC">3</div></div></div>
+          <div class="er"><div class="en" style="color:#C8D4CC">Dieren</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#344038"><div class="ef" style="width:58%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#C8D4CC">9</div></div></div>
+          <div class="er"><div class="en" style="color:#C8D4CC">Kippen</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#344038"><div class="ef" style="width:100%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#C8D4CC">27</div></div></div>
+          <div class="er"><div class="en" style="color:#C8D4CC">Slangen</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#344038"><div class="ef" style="width:47%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#C8D4CC">6</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- G5 Midnight Navy -->
+  <div class="concept">
+    <div class="tag" style="color:#6070A0">G5</div>
+    <div class="name">Midnight Navy</div>
+    <div class="desc">Diepblauw — rijker dan slate, sterker dan carbon</div>
+    <div class="panel" style="background:#1C2038;border-color:#2E3558">
+      <div class="pl" style="background:#222844;border-right-color:#2E3558">
+        <div class="fb" style="border-bottom-color:#2E3558">
+          <div class="fi" style="background:#FF5A35;color:#fff">XML</div>
+          <div><div class="fn" style="color:#C0CCE8">Roofvogels_test</div><div class="fs" style="color:#6070A0">Jaaroverzicht 2025</div></div>
+        </div>
+        <div class="attrs">
+          <div class="attr"><span class="ak" style="color:#6070A0">Aangemaakt</span><span class="av" style="color:#C0CCE8">2025-04-12</span></div>
+          <div class="attr"><span class="ak" style="color:#6070A0">Git SHA</span><span class="av" style="color:#FF5A35">a3f9c2b1d4e7f099</span></div>
+          <div class="attr"><span class="ak" style="color:#6070A0">Formaat</span><span class="av" style="color:#C0CCE8">XML</span></div>
+        </div>
+      </div>
+      <div class="pr">
+        <div class="rt" style="color:#6070A0;border-bottom-color:#2E3558">Entiteiten</div>
+        <div class="ents">
+          <div class="er"><div class="en" style="color:#C0CCE8">Roofvogels</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#2E3558"><div class="ef" style="width:18%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#C0CCE8">3</div></div></div>
+          <div class="er"><div class="en" style="color:#C0CCE8">Dieren</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#2E3558"><div class="ef" style="width:58%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#C0CCE8">9</div></div></div>
+          <div class="er"><div class="en" style="color:#C0CCE8">Kippen</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#2E3558"><div class="ef" style="width:100%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#C0CCE8">27</div></div></div>
+          <div class="er"><div class="en" style="color:#C0CCE8">Slangen</div><div class="et" style="background:rgba(0,0,0,0.2);border-color:#2E3558"><div class="ef" style="width:47%;background:linear-gradient(90deg,#FF5A35,rgba(255,90,53,.3))"></div><div class="el" style="color:#C0CCE8">6</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════ LIGHT MODE ════════════════════════════════════════════ -->
+<div class="section-title">Light Mode — 5 varianten</div>
+<div class="group">
+
+  <!-- L1 Cool Silver -->
+  <div class="concept">
+    <div class="tag" style="color:#999">L1</div>
+    <div class="name">Cool Silver</div>
+    <div class="desc">Neutraal koel grijs — geen geel, geen blauw. Strak en leesbaar.</div>
+    <div class="panel" style="background:#EDEEF0;border-color:#D4D6DA">
+      <div class="pl" style="background:#E4E6E9;border-right-color:#D4D6DA">
+        <div class="fb" style="border-bottom-color:#D4D6DA">
+          <div class="fi" style="background:#E8401A;color:#fff">XML</div>
+          <div><div class="fn" style="color:#18191C">Roofvogels_test</div><div class="fs" style="color:#80838A">Jaaroverzicht 2025</div></div>
+        </div>
+        <div class="attrs">
+          <div class="attr"><span class="ak" style="color:#80838A">Aangemaakt</span><span class="av" style="color:#18191C">2025-04-12</span></div>
+          <div class="attr"><span class="ak" style="color:#80838A">Git SHA</span><span class="av" style="color:#E8401A">a3f9c2b1d4e7f099</span></div>
+          <div class="attr"><span class="ak" style="color:#80838A">Formaat</span><span class="av" style="color:#18191C">XML</span></div>
+        </div>
+      </div>
+      <div class="pr">
+        <div class="rt" style="color:#80838A;border-bottom-color:#D4D6DA">Entiteiten</div>
+        <div class="ents">
+          <div class="er"><div class="en" style="color:#18191C">Roofvogels</div><div class="et" style="background:#fff;border-color:#D4D6DA"><div class="ef" style="width:18%;background:linear-gradient(90deg,#E8401A,rgba(232,64,26,.25))"></div><div class="el" style="color:#18191C">3</div></div></div>
+          <div class="er"><div class="en" style="color:#18191C">Dieren</div><div class="et" style="background:#fff;border-color:#D4D6DA"><div class="ef" style="width:58%;background:linear-gradient(90deg,#E8401A,rgba(232,64,26,.25))"></div><div class="el" style="color:#18191C">9</div></div></div>
+          <div class="er"><div class="en" style="color:#18191C">Kippen</div><div class="et" style="background:#fff;border-color:#D4D6DA"><div class="ef" style="width:100%;background:linear-gradient(90deg,#E8401A,rgba(232,64,26,.25))"></div><div class="el" style="color:#18191C">27</div></div></div>
+          <div class="er"><div class="en" style="color:#18191C">Slangen</div><div class="et" style="background:#fff;border-color:#D4D6DA"><div class="ef" style="width:47%;background:linear-gradient(90deg,#E8401A,rgba(232,64,26,.25))"></div><div class="el" style="color:#18191C">6</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L2 Nordic Blue (huidig) -->
+  <div class="concept">
+    <div class="tag" style="color:#7A8498">L2</div>
+    <div class="name">Nordic Blue <span style="font-size:12px;color:#444;font-weight:400">(huidig)</span></div>
+    <div class="desc">Lichtblauw-grijs — koel en rustig</div>
+    <div class="panel" style="background:#E8EDF4;border-color:#C8D0DC">
+      <div class="pl" style="background:#DDE4EF;border-right-color:#C8D0DC">
+        <div class="fb" style="border-bottom-color:#C8D0DC">
+          <div class="fi" style="background:#E8401A;color:#fff">XML</div>
+          <div><div class="fn" style="color:#141820">Roofvogels_test</div><div class="fs" style="color:#7A8498">Jaaroverzicht 2025</div></div>
+        </div>
+        <div class="attrs">
+          <div class="attr"><span class="ak" style="color:#7A8498">Aangemaakt</span><span class="av" style="color:#141820">2025-04-12</span></div>
+          <div class="attr"><span class="ak" style="color:#7A8498">Git SHA</span><span class="av" style="color:#E8401A">a3f9c2b1d4e7f099</span></div>
+          <div class="attr"><span class="ak" style="color:#7A8498">Formaat</span><span class="av" style="color:#141820">XML</span></div>
+        </div>
+      </div>
+      <div class="pr">
+        <div class="rt" style="color:#7A8498;border-bottom-color:#C8D0DC">Entiteiten</div>
+        <div class="ents">
+          <div class="er"><div class="en" style="color:#141820">Roofvogels</div><div class="et" style="background:#F0F4FA;border-color:#C8D0DC"><div class="ef" style="width:18%;background:linear-gradient(90deg,#E8401A,rgba(232,64,26,.25))"></div><div class="el" style="color:#141820">3</div></div></div>
+          <div class="er"><div class="en" style="color:#141820">Dieren</div><div class="et" style="background:#F0F4FA;border-color:#C8D0DC"><div class="ef" style="width:58%;background:linear-gradient(90deg,#E8401A,rgba(232,64,26,.25))"></div><div class="el" style="color:#141820">9</div></div></div>
+          <div class="er"><div class="en" style="color:#141820">Kippen</div><div class="et" style="background:#F0F4FA;border-color:#C8D0DC"><div class="ef" style="width:100%;background:linear-gradient(90deg,#E8401A,rgba(232,64,26,.25))"></div><div class="el" style="color:#141820">27</div></div></div>
+          <div class="er"><div class="en" style="color:#141820">Slangen</div><div class="et" style="background:#F0F4FA;border-color:#C8D0DC"><div class="ef" style="width:47%;background:linear-gradient(90deg,#E8401A,rgba(232,64,26,.25))"></div><div class="el" style="color:#141820">6</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L3 Sage -->
+  <div class="concept">
+    <div class="tag" style="color:#78887E">L3</div>
+    <div class="name">Sage</div>
+    <div class="desc">Lichtgroen-grijs — subtiel en oogvriendelijk</div>
+    <div class="panel" style="background:#E6EBEA;border-color:#C4D0CA">
+      <div class="pl" style="background:#DCE3E1;border-right-color:#C4D0CA">
+        <div class="fb" style="border-bottom-color:#C4D0CA">
+          <div class="fi" style="background:#D43A15;color:#fff">XML</div>
+          <div><div class="fn" style="color:#141C18">Roofvogels_test</div><div class="fs" style="color:#78887E">Jaaroverzicht 2025</div></div>
+        </div>
+        <div class="attrs">
+          <div class="attr"><span class="ak" style="color:#78887E">Aangemaakt</span><span class="av" style="color:#141C18">2025-04-12</span></div>
+          <div class="attr"><span class="ak" style="color:#78887E">Git SHA</span><span class="av" style="color:#D43A15">a3f9c2b1d4e7f099</span></div>
+          <div class="attr"><span class="ak" style="color:#78887E">Formaat</span><span class="av" style="color:#141C18">XML</span></div>
+        </div>
+      </div>
+      <div class="pr">
+        <div class="rt" style="color:#78887E;border-bottom-color:#C4D0CA">Entiteiten</div>
+        <div class="ents">
+          <div class="er"><div class="en" style="color:#141C18">Roofvogels</div><div class="et" style="background:#EEF3F1;border-color:#C4D0CA"><div class="ef" style="width:18%;background:linear-gradient(90deg,#D43A15,rgba(212,58,21,.25))"></div><div class="el" style="color:#141C18">3</div></div></div>
+          <div class="er"><div class="en" style="color:#141C18">Dieren</div><div class="et" style="background:#EEF3F1;border-color:#C4D0CA"><div class="ef" style="width:58%;background:linear-gradient(90deg,#D43A15,rgba(212,58,21,.25))"></div><div class="el" style="color:#141C18">9</div></div></div>
+          <div class="er"><div class="en" style="color:#141C18">Kippen</div><div class="et" style="background:#EEF3F1;border-color:#C4D0CA"><div class="ef" style="width:100%;background:linear-gradient(90deg,#D43A15,rgba(212,58,21,.25))"></div><div class="el" style="color:#141C18">27</div></div></div>
+          <div class="er"><div class="en" style="color:#141C18">Slangen</div><div class="et" style="background:#EEF3F1;border-color:#C4D0CA"><div class="ef" style="width:47%;background:linear-gradient(90deg,#D43A15,rgba(212,58,21,.25))"></div><div class="el" style="color:#141C18">6</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L4 Paper -->
+  <div class="concept">
+    <div class="tag" style="color:#907868">L4</div>
+    <div class="name">Paper</div>
+    <div class="desc">Warm gebroken wit — zachter dan puur wit, geen fel contrast</div>
+    <div class="panel" style="background:#F0EBE4;border-color:#D8D0C4">
+      <div class="pl" style="background:#E8E2DA;border-right-color:#D8D0C4">
+        <div class="fb" style="border-bottom-color:#D8D0C4">
+          <div class="fi" style="background:#CC3810;color:#fff">XML</div>
+          <div><div class="fn" style="color:#1C1814">Roofvogels_test</div><div class="fs" style="color:#907868">Jaaroverzicht 2025</div></div>
+        </div>
+        <div class="attrs">
+          <div class="attr"><span class="ak" style="color:#907868">Aangemaakt</span><span class="av" style="color:#1C1814">2025-04-12</span></div>
+          <div class="attr"><span class="ak" style="color:#907868">Git SHA</span><span class="av" style="color:#CC3810">a3f9c2b1d4e7f099</span></div>
+          <div class="attr"><span class="ak" style="color:#907868">Formaat</span><span class="av" style="color:#1C1814">XML</span></div>
+        </div>
+      </div>
+      <div class="pr">
+        <div class="rt" style="color:#907868;border-bottom-color:#D8D0C4">Entiteiten</div>
+        <div class="ents">
+          <div class="er"><div class="en" style="color:#1C1814">Roofvogels</div><div class="et" style="background:#F8F4EE;border-color:#D8D0C4"><div class="ef" style="width:18%;background:linear-gradient(90deg,#CC3810,rgba(204,56,16,.25))"></div><div class="el" style="color:#1C1814">3</div></div></div>
+          <div class="er"><div class="en" style="color:#1C1814">Dieren</div><div class="et" style="background:#F8F4EE;border-color:#D8D0C4"><div class="ef" style="width:58%;background:linear-gradient(90deg,#CC3810,rgba(204,56,16,.25))"></div><div class="el" style="color:#1C1814">9</div></div></div>
+          <div class="er"><div class="en" style="color:#1C1814">Kippen</div><div class="et" style="background:#F8F4EE;border-color:#D8D0C4"><div class="ef" style="width:100%;background:linear-gradient(90deg,#CC3810,rgba(204,56,16,.25))"></div><div class="el" style="color:#1C1814">27</div></div></div>
+          <div class="er"><div class="en" style="color:#1C1814">Slangen</div><div class="et" style="background:#F8F4EE;border-color:#D8D0C4"><div class="ef" style="width:47%;background:linear-gradient(90deg,#CC3810,rgba(204,56,16,.25))"></div><div class="el" style="color:#1C1814">6</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- L5 Fog -->
+  <div class="concept">
+    <div class="tag" style="color:#8890A0">L5</div>
+    <div class="name">Fog</div>
+    <div class="desc">Heel licht blauwgrijs — bijna wit maar zachter, mist-achtig</div>
+    <div class="panel" style="background:#EEF0F4;border-color:#D0D4DC">
+      <div class="pl" style="background:#E4E8EE;border-right-color:#D0D4DC">
+        <div class="fb" style="border-bottom-color:#D0D4DC">
+          <div class="fi" style="background:#E8401A;color:#fff">XML</div>
+          <div><div class="fn" style="color:#161820">Roofvogels_test</div><div class="fs" style="color:#8890A0">Jaaroverzicht 2025</div></div>
+        </div>
+        <div class="attrs">
+          <div class="attr"><span class="ak" style="color:#8890A0">Aangemaakt</span><span class="av" style="color:#161820">2025-04-12</span></div>
+          <div class="attr"><span class="ak" style="color:#8890A0">Git SHA</span><span class="av" style="color:#E8401A">a3f9c2b1d4e7f099</span></div>
+          <div class="attr"><span class="ak" style="color:#8890A0">Formaat</span><span class="av" style="color:#161820">XML</span></div>
+        </div>
+      </div>
+      <div class="pr">
+        <div class="rt" style="color:#8890A0;border-bottom-color:#D0D4DC">Entiteiten</div>
+        <div class="ents">
+          <div class="er"><div class="en" style="color:#161820">Roofvogels</div><div class="et" style="background:#F6F8FC;border-color:#D0D4DC"><div class="ef" style="width:18%;background:linear-gradient(90deg,#E8401A,rgba(232,64,26,.25))"></div><div class="el" style="color:#161820">3</div></div></div>
+          <div class="er"><div class="en" style="color:#161820">Dieren</div><div class="et" style="background:#F6F8FC;border-color:#D0D4DC"><div class="ef" style="width:58%;background:linear-gradient(90deg,#E8401A,rgba(232,64,26,.25))"></div><div class="el" style="color:#161820">9</div></div></div>
+          <div class="er"><div class="en" style="color:#161820">Kippen</div><div class="et" style="background:#F6F8FC;border-color:#D0D4DC"><div class="ef" style="width:100%;background:linear-gradient(90deg,#E8401A,rgba(232,64,26,.25))"></div><div class="el" style="color:#161820">27</div></div></div>
+          <div class="er"><div class="en" style="color:#161820">Slangen</div><div class="et" style="background:#F6F8FC;border-color:#D0D4DC"><div class="ef" style="width:47%;background:linear-gradient(90deg,#E8401A,rgba(232,64,26,.25))"></div><div class="el" style="color:#161820">6</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

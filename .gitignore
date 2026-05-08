@@ -1,0 +1,29 @@
+# Backend build output
+backend/target/
+backend/data/
+
+# Frontend build output
+frontend/dist/
+frontend/.angular/
+
+# Node modules
+frontend/node_modules/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# macOS
+.DS_Store
+
+# Maven binary archive
+backend/apache-maven-*.tar.gz
+
+# Large sample data files
+sample-data/*_large.xml
+sample-data/roofvogels_large.xml
+
+# Logs
+*.log
+nohup.out

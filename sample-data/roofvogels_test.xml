@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<roofvogels>
+  <metadata>
+    <createDate>2025-04-12</createDate>
+    <gitSha>a3f9c2b1d4e7f099ab23cd45ef678012</gitSha>
+    <description>Jaaroverzicht monitoring 2025</description>
+    <entityCounts>
+      <totalRoofvogels>3</totalRoofvogels>
+      <totalDieren>9</totalDieren>
+      <totalKippen>27</totalKippen>
+      <totalSlangen>6</totalSlangen>
+    </entityCounts>
+  </metadata>
+  <roofvogel>
+    <id>1</id>
+    <naam>Zeearend 1</naam>
+    <slangen>
+      <slang><id>1</id><naam>Cobra 1</naam></slang>
+      <slang><id>2</id><naam>Python 2</naam></slang>
+    </slangen>
+    <dieren>
+      <dier>
+        <id>1</id><naam>Hond 1</naam>
+        <functies><functie><id>1</id><naam>Jagen</naam></functie></functies>
+        <kippen>
+          <kip><id>1</id><naam>Bo 1</naam><kipSlangId>1</kipSlangId></kip>
+          <kip><id>2</id><naam>Fien 2</naam><kipSlangId>2</kipSlangId></kip>
+          <kip><id>3</id><naam>Kees 3</naam><kipSlangId>1</kipSlangId></kip>
+        </kippen>
+      </dier>
+      <dier>
+        <id>2</id><naam>Kat 2</naam>
+        <functies><functie><id>2</id><naam>Nestelen</naam></functie></functies>
+        <kippen>
+          <kip><id>4</id><naam>Ans 4</naam><kipSlangId>2</kipSlangId></kip>
+          <kip><id>5</id><naam>Dirk 5</naam><kipSlangId>1</kipSlangId></kip>
+          <kip><id>6</id><naam>Lies 6</naam><kipSlangId>2</kipSlangId></kip>
+        </kippen>
+      </dier>
+      <dier>
+        <id>3</id><naam>Muis 3</naam>
+        <functies><functie><id>3</id><naam>Fourageren</naam></functie></functies>
+        <kippen>
+          <kip><id>7</id><naam>Piet 7</naam><kipSlangId>1</kipSlangId></kip>
+          <kip><id>8</id><naam>Marie 8</naam><kipSlangId>2</kipSlangId></kip>
+          <kip><id>9</id><naam>Jan 9</naam><kipSlangId>1</kipSlangId></kip>
+        </kippen>
+      </dier>
+    </dieren>
+  </roofvogel>
+  <roofvogel>
+    <id>2</id>
+    <naam>Buizerd 2</naam>
+    <slangen>
+      <slang><id>3</id><naam>Anaconda 3</naam></slang>
+      <slang><id>4</id><naam>Mamba 4</naam></slang>
+    </slangen>
+    <dieren>
+      <dier>
+        <id>4</id><naam>Konijn 4</naam>
+        <functies><functie><id>4</id><naam>Bewaken</naam></functie></functies>
+        <kippen>
+          <kip><id>10</id><naam>Els 10</naam><kipSlangId>3</kipSlangId></kip>
+          <kip><id>11</id><naam>Cor 11</naam><kipSlangId>4</kipSlangId></kip>
+          <kip><id>12</id><naam>Nel 12</naam><kipSlangId>3</kipSlangId></kip>
+        </kippen>
+      </dier>
+      <dier>
+        <id>5</id><naam>Haas 5</naam>
+        <functies><functie><id>5</id><naam>Patrouilleren</naam></functie></functies>
+        <kippen>
+          <kip><id>13</id><naam>Roos 13</naam><kipSlangId>4</kipSlangId></kip>
+          <kip><id>14</id><naam>Sjaak 14</naam><kipSlangId>3</kipSlangId></kip>
+          <kip><id>15</id><naam>Wim 15</naam><kipSlangId>4</kipSlangId></kip>
+        </kippen>
+      </dier>
+      <dier>
+        <id>6</id><naam>Egel 6</naam>
+        <functies><functie><id>6</id><naam>Broeden</naam></functie></functies>
+        <kippen>
+          <kip><id>16</id><naam>Lien 16</naam><kipSlangId>3</kipSlangId></kip>
+          <kip><id>17</id><naam>Ad 17</naam><kipSlangId>4</kipSlangId></kip>
+          <kip><id>18</id><naam>Jo 18</naam><kipSlangId>3</kipSlangId></kip>
+        </kippen>
+      </dier>
+    </dieren>
+  </roofvogel>
+  <roofvogel>
+    <id>3</id>
+    <naam>Havik 3</naam>
+    <slangen>
+      <slang><id>5</id><naam>Viper 5</naam></slang>
+      <slang><id>6</id><naam>Boa 6</naam></slang>
+    </slangen>
+    <dieren>
+      <dier>
+        <id>7</id><naam>Vos 7</naam>
+        <functies><functie><id>7</id><naam>Jagen</naam></functie></functies>
+        <kippen>
+          <kip><id>19</id><naam>Ben 19</naam><kipSlangId>5</kipSlangId></kip>
+          <kip><id>20</id><naam>Tom 20</naam><kipSlangId>6</kipSlangId></kip>
+          <kip><id>21</id><naam>Griet 21</naam><kipSlangId>5</kipSlangId></kip>
+        </kippen>
+      </dier>
+      <dier>
+        <id>8</id><naam>Das 8</naam>
+        <functies><functie><id>8</id><naam>Verkennen</naam></functie></functies>
+        <kippen>
+          <kip><id>22</id><naam>Henk 22</naam><kipSlangId>6</kipSlangId></kip>
+          <kip><id>23</id><naam>Ria 23</naam><kipSlangId>5</kipSlangId></kip>
+          <kip><id>24</id><naam>Bert 24</naam><kipSlangId>6</kipSlangId></kip>
+        </kippen>
+      </dier>
+      <dier>
+        <id>9</id><naam>Bunzing 9</naam>
+        <functies><functie><id>9</id><naam>Aanvallen</naam></functie></functies>
+        <kippen>
+          <kip><id>25</id><naam>Noor 25</naam><kipSlangId>5</kipSlangId></kip>
+          <kip><id>26</id><naam>Lotte 26</naam><kipSlangId>6</kipSlangId></kip>
+          <kip><id>27</id><naam>Daan 27</naam><kipSlangId>5</kipSlangId></kip>
+        </kippen>
+      </dier>
+    </dieren>
+  </roofvogel>
+</roofvogels>

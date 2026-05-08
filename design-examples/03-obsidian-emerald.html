@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03 · Obsidian Emerald</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:    #080808;
+    --s1:    #0F0F0F;
+    --s2:    #141414;
+    --s3:    #1A1A1A;
+    --border:#222222;
+    --border2:#2E2E2E;
+    --text:  #E8E8E8;
+    --muted: #555555;
+    --em:    #00C97A;
+    --em2:   #00FF9D;
+    --em-d:  rgba(0,201,122,0.08);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; min-height: 100vh; display: flex; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 56px; flex-shrink: 0;
+    background: var(--s1); border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; align-items: center;
+    padding: 20px 0; gap: 6px;
+  }
+  .sidebar-logo {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--em-d); border: 1px solid rgba(0,201,122,0.2);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .sidebar-logo span { color: var(--em); font-size: 14px; font-weight: 700; font-family: 'Fira Code', monospace; }
+  .icon-btn {
+    width: 36px; height: 36px; border-radius: 8px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); transition: all 0.15s; font-size: 14px;
+    border: 1px solid transparent;
+  }
+  .icon-btn:hover { background: var(--s2); color: var(--text); border-color: var(--border); }
+  .icon-btn.active { background: var(--em-d); color: var(--em); border-color: rgba(0,201,122,0.2); }
+
+  /* Main */
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* Topbar */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px; height: 52px;
+    border-bottom: 1px solid var(--border);
+    background: var(--s1);
+  }
+  .topbar-left { display: flex; align-items: center; gap: 24px; }
+  .app-name { font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .app-name em { color: var(--em); font-style: normal; }
+  .tab {
+    font-size: 12px; color: var(--muted); padding: 4px 0; cursor: pointer;
+    border-bottom: 2px solid transparent; transition: all 0.15s;
+    margin-top: 2px;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--em); border-bottom-color: var(--em); }
+
+  .topbar-right { display: flex; align-items: center; gap: 10px; }
+  .pill {
+    font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+    padding: 4px 10px; border-radius: 4px; text-transform: uppercase;
+  }
+  .pill-em { background: var(--em-d); color: var(--em); border: 1px solid rgba(0,201,122,0.2); }
+  .btn { padding: 6px 14px; font-size: 12px; font-weight: 600; border-radius: 6px; cursor: pointer; font-family: 'Space Grotesk', sans-serif; transition: all 0.15s; }
+  .btn-em { background: var(--em); border: none; color: #000; }
+  .btn-em:hover { background: var(--em2); }
+  .btn-ghost { background: transparent; border: 1px solid var(--border2); color: var(--muted); }
+  .btn-ghost:hover { border-color: var(--em); color: var(--em); }
+
+  /* Content */
+  .content { flex: 1; padding: 24px 28px; overflow: auto; }
+
+  .content-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
+  .content-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+  .content-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* Stats */
+  .stats { display: flex; gap: 10px; margin-bottom: 20px; }
+  .stat {
+    flex: 1; padding: 14px 16px;
+    background: var(--s1); border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .stat-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--em-d); border: 1px solid rgba(0,201,122,0.15);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--em); font-size: 14px; flex-shrink: 0;
+  }
+  .stat-label { font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+  .stat-value { font-size: 20px; font-weight: 700; color: var(--text); font-family: 'Fira Code', monospace; letter-spacing: -0.5px; }
+
+  /* Table */
+  .panel { background: var(--s1); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px; border-bottom: 1px solid var(--border);
+  }
+  .panel-title { font-size: 13px; font-weight: 600; }
+  .panel-meta { font-size: 11px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; }
+  .group-row th {
+    padding: 7px 14px; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
+    font-weight: 700; text-align: center; font-family: 'Fira Code', monospace;
+    border-right: 1px solid var(--border);
+  }
+  .group-row th:nth-child(1) { background: rgba(0,201,122,0.06); color: var(--em); }
+  .group-row th:nth-child(2) { background: rgba(100,200,255,0.04); color: #64C8FF; }
+  .group-row th:nth-child(3) { background: rgba(255,180,80,0.04); color: #FFB450; }
+  .group-row th:nth-child(4) { background: rgba(200,120,255,0.04); color: #C878FF; }
+  .group-row th:nth-child(5) { background: rgba(0,201,122,0.04); color: #7AFFE8; }
+
+  .col-row th {
+    padding: 9px 14px; font-size: 11px; font-weight: 600; text-align: left;
+    background: var(--s2); color: var(--muted);
+    border-bottom: 1px solid var(--border); border-right: 1px solid var(--border);
+    white-space: nowrap; cursor: pointer; transition: color 0.15s;
+  }
+  .col-row th:hover { color: var(--text); }
+  .filter-row th { padding: 5px 6px; background: var(--bg); border-bottom: 1px solid var(--border2); border-right: 1px solid var(--border); }
+  .filter-input {
+    width: 100%; padding: 4px 8px; background: var(--s2); border: 1px solid var(--border);
+    border-radius: 5px; font-family: 'Fira Code', monospace; font-size: 11px;
+    color: var(--text); outline: none; transition: border-color 0.15s;
+  }
+  .filter-input:focus { border-color: var(--em); background: var(--s3); }
+  .filter-input::placeholder { color: var(--muted); opacity: 0.4; }
+
+  tbody tr:hover td { background: var(--s3) !important; }
+  td {
+    padding: 9px 14px; font-family: 'Fira Code', monospace; font-size: 11px;
+    color: var(--text); border-bottom: 1px solid var(--border);
+    border-right: 1px solid rgba(255,255,255,0.02); white-space: nowrap;
+  }
+  tr:nth-child(odd) td { background: rgba(255,255,255,0.008); }
+  .c-em { color: var(--em); }
+  .c-blue { color: #64C8FF; }
+  .c-match { color: var(--em2); font-weight: 600; text-shadow: 0 0 10px rgba(0,255,157,0.3); }
+
+  .pagination {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 20px; border-top: 1px solid var(--border);
+  }
+  .page-info { font-size: 11px; color: var(--muted); font-family: 'Fira Code', monospace; }
+  .page-btns { display: flex; gap: 4px; }
+  .page-btn {
+    padding: 5px 10px; font-size: 11px; font-family: 'Fira Code', monospace;
+    background: transparent; border: 1px solid var(--border); border-radius: 6px;
+    color: var(--muted); cursor: pointer; transition: all 0.15s;
+  }
+  .page-btn:hover { border-color: var(--em); color: var(--em); }
+  .page-btn.active { background: var(--em); border-color: var(--em); color: #000; font-weight: 600; box-shadow: 0 0 12px rgba(0,201,122,0.25); }
+
+  .style-note {
+    position: fixed; bottom: 20px; right: 20px;
+    background: var(--s1); border: 1px solid var(--border2);
+    border-radius: 8px; padding: 12px 16px;
+    font-size: 11px; color: var(--muted); max-width: 240px; line-height: 1.6;
+  }
+  .style-note strong { color: var(--em); font-size: 13px; display: block; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo"><span>DV</span></div>
+  <div class="icon-btn active">◉</div>
+  <div class="icon-btn">↑</div>
+  <div class="icon-btn">⊞</div>
+  <div class="icon-btn">⚙</div>
+</nav>
+
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="app-name">Data<em>Viewer</em></div>
+      <div class="tab active">Overzicht</div>
+      <div class="tab">Upload</div>
+      <div class="tab">Database</div>
+    </div>
+    <div class="topbar-right">
+      <span class="pill pill-em">Live</span>
+      <button class="btn btn-ghost">Wissen</button>
+      <button class="btn btn-em">Laden</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="content-header">
+      <div>
+        <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--em);margin-bottom:6px">Stijl 03 · Obsidian Emerald</div>
+        <div class="content-title">Roofvogel Data</div>
+        <div class="content-sub">Space Grotesk · Fira Code · Pure black + emerald groen</div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-icon">◎</div><div><div class="stat-label">Roofvogels</div><div class="stat-value">12</div></div></div>
+      <div class="stat"><div class="stat-icon">○</div><div><div class="stat-label">Dieren</div><div class="stat-value">48</div></div></div>
+      <div class="stat"><div class="stat-icon">◇</div><div><div class="stat-label">Slangen</div><div class="stat-value">36</div></div></div>
+      <div class="stat"><div class="stat-icon">△</div><div><div class="stat-label">Kippen</div><div class="stat-value">100</div></div></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Tabel overzicht</span>
+        <span class="panel-meta">100 rijen · pagina 1 van 20</span>
+      </div>
+      <table>
+        <tr class="group-row">
+          <th colspan="2">Roofvogel</th>
+          <th colspan="2">Dier</th>
+          <th>Functies</th>
+          <th colspan="3">Kip</th>
+          <th colspan="2">Slang</th>
+        </tr>
+        <tr class="col-row">
+          <th>ID ↕</th><th>Naam ↕</th>
+          <th>ID ↕</th><th>Naam ↕</th>
+          <th>Functies</th>
+          <th>Naam ↕</th><th>Slang ID ↕</th><th>ID ↕</th>
+          <th>ID ↕</th><th>Naam ↕</th>
+        </tr>
+        <tr class="filter-row">
+          <th><input class="filter-input" placeholder="zoek…"></th>
+          <th><input class="filter-input" placeholder="zoek…"></th>
+          <th><input class="filter-input" placeholder="zoek…"></th>
+          <th><input class="filter-input" placeholder="zoek…"></th>
+          <th><input class="filter-input" placeholder="zoek…"></th>
+          <th><input class="filter-input" placeholder="zoek…"></th>
+          <th><input class="filter-input" placeholder="zoek…"></th>
+          <th><input class="filter-input" placeholder="zoek…"></th>
+          <th><input class="filter-input" placeholder="zoek…"></th>
+          <th><input class="filter-input" placeholder="zoek…"></th>
+        </tr>
+        <tbody>
+          <tr><td class="c-em">1</td><td class="c-em">Arend</td><td class="c-blue">101</td><td class="c-blue">Leeuw</td><td>Jager, Wacht</td><td>Stip</td><td>9</td><td>9</td><td>9</td><td class="c-match">Cobra</td></tr>
+          <tr><td class="c-em">1</td><td class="c-em">Arend</td><td class="c-blue">101</td><td class="c-blue">Leeuw</td><td>Jager</td><td>Dot</td><td>12</td><td>12</td><td>12</td><td>Adder</td></tr>
+          <tr><td class="c-em">2</td><td class="c-em">Valk</td><td class="c-blue">102</td><td class="c-blue">Tijger</td><td>Bewaker</td><td>Flits</td><td>7</td><td>7</td><td>7</td><td class="c-match">Python</td></tr>
+          <tr><td class="c-em">2</td><td class="c-em">Valk</td><td class="c-blue">103</td><td class="c-blue">Wolf</td><td>Scout</td><td>Nova</td><td>4</td><td>4</td><td>4</td><td>Mamba</td></tr>
+          <tr><td class="c-em">3</td><td class="c-em">Uil</td><td class="c-blue">104</td><td class="c-blue">Beer</td><td>Nacht</td><td>Storm</td><td>2</td><td>2</td><td>2</td><td>Boa</td></tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <span class="page-info">rijen 1–5 / 100</span>
+        <div class="page-btns">
+          <button class="page-btn">‹‹</button>
+          <button class="page-btn">‹</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <span style="color:var(--muted);padding:0 4px">…</span>
+          <button class="page-btn">20</button>
+          <button class="page-btn">›</button>
+          <button class="page-btn">››</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="style-note">
+  <strong>Obsidian Emerald</strong>
+  Space Grotesk + Fira Code · Pure zwart (#080808) · Emerald groen · Iconlabel sidebar · Clean enterprise gevoel
+</div>
+
+</body>
+</html>

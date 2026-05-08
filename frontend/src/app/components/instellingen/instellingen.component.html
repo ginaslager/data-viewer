@@ -1,0 +1,199 @@
+@let vis     = (visibility$ | async) ?? {};
+@let meta    = (metadata$ | async);
+@let density = (density$ | async) ?? 'normal';
+
+<div class="inst-wrap">
+
+  <!-- Page header -->
+  <div class="page-header">
+    <p class="page-kicker">Configuratie</p>
+    <h1 class="page-title">Instellingen</h1>
+  </div>
+
+  <!-- Metadata panel -->
+  @if (meta) {
+    <div class="meta-panel">
+      <div class="meta-left">
+        <div class="meta-file-badge">
+          <div class="meta-file-icon">{{ fileFormat(meta.filename) }}</div>
+          <div class="meta-file-info">
+            <div class="meta-file-name">{{ displayName(meta.filename) }}</div>
+            @if (meta.description) {
+              <div class="meta-file-sub">{{ meta.description }}</div>
+            }
+          </div>
+        </div>
+        <div class="meta-attrs">
+          <div class="meta-attr">
+            <span class="meta-attr-key">Aangemaakt</span>
+            <span class="meta-attr-val">{{ meta.createDate ?? '—' }}</span>
+          </div>
+          <div class="meta-attr">
+            <span class="meta-attr-key">Git SHA</span>
+            <span class="meta-attr-val meta-attr-sha">{{ meta.gitSha ?? '—' }}</span>
+          </div>
+          <div class="meta-attr">
+            <span class="meta-attr-key">Formaat</span>
+            <span class="meta-attr-val">{{ fileFormat(meta.filename) }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="meta-right">
+        <div class="meta-right-title">Entiteiten</div>
+        @if (meta.counts) {
+          <div class="meta-entities">
+            <div class="meta-entity-row">
+              <div class="meta-entity-name">Roofvogels</div>
+              <div class="meta-entity-track">
+                <div class="meta-entity-fill" [style.width.%]="barWidth(meta.counts.roofvogels, meta.counts)"></div>
+              </div>
+              <div class="meta-entity-count">{{ format(meta.counts.roofvogels) }}</div>
+            </div>
+            <div class="meta-entity-row">
+              <div class="meta-entity-name">Dieren</div>
+              <div class="meta-entity-track">
+                <div class="meta-entity-fill" [style.width.%]="barWidth(meta.counts.dieren, meta.counts)"></div>
+              </div>
+              <div class="meta-entity-count">{{ format(meta.counts.dieren) }}</div>
+            </div>
+            <div class="meta-entity-row">
+              <div class="meta-entity-name">Kippen</div>
+              <div class="meta-entity-track">
+                <div class="meta-entity-fill" [style.width.%]="barWidth(meta.counts.kippen, meta.counts)"></div>
+              </div>
+              <div class="meta-entity-count">{{ format(meta.counts.kippen) }}</div>
+            </div>
+            <div class="meta-entity-row">
+              <div class="meta-entity-name">Slangen</div>
+              <div class="meta-entity-track">
+                <div class="meta-entity-fill" [style.width.%]="barWidth(meta.counts.slangen, meta.counts)"></div>
+              </div>
+              <div class="meta-entity-count">{{ format(meta.counts.slangen) }}</div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="meta-placeholder">
+      Upload een bestand om metadata te bekijken
+    </div>
+  }
+
+  <!-- Weergave -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <span class="section-card-title">Weergave</span>
+    </div>
+    <div class="section-card-body weergave-body">
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <div class="setting-label">Tabel dichtheid</div>
+          <div class="setting-sub">Rij- en kolomruimte</div>
+        </div>
+        <div class="density-btns">
+          <button class="density-btn" [class.active]="density === 'compact'" (click)="setDensity('compact')">
+            <div class="d-icon">
+              <span style="height:2px"></span>
+              <span style="height:2px"></span>
+              <span style="height:2px"></span>
+              <span style="height:2px"></span>
+            </div>
+            Compact
+          </button>
+          <button class="density-btn" [class.active]="density === 'normal'" (click)="setDensity('normal')">
+            <div class="d-icon">
+              <span style="height:3px"></span>
+              <span style="height:3px"></span>
+              <span style="height:3px"></span>
+            </div>
+            Normaal
+          </button>
+          <button class="density-btn" [class.active]="density === 'spacious'" (click)="setDensity('spacious')">
+            <div class="d-icon">
+              <span style="height:5px"></span>
+              <span style="height:5px"></span>
+            </div>
+            Ruim
+          </button>
+        </div>
+      </div>
+
+      <!-- Live preview -->
+      <div class="preview-section">
+        <p class="preview-label">
+          Voorbeeld —
+          <span class="preview-density-name">
+            @if (density === 'compact') { Compact }
+            @else if (density === 'spacious') { Ruim }
+            @else { Normaal }
+          </span>
+        </p>
+        <div class="preview-table-wrap">
+          <table class="preview-table"
+                 [class.density--compact]="density === 'compact'"
+                 [class.density--spacious]="density === 'spacious'">
+            <thead>
+              <tr>
+                <th>Name</th><th>Description</th><th>Dier</th><th>IP Address</th><th>MAC Address</th><th>Mask</th><th>Virtual</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of previewRows; track row.roofvogelName) {
+                <tr>
+                  <td class="col-naam">{{ row.roofvogelName }}</td>
+                  <td>{{ row.modelTypeDescription }}</td>
+                  <td class="col-dier">{{ row.dierName }}</td>
+                  <td class="col-kip">{{ row.kipIpAddress }}</td>
+                  <td class="col-kip">{{ row.kipMacAddress }}</td>
+                  <td class="col-slang">{{ row.slangMask }}</td>
+                  <td class="col-virtual">{{ row.dierVirtual ? '✓' : '—' }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Kolom zichtbaarheid -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <span class="section-card-title">Kolom zichtbaarheid</span>
+      <button class="btn-reset" (click)="reset()">↺ Herstellen</button>
+    </div>
+    <div class="section-card-body">
+      <div class="inst-list">
+        @for (g of groups; track g.group) {
+          <div class="accordion-item" [class]="'accordion-item--' + g.group">
+
+            <button class="accordion-header" (click)="toggleOpen(g.group)">
+              <span class="accordion-dot"></span>
+              <span class="accordion-label">{{ g.label }}</span>
+              <span class="accordion-count">{{ activeCount(g.columns, vis) }}/{{ g.columns.length }}</span>
+              <span class="accordion-chevron" [class.open]="isOpen(g.group)">›</span>
+            </button>
+
+            @if (isOpen(g.group)) {
+              <div class="accordion-body">
+                @for (col of g.columns; track col.field) {
+                  <div class="toggle-row" (click)="toggle(col.field)">
+                    <span class="toggle-label">{{ col.label }}</span>
+                    <span class="toggle-switch" [class.on]="vis[col.field]">
+                      <span class="toggle-knob"></span>
+                    </span>
+                  </div>
+                }
+              </div>
+            }
+
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+</div>

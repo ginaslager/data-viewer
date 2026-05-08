@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05 · Carbon Coral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:     #0E0E0E;
+    --s1:     #141414;
+    --s2:     #1A1A1A;
+    --s3:     #202020;
+    --border: #242424;
+    --border2:#2E2E2E;
+    --text:   #F0EDE8;
+    --muted:  #585450;
+    --coral:  #FF5A35;
+    --coral2: #FF7A5A;
+    --coral-d:rgba(255,90,53,0.1);
+    --warm:   #FFB38A;
+    --sand:   #8A7060;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* Carbon fiber texture */
+  body {
+    background-color: var(--bg);
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.012) 0px,
+        rgba(255,255,255,0.012) 1px,
+        transparent 1px,
+        transparent 8px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        rgba(255,255,255,0.012) 0px,
+        rgba(255,255,255,0.012) 1px,
+        transparent 1px,
+        transparent 8px
+      );
+    color: var(--text); font-family: 'Syne', sans-serif; min-height: 100vh; display: flex; flex-direction: column;
+  }
+
+  /* Header */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; height: 60px;
+    background: rgba(20,20,20,0.96);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-shape {
+    width: 28px; height: 28px; flex-shrink: 0;
+    background: var(--coral);
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 70% 100%, 0 100%);
+    display: flex; align-items: flex-start; justify-content: flex-end;
+    padding: 3px 4px;
+  }
+  .logo-shape span { font-size: 8px; color: rgba(0,0,0,0.5); font-weight: 800; }
+  .logo-name { font-size: 16px; font-weight: 800; letter-spacing: -0.5px; color: var(--text); }
+  .logo-name em { color: var(--coral); font-style: normal; }
+
+  .header-center { display: flex; gap: 2px; }
+  .nav-pill {
+    padding: 6px 16px; font-size: 12px; font-weight: 600; border-radius: 100px;
+    color: var(--muted); cursor: pointer; transition: all 0.15s;
+  }
+  .nav-pill:hover { color: var(--text); }
+  .nav-pill.active { background: var(--coral-d); color: var(--coral2); border: 1px solid rgba(255,90,53,0.2); }
+
+  .header-right { display: flex; align-items: center; gap: 10px; }
+  .status-tag {
+    font-family: 'Roboto Mono', monospace; font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--coral); padding: 4px 10px;
+    border: 1px solid rgba(255,90,53,0.25); border-radius: 4px;
+    background: var(--coral-d);
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  @keyframes glow { from { box-shadow: 0 0 4px rgba(255,90,53,0.1); } to { box-shadow: 0 0 12px rgba(255,90,53,0.25); } }
+  .btn { padding: 7px 16px; font-size: 12px; font-weight: 700; border-radius: 8px; cursor: pointer; font-family: 'Syne', sans-serif; transition: all 0.15s; letter-spacing: 0.3px; }
+  .btn-coral { background: var(--coral); border: none; color: #fff; }
+  .btn-coral:hover { background: var(--coral2); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,90,53,0.3); }
+  .btn-ghost { background: transparent; border: 1px solid var(--border2); color: var(--muted); }
+  .btn-ghost:hover { border-color: var(--coral); color: var(--coral2); }
+
+  /* Content */
+  .content { flex: 1; padding: 28px 32px; max-width: 1600px; }
+
+  .page-top { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 22px; }
+  .page-kicker { font-size: 10px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--coral); margin-bottom: 6px; }
+  .page-title { font-size: 28px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+  .page-sub { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 400; }
+
+  /* Upload area */
+  .upload-banner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px; margin-bottom: 18px;
+    background: var(--s1); border: 1px solid var(--border);
+    border-radius: 10px; cursor: pointer; transition: all 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .upload-banner::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(180deg, var(--coral), var(--warm));
+  }
+  .upload-banner:hover { border-color: var(--coral); background: var(--coral-d); }
+  .ub-left { display: flex; align-items: center; gap: 14px; padding-left: 12px; }
+  .ub-icon { font-size: 20px; color: var(--coral); }
+  .ub-title { font-size: 13px; font-weight: 700; }
+  .ub-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .fmt-chips { display: flex; gap: 5px; }
+  .fmt-chip {
+    font-family: 'Roboto Mono', monospace; font-size: 9px; font-weight: 500;
+    padding: 2px 7px; border: 1px solid var(--border2); border-radius: 3px;
+    color: var(--muted); background: var(--s2);
+  }
+
+  /* Table */
+  .panel { background: var(--s1); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px; border-bottom: 1px solid var(--border);
+  }
+  .panel-title { font-size: 14px; font-weight: 800; letter-spacing: -0.3px; }
+  .panel-right { display: flex; align-items: center; gap: 8px; }
+  .filter-active {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(255,90,53,0.3);
+    color: var(--coral); background: var(--coral-d);
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+  .group-row th {
+    padding: 7px 14px; font-family: 'Roboto Mono', monospace; font-size: 8px; letter-spacing: 3px;
+    text-transform: uppercase; text-align: center; border-right: 1px solid var(--border);
+    font-weight: 500;
+  }
+  .group-row th:nth-child(1) { background: rgba(255,90,53,0.08); color: var(--coral2); }
+  .group-row th:nth-child(2) { background: rgba(255,179,138,0.06); color: var(--warm); }
+  .group-row th:nth-child(3) { background: rgba(138,112,96,0.1); color: #C8A890; }
+  .group-row th:nth-child(4) { background: rgba(255,90,53,0.05); color: #FFB090; }
+  .group-row th:nth-child(5) { background: rgba(255,179,138,0.05); color: #FFCAB0; }
+
+  .col-row th {
+    padding: 9px 14px; font-size: 11px; font-weight: 700; text-align: left;
+    background: var(--s2); color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.8px; border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border); white-space: nowrap;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .col-row th:hover { color: var(--text); background: var(--s3); }
+  .filter-row th { padding: 5px 5px; background: var(--bg); border-bottom: 1px solid var(--border2); border-right: 1px solid var(--border); }
+  .filter-input {
+    width: 100%; padding: 4px 8px; background: var(--s2); border: 1px solid var(--border);
+    border-radius: 5px; font-family: 'Roboto Mono', monospace; font-size: 11px;
+    color: var(--text); outline: none; transition: border-color 0.15s;
+  }
+  .filter-input:focus { border-color: var(--coral); background: var(--s3); }
+  .filter-input::placeholder { color: var(--muted); opacity: 0.4; }
+
+  tbody tr:hover td { background: var(--s3) !important; }
+  td {
+    padding: 9px 14px; font-family: 'Roboto Mono', monospace; font-size: 11px;
+    color: var(--text); border-bottom: 1px solid var(--border);
+    border-right: 1px solid rgba(255,255,255,0.02); white-space: nowrap;
+  }
+  tr:nth-child(odd) td { background: rgba(255,255,255,0.008); }
+  .c-coral { color: var(--coral2); font-weight: 500; }
+  .c-warm { color: var(--warm); }
+  .c-match { color: var(--coral); font-weight: 600; text-shadow: 0 0 10px rgba(255,90,53,0.35); }
+
+  .pagination {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 20px; border-top: 1px solid var(--border);
+    gap: 12px; flex-wrap: wrap;
+  }
+  .page-left { display: flex; align-items: center; gap: 12px; }
+  .page-size-label { font-size: 11px; color: var(--muted); }
+  .page-size {
+    background: var(--s2); border: 1px solid var(--border2); border-radius: 6px;
+    font-family: 'Roboto Mono', monospace; font-size: 11px; color: var(--text);
+    padding: 4px 8px; outline: none; cursor: pointer;
+  }
+  .page-size:focus { border-color: var(--coral); }
+  .page-info { font-family: 'Roboto Mono', monospace; font-size: 10px; color: var(--muted); }
+  .page-btns { display: flex; gap: 3px; }
+  .page-btn {
+    padding: 5px 11px; font-family: 'Roboto Mono', monospace; font-size: 11px;
+    background: transparent; border: 1px solid var(--border); border-radius: 6px;
+    color: var(--muted); cursor: pointer; transition: all 0.15s; font-weight: 500;
+  }
+  .page-btn:hover { border-color: var(--coral); color: var(--coral2); }
+  .page-btn.active { background: var(--coral); border-color: var(--coral); color: #fff; font-weight: 700; box-shadow: 0 0 14px rgba(255,90,53,0.3); }
+
+  .style-note {
+    position: fixed; bottom: 20px; right: 20px;
+    background: var(--s1); border: 1px solid var(--border2);
+    border-radius: 8px; padding: 12px 16px;
+    font-size: 11px; color: var(--muted); max-width: 240px; line-height: 1.6;
+  }
+  .style-note strong { color: var(--coral2); font-size: 13px; display: block; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">
+    <div class="logo-shape"><span>DV</span></div>
+    <div class="logo-name">Data<em>Viewer</em></div>
+  </div>
+  <nav class="header-center">
+    <div class="nav-pill active">Overzicht</div>
+    <div class="nav-pill">Upload</div>
+    <div class="nav-pill">Database</div>
+    <div class="nav-pill">Instellingen</div>
+  </nav>
+  <div class="header-right">
+    <span class="status-tag">Live</span>
+    <button class="btn btn-ghost">Filters wissen</button>
+    <button class="btn btn-coral">Laden</button>
+  </div>
+</div>
+
+<div class="content">
+  <div class="page-top">
+    <div>
+      <div class="page-kicker">Stijl 05 · Carbon Coral</div>
+      <div class="page-title">Roofvogel Data</div>
+      <div class="page-sub">Syne + Roboto Mono · Carbon textuur · Koraal oranje accent</div>
+    </div>
+  </div>
+
+  <div class="upload-banner">
+    <div class="ub-left">
+      <div class="ub-icon">↓</div>
+      <div>
+        <div class="ub-title">Bestand uploaden</div>
+        <div class="ub-sub">Sleep een bestand hierheen of klik om te bladeren · max 2 GB</div>
+      </div>
+    </div>
+    <div class="fmt-chips">
+      <span class="fmt-chip">XML</span>
+      <span class="fmt-chip">JSON</span>
+      <span class="fmt-chip">YAML</span>
+      <span class="fmt-chip">CSV</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Roofvogel Tabel</span>
+      <div class="panel-right">
+        <span class="filter-active">Naam = Arend</span>
+        <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px">Wissen</button>
+      </div>
+    </div>
+    <table>
+      <tr class="group-row">
+        <th colspan="2">Roofvogel</th>
+        <th colspan="2">Dier</th>
+        <th>Functies</th>
+        <th colspan="3">Kip</th>
+        <th colspan="2">Slang</th>
+      </tr>
+      <tr class="col-row">
+        <th>ID ↕</th><th>Naam ↕</th>
+        <th>ID ↕</th><th>Naam ↕</th>
+        <th>Functies</th>
+        <th>Naam ↕</th><th>Slang ID ↕</th><th>ID ↕</th>
+        <th>ID ↕</th><th>Naam ↕</th>
+      </tr>
+      <tr class="filter-row">
+        <th><input class="filter-input" placeholder="filter…"></th>
+        <th><input class="filter-input" value="Arend"></th>
+        <th><input class="filter-input" placeholder="filter…"></th>
+        <th><input class="filter-input" placeholder="filter…"></th>
+        <th><input class="filter-input" placeholder="filter…"></th>
+        <th><input class="filter-input" placeholder="filter…"></th>
+        <th><input class="filter-input" placeholder="filter…"></th>
+        <th><input class="filter-input" placeholder="filter…"></th>
+        <th><input class="filter-input" placeholder="filter…"></th>
+        <th><input class="filter-input" placeholder="filter…"></th>
+      </tr>
+      <tbody>
+        <tr><td class="c-coral">1</td><td class="c-coral">Arend</td><td class="c-warm">101</td><td class="c-warm">Leeuw</td><td>Jager, Wacht</td><td>Stip</td><td>9</td><td>9</td><td>9</td><td class="c-match">Cobra</td></tr>
+        <tr><td class="c-coral">1</td><td class="c-coral">Arend</td><td class="c-warm">101</td><td class="c-warm">Leeuw</td><td>Jager</td><td>Dot</td><td>12</td><td>12</td><td>12</td><td>Adder</td></tr>
+        <tr><td class="c-coral">1</td><td class="c-coral">Arend</td><td class="c-warm">102</td><td class="c-warm">Tijger</td><td>Bewaker</td><td>Flits</td><td>7</td><td>7</td><td>7</td><td class="c-match">Python</td></tr>
+        <tr><td class="c-coral">1</td><td class="c-coral">Arend</td><td class="c-warm">103</td><td class="c-warm">Wolf</td><td>Scout</td><td>Nova</td><td>4</td><td>4</td><td>4</td><td>Mamba</td></tr>
+        <tr><td class="c-coral">1</td><td class="c-coral">Arend</td><td class="c-warm">104</td><td class="c-warm">Beer</td><td>Nacht</td><td>Storm</td><td>2</td><td>2</td><td>2</td><td>Boa</td></tr>
+      </tbody>
+    </table>
+    <div class="pagination">
+      <div class="page-left">
+        <select class="page-size"><option>10</option><option selected>20</option><option>25</option><option>50</option></select>
+        <span class="page-size-label">per pagina</span>
+        <span class="page-info">1–5 van 100 rijen</span>
+      </div>
+      <div class="page-btns">
+        <button class="page-btn">‹</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <span style="color:var(--muted);padding:0 4px;font-size:12px">…</span>
+        <button class="page-btn">20</button>
+        <button class="page-btn">›</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="style-note">
+  <strong>Carbon Coral</strong>
+  Syne + Roboto Mono · Carbon textuur achtergrond · Koraal oranje (#FF5A35) · Compacte upload banner · Warme industriële sfeer
+</div>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+.upload-root { display: flex; flex-direction: column; gap: 14px; padding: 24px; }
+
+// ── Modus keuze ───────────────────────────────────────────────────────────────
+.mode-selector {
+  display: flex; gap: 10px;
+}
+
+.mode-opt {
+  flex: 1; display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px;
+  background: var(--surface-2); border: 1px solid var(--border-2);
+  border-radius: 8px; cursor: pointer; text-align: left;
+  transition: all 0.15s; font-family: 'Syne', sans-serif;
+
+  svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--muted); transition: color 0.15s; }
+
+  &:hover {
+    border-color: var(--coral);
+    background: var(--coral-dim);
+    svg { color: var(--coral-2); }
+  }
+
+  &.active {
+    border-color: rgba(255,90,53,0.5);
+    background: var(--coral-dim);
+    svg { color: var(--coral); }
+    .mode-opt-label { color: var(--coral-2); }
+  }
+}
+
+.mode-opt-label {
+  display: block; font-size: 13px; font-weight: 700;
+  color: var(--text); transition: color 0.15s;
+}
+
+.mode-opt-desc {
+  display: block; font-size: 11px; color: var(--muted);
+  margin-top: 2px; font-weight: 400;
+}
+
+// ── Drop zone ─────────────────────────────────────────────────────────────────
+.drop-zone {
+  min-height: 180px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1.5px dashed var(--border-2); border-radius: 10px;
+  background: var(--surface-2);
+  transition: all 0.2s; position: relative; overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255,90,53,0.06), transparent 70%);
+    opacity: 0; transition: opacity 0.3s; pointer-events: none;
+  }
+
+  &:hover, &.dragging {
+    border-color: var(--coral); border-style: solid;
+    &::after { opacity: 1; }
+    .drop-icon { color: var(--coral); border-color: rgba(255,90,53,0.3); }
+    .drop-cta  { color: var(--text); }
+  }
+}
+
+.drop-inner {
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  position: relative; z-index: 1; padding: 24px;
+}
+
+.drop-icon {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1.5px solid var(--border-2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); transition: all 0.2s;
+  svg { width: 20px; height: 20px; }
+}
+
+.drop-cta {
+  font-size: 13px; font-weight: 600; color: var(--muted); transition: color 0.2s;
+}
+
+.btn-kiezen {
+  padding: 9px 24px; font-size: 13px; font-weight: 700;
+  font-family: 'Syne', sans-serif;
+  background: var(--coral); border: none; border-radius: 8px;
+  color: #fff; cursor: pointer; transition: all 0.15s;
+  box-shadow: 0 4px 14px rgba(255,90,53,0.25);
+  &:hover { background: var(--coral-2); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(255,90,53,0.3); }
+}
+
+// ── Format chips ──────────────────────────────────────────────────────────────
+.fmt-chips { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; }
+
+.fmt-chip {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10px; color: var(--muted);
+  padding: 2px 7px; border: 1px solid var(--border-2);
+  border-radius: 4px; background: var(--surface);
+}
+
+.fmt-sep, .fmt-limit { font-size: 10px; color: var(--muted); }
+
+// ── Status bar ────────────────────────────────────────────────────────────────
+.status-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; border-radius: 8px;
+  border: 1px solid var(--border); font-size: 12px;
+  animation: fadeIn 0.2s ease-out;
+
+  &--uploading { border-color: var(--border-2); background: var(--surface-2); flex-direction: column; align-items: flex-start; }
+  &--success   { border-color: rgba(255,90,53,0.3); background: rgba(255,90,53,0.06); .status-icon { color: var(--coral); } }
+  &--error     { border-color: rgba(255,90,53,0.4); background: rgba(255,90,53,0.08); .status-icon { color: var(--coral); } }
+}
+
+.progress-track { width: 100%; height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; }
+.progress-fill  { height: 100%; background: var(--coral); transition: width 0.2s; box-shadow: 0 0 8px var(--coral); }
+
+.status-icon { font-size: 14px; font-weight: 700; }
+.status-text { color: var(--text); font-weight: 500; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }

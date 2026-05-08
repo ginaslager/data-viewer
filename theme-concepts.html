@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thema Voorbeelden</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #1a1a1a;
+    font-family: 'Roboto Mono', monospace;
+    padding: 40px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .page-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: -40px;
+  }
+
+  .concept { max-width: 780px; }
+
+  .concept-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .concept-tag::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .concept-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #fff;
+  }
+
+  .concept-desc {
+    font-size: 11px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+
+  /* ════════════════════════════════════════════════════
+     Shared panel structure (reused across themes)
+  ════════════════════════════════════════════════════ */
+  .panel {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    border-radius: 6px;
+    overflow: hidden;
+    border-width: 1px;
+    border-style: solid;
+  }
+
+  .panel-left {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-right-width: 1px;
+    border-right-style: solid;
+  }
+
+  .file-badge {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+
+  .file-icon {
+    width: 30px;
+    height: 36px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 700;
+    font-family: 'Roboto Mono', monospace;
+    flex-shrink: 0;
+  }
+
+  .file-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .file-sub { font-size: 10px; margin-top: 3px; }
+
+  .attrs { display: flex; flex-direction: column; gap: 11px; }
+
+  .attr { display: flex; flex-direction: column; gap: 2px; }
+  .attr-key { font-size: 9px; text-transform: uppercase; letter-spacing: 0.15em; }
+  .attr-val { font-family: 'Roboto Mono', monospace; font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .panel-right { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+
+  .right-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding-bottom: 12px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+
+  .entities { display: flex; flex-direction: column; gap: 10px; }
+
+  .entity-row { display: flex; align-items: center; gap: 10px; }
+
+  .entity-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 80px;
+  }
+
+  .entity-track {
+    flex: 1;
+    height: 22px;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+    border-width: 1px;
+    border-style: solid;
+  }
+
+  .entity-fill { height: 100%; }
+
+  .entity-label {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    pointer-events: none;
+  }
+
+  /* ════════════════════════════════════════════════════
+     THEMA 1 — Carbon Coral (huidig)
+  ════════════════════════════════════════════════════ */
+  .t1 {
+    --bg:       #0E0E0E;
+    --surface:  #181818;
+    --border:   #2a2a2a;
+    --text:     #E8E4DF;
+    --muted:    #6b6560;
+    --coral:    #FF5A35;
+    --fill-end: rgba(255,90,53,0.35);
+  }
+
+  .t1.panel          { background: var(--bg);      border-color: var(--border); }
+  .t1 .panel-left    { background: var(--surface);  border-right-color: var(--border); }
+  .t1 .file-badge    { border-bottom-color: var(--border); }
+  .t1 .file-icon     { background: var(--coral); color: #0E0E0E; }
+  .t1 .file-name     { color: var(--text); }
+  .t1 .file-sub      { color: var(--muted); }
+  .t1 .attr-key      { color: var(--muted); }
+  .t1 .attr-val      { color: var(--text); }
+  .t1 .attr-val.sha  { color: var(--coral); }
+  .t1 .right-title   { color: var(--muted); border-bottom-color: var(--border); }
+  .t1 .entity-name   { color: var(--text); }
+  .t1 .entity-track  { background: var(--surface); border-color: var(--border); }
+  .t1 .entity-fill   { background: linear-gradient(90deg, var(--coral) 0%, var(--fill-end) 100%); }
+  .t1 .entity-label  { color: var(--text); }
+
+  /* ════════════════════════════════════════════════════
+     THEMA 2 — Ivory Light
+  ════════════════════════════════════════════════════ */
+  .t2 {
+    --bg:       #FAF8F5;
+    --surface:  #F2EFE9;
+    --border:   #DDD9D1;
+    --text:     #1A1714;
+    --muted:    #9A9188;
+    --coral:    #E8401A;
+    --fill-end: rgba(232,64,26,0.25);
+  }
+
+  .t2.panel          { background: var(--bg);      border-color: var(--border); }
+  .t2 .panel-left    { background: var(--surface);  border-right-color: var(--border); }
+  .t2 .file-badge    { border-bottom-color: var(--border); }
+  .t2 .file-icon     { background: var(--coral); color: #fff; }
+  .t2 .file-name     { color: var(--text); }
+  .t2 .file-sub      { color: var(--muted); }
+  .t2 .attr-key      { color: var(--muted); }
+  .t2 .attr-val      { color: var(--text); }
+  .t2 .attr-val.sha  { color: var(--coral); }
+  .t2 .right-title   { color: var(--muted); border-bottom-color: var(--border); }
+  .t2 .entity-name   { color: var(--text); }
+  .t2 .entity-track  { background: #fff; border-color: var(--border); }
+  .t2 .entity-fill   { background: linear-gradient(90deg, var(--coral) 0%, var(--fill-end) 100%); }
+  .t2 .entity-label  { color: var(--text); }
+
+  /* ════════════════════════════════════════════════════
+     THEMA 3 — Slate Grey
+  ════════════════════════════════════════════════════ */
+  .t3 {
+    --bg:       #252830;
+    --surface:  #2E3240;
+    --border:   #3A3F50;
+    --text:     #CDD4E0;
+    --muted:    #7A8298;
+    --coral:    #FF5A35;
+    --fill-end: rgba(255,90,53,0.3);
+  }
+
+  .t3.panel          { background: var(--bg);      border-color: var(--border); }
+  .t3 .panel-left    { background: var(--surface);  border-right-color: var(--border); }
+  .t3 .file-badge    { border-bottom-color: var(--border); }
+  .t3 .file-icon     { background: var(--coral); color: #fff; }
+  .t3 .file-name     { color: var(--text); }
+  .t3 .file-sub      { color: var(--muted); }
+  .t3 .attr-key      { color: var(--muted); }
+  .t3 .attr-val      { color: var(--text); }
+  .t3 .attr-val.sha  { color: var(--coral); }
+  .t3 .right-title   { color: var(--muted); border-bottom-color: var(--border); }
+  .t3 .entity-name   { color: var(--text); }
+  .t3 .entity-track  { background: rgba(0,0,0,0.2); border-color: var(--border); }
+  .t3 .entity-fill   { background: linear-gradient(90deg, var(--coral) 0%, var(--fill-end) 100%); }
+  .t3 .entity-label  { color: var(--text); }
+
+  /* ════════════════════════════════════════════════════
+     THEMA 4 — High Contrast
+  ════════════════════════════════════════════════════ */
+  .t4 {
+    --bg:       #000;
+    --surface:  #0D0D0D;
+    --border:   #222;
+    --text:     #FFFFFF;
+    --muted:    #555;
+    --coral:    #FF5A35;
+    --fill-end: rgba(255,90,53,0.2);
+    --accent2:  #FFD600;
+  }
+
+  .t4.panel          { background: var(--bg);      border-color: var(--border); }
+  .t4 .panel-left    { background: var(--surface);  border-right-color: var(--border); }
+  .t4 .file-badge    { border-bottom-color: var(--border); }
+  .t4 .file-icon     { background: var(--coral); color: #000; }
+  .t4 .file-name     { color: var(--text); }
+  .t4 .file-sub      { color: var(--muted); }
+  .t4 .attr-key      { color: var(--muted); }
+  .t4 .attr-val      { color: var(--text); }
+  .t4 .attr-val.sha  { color: var(--accent2); }
+  .t4 .right-title   { color: var(--muted); border-bottom-color: var(--border); }
+  .t4 .entity-name   { color: var(--text); }
+  .t4 .entity-track  { background: #111; border-color: #333; }
+  .t4 .entity-fill   { background: linear-gradient(90deg, var(--coral) 0%, var(--fill-end) 100%); }
+  .t4 .entity-label  { color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="page-title">Thema voorbeelden — kies er één</div>
+
+<!-- ─── THEMA 1 ─── -->
+<div class="concept">
+  <div class="concept-tag" style="color:#FF5A35">Thema 1</div>
+  <div class="concept-name">Carbon Coral <span style="font-size:13px;color:#555;font-weight:400">(huidig)</span></div>
+  <div class="concept-desc">Zwart achtergrond, warme coral accenten. Strak en professioneel.</div>
+
+  <div class="panel t1">
+    <div class="panel-left">
+      <div class="file-badge">
+        <div class="file-icon">XML</div>
+        <div>
+          <div class="file-name">Roofvogels_test</div>
+          <div class="file-sub">Jaaroverzicht monitoring 2025</div>
+        </div>
+      </div>
+      <div class="attrs">
+        <div class="attr"><span class="attr-key">Aangemaakt</span><span class="attr-val">2025-04-12</span></div>
+        <div class="attr"><span class="attr-key">Git SHA</span><span class="attr-val sha">a3f9c2b1d4e7f099</span></div>
+        <div class="attr"><span class="attr-key">Formaat</span><span class="attr-val">XML</span></div>
+      </div>
+    </div>
+    <div class="panel-right">
+      <div class="right-title">Entiteiten</div>
+      <div class="entities">
+        <div class="entity-row"><div class="entity-name">Roofvogels</div><div class="entity-track"><div class="entity-fill" style="width:18%"></div><div class="entity-label">3</div></div></div>
+        <div class="entity-row"><div class="entity-name">Dieren</div><div class="entity-track"><div class="entity-fill" style="width:58%"></div><div class="entity-label">9</div></div></div>
+        <div class="entity-row"><div class="entity-name">Kippen</div><div class="entity-track"><div class="entity-fill" style="width:100%"></div><div class="entity-label">27</div></div></div>
+        <div class="entity-row"><div class="entity-name">Slangen</div><div class="entity-track"><div class="entity-fill" style="width:47%"></div><div class="entity-label">6</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── THEMA 2 ─── -->
+<div class="concept">
+  <div class="concept-tag" style="color:#E8401A">Thema 2</div>
+  <div class="concept-name">Ivory Light</div>
+  <div class="concept-desc">Licht crème achtergrond, warme tinten. Prettig bij daglicht.</div>
+
+  <div class="panel t2">
+    <div class="panel-left">
+      <div class="file-badge">
+        <div class="file-icon">XML</div>
+        <div>
+          <div class="file-name">Roofvogels_test</div>
+          <div class="file-sub">Jaaroverzicht monitoring 2025</div>
+        </div>
+      </div>
+      <div class="attrs">
+        <div class="attr"><span class="attr-key">Aangemaakt</span><span class="attr-val">2025-04-12</span></div>
+        <div class="attr"><span class="attr-key">Git SHA</span><span class="attr-val sha">a3f9c2b1d4e7f099</span></div>
+        <div class="attr"><span class="attr-key">Formaat</span><span class="attr-val">XML</span></div>
+      </div>
+    </div>
+    <div class="panel-right">
+      <div class="right-title">Entiteiten</div>
+      <div class="entities">
+        <div class="entity-row"><div class="entity-name">Roofvogels</div><div class="entity-track"><div class="entity-fill" style="width:18%"></div><div class="entity-label">3</div></div></div>
+        <div class="entity-row"><div class="entity-name">Dieren</div><div class="entity-track"><div class="entity-fill" style="width:58%"></div><div class="entity-label">9</div></div></div>
+        <div class="entity-row"><div class="entity-name">Kippen</div><div class="entity-track"><div class="entity-fill" style="width:100%"></div><div class="entity-label">27</div></div></div>
+        <div class="entity-row"><div class="entity-name">Slangen</div><div class="entity-track"><div class="entity-fill" style="width:47%"></div><div class="entity-label">6</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── THEMA 3 ─── -->
+<div class="concept">
+  <div class="concept-tag" style="color:#7A8298">Thema 3</div>
+  <div class="concept-name">Slate Grey</div>
+  <div class="concept-desc">Blauwgrijs donker. Rustig, minder contrast dan carbon.</div>
+
+  <div class="panel t3">
+    <div class="panel-left">
+      <div class="file-badge">
+        <div class="file-icon">XML</div>
+        <div>
+          <div class="file-name">Roofvogels_test</div>
+          <div class="file-sub">Jaaroverzicht monitoring 2025</div>
+        </div>
+      </div>
+      <div class="attrs">
+        <div class="attr"><span class="attr-key">Aangemaakt</span><span class="attr-val">2025-04-12</span></div>
+        <div class="attr"><span class="attr-key">Git SHA</span><span class="attr-val sha">a3f9c2b1d4e7f099</span></div>
+        <div class="attr"><span class="attr-key">Formaat</span><span class="attr-val">XML</span></div>
+      </div>
+    </div>
+    <div class="panel-right">
+      <div class="right-title">Entiteiten</div>
+      <div class="entities">
+        <div class="entity-row"><div class="entity-name">Roofvogels</div><div class="entity-track"><div class="entity-fill" style="width:18%"></div><div class="entity-label">3</div></div></div>
+        <div class="entity-row"><div class="entity-name">Dieren</div><div class="entity-track"><div class="entity-fill" style="width:58%"></div><div class="entity-label">9</div></div></div>
+        <div class="entity-row"><div class="entity-name">Kippen</div><div class="entity-track"><div class="entity-fill" style="width:100%"></div><div class="entity-label">27</div></div></div>
+        <div class="entity-row"><div class="entity-name">Slangen</div><div class="entity-track"><div class="entity-fill" style="width:47%"></div><div class="entity-label">6</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── THEMA 4 ─── -->
+<div class="concept">
+  <div class="concept-tag" style="color:#FFD600">Thema 4</div>
+  <div class="concept-name">High Contrast</div>
+  <div class="concept-desc">Diep zwart met puur wit tekst. SHA in geel voor extra leesbaarheid.</div>
+
+  <div class="panel t4">
+    <div class="panel-left">
+      <div class="file-badge">
+        <div class="file-icon">XML</div>
+        <div>
+          <div class="file-name">Roofvogels_test</div>
+          <div class="file-sub">Jaaroverzicht monitoring 2025</div>
+        </div>
+      </div>
+      <div class="attrs">
+        <div class="attr"><span class="attr-key">Aangemaakt</span><span class="attr-val">2025-04-12</span></div>
+        <div class="attr"><span class="attr-key">Git SHA</span><span class="attr-val sha">a3f9c2b1d4e7f099</span></div>
+        <div class="attr"><span class="attr-key">Formaat</span><span class="attr-val">XML</span></div>
+      </div>
+    </div>
+    <div class="panel-right">
+      <div class="right-title">Entiteiten</div>
+      <div class="entities">
+        <div class="entity-row"><div class="entity-name">Roofvogels</div><div class="entity-track"><div class="entity-fill" style="width:18%"></div><div class="entity-label">3</div></div></div>
+        <div class="entity-row"><div class="entity-name">Dieren</div><div class="entity-track"><div class="entity-fill" style="width:58%"></div><div class="entity-label">9</div></div></div>
+        <div class="entity-row"><div class="entity-name">Kippen</div><div class="entity-track"><div class="entity-fill" style="width:100%"></div><div class="entity-label">27</div></div></div>
+        <div class="entity-row"><div class="entity-name">Slangen</div><div class="entity-track"><div class="entity-fill" style="width:47%"></div><div class="entity-label">6</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
