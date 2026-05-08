@@ -1,6 +1,6 @@
 import { Injectable, DestroyRef, inject } from '@angular/core';
+import { Location } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { TableState } from '../store/table/table.reducer';
@@ -12,32 +12,34 @@ export class UrlSyncService {
   private static readonly FILTER_PREFIX = 'f_';
   private static readonly DEFAULT_SIZE  = 50;
 
-  private readonly router     = inject(Router);
-  private readonly route      = inject(ActivatedRoute);
+  private readonly location   = inject(Location);
   private readonly store      = inject(Store);
   private readonly destroyRef = inject(DestroyRef);
 
   init(): void {
-    // Phase 1: URL → store (once, synchronously via snapshot)
-    const restored = this.parseUrl(this.route.snapshot.queryParamMap);
+    // Phase 1: URL → store (read directly from window.location, bypasses router matching)
+    const restored = this.parseSearch(window.location.search);
     this.store.dispatch(TableActions.restoreFromUrl(restored));
 
-    // Phase 2: store → URL (ongoing)
+    // Phase 2: store → URL (via Location.replaceState to skip router navigation events)
     this.store.select(selectTableState).pipe(
-      map(state => this.buildQueryParams(state)),
-      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+      map(state => this.buildQueryString(state)),
+      distinctUntilChanged(),
       takeUntilDestroyed(this.destroyRef)
-    ).subscribe(queryParams => {
-      this.router.navigate([], { queryParams, replaceUrl: true });
+    ).subscribe(queryString => {
+      const path = window.location.pathname;
+      this.location.replaceState(path, queryString);
     });
   }
 
-  private parseUrl(params: ParamMap): {
+  private parseSearch(search: string): {
     page:     number;
     pageSize: number;
     sort:     { field: string; direction: 'ASC' | 'DESC' } | null;
     filters:  Record<string, { operator: string; value: string }>;
   } {
+    const params = new URLSearchParams(search);
+
     const page     = Math.max(0, parseInt(params.get('page') ?? '0', 10) || 0);
     const pageSize = parseInt(params.get('size') ?? '50', 10) || UrlSyncService.DEFAULT_SIZE;
 
@@ -55,20 +57,24 @@ export class UrlSyncService {
     }
 
     const filters: Record<string, { operator: string; value: string }> = {};
-    params.keys
-      .filter((k: string) => k.startsWith(UrlSyncService.FILTER_PREFIX))
-      .forEach((k: string) => {
-        const field = k.substring(UrlSyncService.FILTER_PREFIX.length);
-        const raw   = params.get(k) ?? '';
-        const idx   = raw.indexOf(':');
-        if (idx > 0) {
-          const operator = raw.substring(0, idx);
-          const value    = raw.substring(idx + 1);
-          if (operator && value) filters[field] = { operator, value };
-        }
-      });
+    params.forEach((raw, k) => {
+      if (!k.startsWith(UrlSyncService.FILTER_PREFIX)) return;
+      const field = k.substring(UrlSyncService.FILTER_PREFIX.length);
+      const idx   = raw.indexOf(':');
+      if (idx > 0) {
+        const operator = raw.substring(0, idx);
+        const value    = raw.substring(idx + 1);
+        if (operator && value) filters[field] = { operator, value };
+      }
+    });
 
     return { page, pageSize, sort, filters };
+  }
+
+  private buildQueryString(state: TableState): string {
+    const params = this.buildQueryParams(state);
+    const qs = new URLSearchParams(params).toString();
+    return qs;
   }
 
   private buildQueryParams(state: TableState): Record<string, string> {

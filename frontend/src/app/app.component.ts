@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
     { id: 'carbon', label: 'Donker', bg: '#0E0E0E' },
     { id: 'slate',  label: 'Grijs',  bg: '#28282A' },
     { id: 'ivory',  label: 'Licht',  bg: '#EDEEF0' },
+    { id: 'soft',   label: 'Soft',   bg: '#F8F8F7' },
   ];
 
   private readonly destroyRef  = inject(DestroyRef);

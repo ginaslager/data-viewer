@@ -411,3 +411,57 @@ td.empty--no-file { }
     font-size: 13px;
   }
 }
+
+// ── Soft Minimal theme overrides ──────────────────────────────────────────────
+:host-context([data-theme="soft"]) {
+
+  // Tabel font: DM Sans i.p.v. Roboto Mono
+  table { font-family: 'DM Sans', sans-serif; }
+
+  .table-title { font-family: 'DM Sans', sans-serif; font-weight: 600; }
+  .btn-clear   { font-family: 'DM Sans', sans-serif; border-radius: 6px; }
+
+  // Toolbar: lichtere border
+  .toolbar { border-bottom-color: var(--border); }
+
+  // Groep-headers: minder intens, zacht indigo
+  tr.group-row th {
+    &::after { opacity: 0.5; }
+  }
+  th.g-roofvogel {
+    background-image: linear-gradient(rgba(99,102,241,0.06), rgba(99,102,241,0.06));
+    color: var(--coral);
+    &::after { background: var(--coral); }
+  }
+  th.g-dier, th.g-functies, th.g-kip, th.g-slang {
+    background-image: linear-gradient(rgba(99,102,241,0.03), rgba(99,102,241,0.03));
+    color: var(--muted);
+    &::after { background: var(--border-2); }
+  }
+
+  // Kolom-headers: DM Sans
+  tr.col-row th { font-family: 'DM Sans', sans-serif; font-size: 10px; }
+
+  // Filter-inputs: zachte ronde hoekjes
+  .filter-cell { gap: 5px; }
+  .filter-input {
+    border-radius: 5px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+  }
+  .op-btn {
+    border-radius: 5px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+  }
+  .op-menu { border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+  .op-menu-item { font-family: 'DM Sans', sans-serif; font-size: 11px; }
+
+  // Tabel data-rijen: iets meer witruimte, zachtere separator
+  td { font-family: 'DM Sans', sans-serif; font-size: 12px; }
+
+  // Paginering
+  .pagination-wrap { font-family: 'DM Sans', sans-serif; }
+  .page-btn { border-radius: 6px; font-family: 'DM Sans', sans-serif; }
+  .page-size-select { border-radius: 6px; font-family: 'DM Sans', sans-serif; }
+}

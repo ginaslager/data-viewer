@@ -1,0 +1,16 @@
+// ── Soft Minimal theme — structural overrides ─────────────────────────────────
+// CSS-variabelen staan in styles.scss. Dit bestand regelt alles wat niet
+// via variabelen kan: layout-gedrag, achtergrondpatroon, scrollbar stijl.
+
+[data-theme="soft"] {
+
+  // Geen diagonaal rasterpatroon op de achtergrond
+  body {
+    background-image: none;
+  }
+
+  // Zachtere scrollbar
+  ::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+  }
+}

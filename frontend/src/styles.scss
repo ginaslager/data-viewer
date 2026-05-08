@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Roboto+Mono:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Roboto+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+@import 'styles/soft';
 
 :root {
   --bg:        #0E0E0E;
@@ -19,6 +21,7 @@
   --warm:      #FFB38A;
   --sand:      #8A7060;
   --grid-line: rgba(255, 255, 255, 0.012);
+  --font-body: 'Syne', sans-serif;
 }
 
 [data-theme="ivory"] {
@@ -55,12 +58,30 @@
   --grid-line: rgba(255, 255, 255, 0.015);
 }
 
+[data-theme="soft"] {
+  --bg:        #F8F8F7;
+  --surface:   #FFFFFF;
+  --surface-2: #F4F4F2;
+  --surface-3: #ECECEA;
+  --border:    #EAEAEA;
+  --border-2:  #DEDEDE;
+  --text:      #1C1C1C;
+  --muted:     #A0A0A0;
+  --coral:     #6366F1;
+  --coral-2:   #818CF8;
+  --coral-dim: rgba(99, 102, 241, 0.08);
+  --warm:      #A5B4FC;
+  --sand:      #94A3B8;
+  --grid-line: transparent;
+  --font-body: 'DM Sans', sans-serif;
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-body);
   overflow-x: hidden;
   background-color: var(--bg);
   background-image:
